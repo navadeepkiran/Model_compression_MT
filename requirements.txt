@@ -1,0 +1,9 @@
+torch
+transformers
+accelerate
+bitsandbytes
+unbabel-comet
+datasets
+pandas
+matplotlib
+scikit-learn

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Hugging Face & Cache
+.cache/
+hf_cache/
+models/
+datasets/
+
+# Local Data / Metrics
+data/
+outputs/
+*.json
+*.csv
+*.log
