@@ -43,6 +43,7 @@ def parse_args():
     parser.add_argument("--only_model", type=str, default=None, help="Run only this model name (e.g. Gemma-2B)")
     parser.add_argument("--skip_models", type=str, default=None, help="Comma-separated list of model names to skip (e.g. Gemma-2B,Gemma-7B)")
     parser.add_argument("--only_lang", type=str, default=None, help="Run only this lang pair (e.g. ces_Latn-deu_Latn)")
+    parser.add_argument("--attn_implementation", type=str, default=None, choices=["eager", "sdpa", "flash_attention_2"], help="Attention implementation to use")
     return parser.parse_args()
 
 def run_command(cmd, log_file=None):
@@ -129,6 +130,8 @@ def main():
                 "--limit", str(args.limit),
                 "--output_dir", output_dir
             ]
+            if args.attn_implementation:
+                benchmark_cmd.extend(["--attn_implementation", args.attn_implementation])
             
             bench_ok = run_command(benchmark_cmd, log_file=pipeline_log)
             

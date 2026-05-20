@@ -47,9 +47,10 @@ def parse_args():
     parser.add_argument("--limit", type=int, default=100, help="Number of sentences to run benchmark on")
     parser.add_argument("--max_new_tokens", type=int, default=128, help="Max new tokens for generation")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory for results")
+    parser.add_argument("--attn_implementation", type=str, default=None, choices=["eager", "sdpa", "flash_attention_2"], help="Forced attention implementation")
     return parser.parse_args()
 
-def load_quantized_model(model_name, precision):
+def load_quantized_model(model_name, precision, attn_implementation=None):
     print(f"[*] Loading model config for: {model_name}")
     config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
     is_seq2seq = config.is_encoder_decoder
@@ -76,21 +77,22 @@ def load_quantized_model(model_name, precision):
     
     model_class = AutoModelForSeq2SeqLM if is_seq2seq else AutoModelForCausalLM
     
+    # Prepare model loading arguments
+    load_kwargs = {
+        "device_map": "auto",
+        "trust_remote_code": True
+    }
+    if attn_implementation:
+        print(f"[*] Forcing attention implementation: {attn_implementation}")
+        load_kwargs["attn_implementation"] = attn_implementation
+        
     t0 = time.time()
     if bnb_config:
-        model = model_class.from_pretrained(
-            model_name,
-            quantization_config=bnb_config,
-            device_map="auto",
-            trust_remote_code=True
-        )
+        load_kwargs["quantization_config"] = bnb_config
+        model = model_class.from_pretrained(model_name, **load_kwargs)
     else:
-        model = model_class.from_pretrained(
-            model_name,
-            torch_dtype=torch_dtype,
-            device_map="auto",
-            trust_remote_code=True
-        )
+        load_kwargs["torch_dtype"] = torch_dtype
+        model = model_class.from_pretrained(model_name, **load_kwargs)
     load_time = time.time() - t0
     
     return model, is_seq2seq, load_time
@@ -187,7 +189,7 @@ def main():
     print(f"[*] Loaded {len(src_sentences)} sentences.")
     
     # Load Model and Tokenizer
-    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
     tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
