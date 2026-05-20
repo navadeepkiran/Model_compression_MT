@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 0,
+    "source": "On Monday, scientists from the Stanford University School of Medicine announced the invention of a new diagnostic tool that can sort cells by type: a tiny printable chip that can be manufactured using standard inkjet printers for possibly about one U.S. cent each.",
+    "reference": "في يوم الاتنين، علماء من كلية الطب بجامعة ستانفورد قالوا أنهم اخترعوا أداة تشخيصية جديدة ممكن تصنيف الخلايا حسب النوع: شريحة صغيرة ممكن تطبع وممكن تتصنع باستخدام طابعات نفاثة للحبر قياسية مقابل سنت أمريكي واحد لكل واحدة فيهم.",
+    "translation": "**مُخْصصَةٌ لِمَحَقَوقِ الْبَشْرَىَّةِ الْبَشْرَىَّةِ، عُنّيَ أَشَحَصُرُ أَللْسَائِمَةَ الْبَشْرَىَّةِ الْسُمَائِلَّةَ، عَنْ مَوْنَدا، سُبْحَقَت أَللْيُسْن",
+    "duration_sec": 4.3700690269470215,
+    "generated_tokens": 128,
+    "tokens_per_sec": 29.290155192221807,
+    "comet_score": 0.32667264342308044
+  },
+  {
+    "id": 1,
+    "source": "Lead researchers say this may bring early detection of cancer, tuberculosis, HIV and malaria to patients in low-income countries, where the survival rates for illnesses such as breast cancer can be half those of richer countries.",
+    "reference": "الباحثين الرئيسيين بيقولوا أن ده ممكن يكشف عن السرطان بدري وبردو السل وفيروس العوز المناعي البشري والملاريا في البلدان اللي دخلها صغير، واللي فيها معدلات النجاة من الأمراض زي سرطان الصدر نص نسب البلدان الأغنى.",
+    "translation": "قُلّ العلّماءّ أنّ هذا قد يُؤثر على اكتشف الصحة في وقت مبكر للسرطان، التباغ، الإيدز والملاريا في المرضى في بلدان ذات الدخل المنخفض، حيث تصل معدل الوفيات من المرضى بالعديد من بلدان المتقدمة.",
+    "duration_sec": 2.4394164085388184,
+    "generated_tokens": 72,
+    "tokens_per_sec": 29.51525608665031,
+    "comet_score": 0.6833819150924683
+  },
+  {
+    "id": 2,
+    "source": "The JAS 39C Gripen crashed onto a runway at around 9:30 am local time (0230 UTC) and exploded, closing the airport to commercial flights.",
+    "reference": "طيارة جاس-39غربين اتحطمت على مدرج الساعة 9:30 الصبح تقريبًا بالتوقيت المحلي (0230 التوقيت العالمي الموحد) وانفجرت، ودا اتسبب أنهم يقفلوا المطار قدام الرحلات الجوية التجارية.",
+    "translation": "لا تزال معلومات عن الحريق 39C Gripen على跑道 في الساعة 9:30 am بتوقيت المحلية (0230 UTC) وانهزّت، مما أدى إلى غلق跑道 للطائرات التجارية.",
+    "duration_sec": 1.9449496269226074,
+    "generated_tokens": 58,
+    "tokens_per_sec": 29.82082373607299,
+    "comet_score": 0.5506525635719299
+  },
+  {
+    "id": 3,
+    "source": "The pilot was identified as Squadron Leader Dilokrit Pattavee.",
+    "reference": "تم الإشارة للطيار على أنه قائد السرب ديلوكريت باتافي.",
+    "translation": "الطيار مُختصّف بـديلوكريت صاتّافى.",
+    "duration_sec": 0.7431209087371826,
+    "generated_tokens": 22,
+    "tokens_per_sec": 29.604872829356328,
+    "comet_score": 0.5198546648025513
+  },
+  {
+    "id": 4,
+    "source": "Local media reports an airport fire vehicle rolled over while responding.",
+    "reference": "وسائل الإعلام المحلية قالت أن فيه عربية مطافي بالمطار اتقلبت خلال عملية.",
+    "translation": "الأنباء التلفن المحليين أن vehicle airport أُفوجت من قبل أن ينساه.",
+    "duration_sec": 0.8495123386383057,
+    "generated_tokens": 25,
+    "tokens_per_sec": 29.428648487993506,
+    "comet_score": 0.4343709349632263
+  },
+  {
+    "id": 5,
+    "source": "28-year-old Vidal had joined Barça three seasons ago, from Sevilla.",
+    "reference": "راح فيدال اللي عنده 28 عاماً نادي برشلونة قبل ما يلعب في إشبيلية لتلات سنين.",
+    "translation": "28 يوحدو في بارسلون سبع مواسمًا من سيلفيو.",
+    "duration_sec": 0.7657012939453125,
+    "generated_tokens": 22,
+    "tokens_per_sec": 28.731830772603175,
+    "comet_score": 0.4577881097793579
+  },
+  {
+    "id": 6,
+    "source": "Since moving to the Catalan-capital, Vidal had played 49 games for the club.",
+    "reference": "من أول ما راح المدينة الكتالونية، لعب فيدال 49 ماتش للنادي.",
+    "translation": "في كالتالون، виالد قد لعّب 49 مباراة في النادي.",
+    "duration_sec": 0.7615542411804199,
+    "generated_tokens": 22,
+    "tokens_per_sec": 28.888290302079714,
+    "comet_score": 0.7640636563301086
+  },
+  {
+    "id": 7,
+    "source": "The protest started around 11:00 local time (UTC+1) on Whitehall opposite the police-guarded entrance to Downing Street, the Prime Minister's official residence.",
+    "reference": "الاحتجاج ابتدا حوالي الساعة ١١:٠٠ بالتوقيت المحلي (UTC+١) في وايتهول مقابل مدخل بتحرسه الشرطة لداونينج ستريت ، مقررئيس الوزراء.",
+    "translation": "الظاهرة بدأت عارًا 11:00 ص.م. بتحديدها على وولفهايم عاقدة أمام entrance الحراسة للرئيس.",
+    "duration_sec": 1.4438319206237793,
+    "generated_tokens": 41,
+    "tokens_per_sec": 28.39665712771245,
+    "comet_score": 0.5074396729469299
+  },
+  {
+    "id": 8,
+    "source": "Just after 11:00, protesters blocked traffic on the northbound carriage in Whitehall.",
+    "reference": "بعد الساعة 11:00 بشوية، قطع المتظاهرين حركة المرور في الطريق اللي رايح ناحية الشمال في وايتهول.",
+    "translation": "أعند ثوانٍ بعد 11:00، أوقف المتظاهروون مسارًا شمالًا على طريق الحافلة في هاليفن.",
+    "duration_sec": 1.341923475265503,
+    "generated_tokens": 38,
+    "tokens_per_sec": 28.317561098244894,
+    "comet_score": 0.7201248407363892
+  },
+  {
+    "id": 9,
+    "source": "At 11:20, the police asked the protesters to move back on to the pavement, stating that they needed to balance the right to protest with the traffic building up.",
+    "reference": "الساعة 11:20، الحكومة قالت للناس المحتجة إنهم لازم يرجعوا للرصيف وبكده يوازنوا بين حقهم في التظاهر وحركة مرور العربيات.",
+    "translation": "11:20 ق.م.، طلبت поліції التظاهرات أن moving عى pavement، وطلبوا منهم أن ينزاحوا إلى مساحة الصعاب.",
+    "duration_sec": 1.4801814556121826,
+    "generated_tokens": 42,
+    "tokens_per_sec": 28.374899469760873,
+    "comet_score": 0.4980114996433258
+  },
+  {
+    "id": 10,
+    "source": "Around 11:29, the protest moved up Whitehall, past Trafalgar Square, along the Strand, passing by Aldwych and up Kingsway towards Holborn where the Conservative Party were holding their Spring Forum in the Grand Connaught Rooms hotel.",
+    "reference": "المظاهرة مشيت من وايتهول حوالي الساعة 11:29، وبعد كده مرت بميدان ترافالغار على طول الستراند، وعدت بألدويتش وأعلى كينغسواي في اتجاه هولبورن وهناك كان حزب المحافظين بيعمل منتدى الربيع في فندق غرف جراند كونوت.",
+    "translation": "تحديد وقت 11:29، بدأت الاحتجاجات في هاليفن، past Trafalgar Square، عبر الساندويش، مما ينتهي في هولبورن، حيث كانت حزينة الحزب الديمقراطي في حديّة Grand Connaught Rooms.",
+    "duration_sec": 2.0644595623016357,
+    "generated_tokens": 62,
+    "tokens_per_sec": 30.03207286408512,
+    "comet_score": 0.46441641449928284
+  },
+  {
+    "id": 11,
+    "source": "Nadal's head to head record against the Canadian is 7–2.",
+    "reference": "السجل بتاع تاريخ مواجهات نادال مع الكندي هو 7–2.",
+    "translation": "نال's head-to-head record against the Canadians is 7–2.",
+    "duration_sec": 0.6732947826385498,
+    "generated_tokens": 20,
+    "tokens_per_sec": 29.704670993621466,
+    "comet_score": 0.5950344204902649
+  },
+  {
+    "id": 12,
+    "source": "He recently lost against Raonic in the Brisbane Open.",
+    "reference": "خسر في وقت قريب قدام راونيتش في بطولة بريسبان المفتوحة.",
+    "translation": "السيد هُزَىَتَ عَلَى رَأْنْيْكَ في بِريسْبِيَتْ أُпْنَى.",
+    "duration_sec": 1.4869661331176758,
+    "generated_tokens": 45,
+    "tokens_per_sec": 30.26296228122553,
+    "comet_score": 0.3231518864631653
+  },
+  {
+    "id": 13,
+    "source": "Nadal bagged 88% net points in the match winning 76 points in the first serve.",
+    "reference": "نادال خد نقاط على الشبكة بنسبة 88% في المباراة، عشان يفوز بـ76 نقطة في الإرسال الأول.",
+    "translation": "نال حصلت 88% من أرقام النقاط في اللعب، وُلعب 76 نقطة في أول سطر.",
+    "duration_sec": 1.088090419769287,
+    "generated_tokens": 32,
+    "tokens_per_sec": 29.409320602956058,
+    "comet_score": 0.610395073890686
+  },
+  {
+    "id": 14,
+    "source": "After the match, King of Clay said, \"I am just excited about being back in the final rounds of the most important events. I am here to try to win this.\"",
+    "reference": "بعد لما المباراة خلصت، قال \"ملك الملاعب الترابية\" أنا متحمس إني أرجع في الجولات الأخيرة المهمة وهعمل كل جهدي علشان أفوز بالبطولة.\"",
+    "translation": "السلطون الحجري صرح: \" amna ma'a'azim bish-bisr al-final wa-ra'id al-mu'izzika, amr bi-ya'adha fi-mas'ala'a. amr ya'adha fi-ya'adha.\"",
+    "duration_sec": 2.290527105331421,
+    "generated_tokens": 68,
+    "tokens_per_sec": 29.68748976675434,
+    "comet_score": 0.2972349226474762
+  },
+  {
+    "id": 15,
+    "source": "\"Panama Papers\" is an umbrella term for roughly ten million documents from Panamanian law firm Mossack Fonseca, leaked to the press in spring 2016.",
+    "reference": "وثائق بنما هو مصطلح شامل خاص بعشرة مليون وثيقة من شركة المحاماة البنمية موساك فونسيكا، اتسربت للصحافة في ربيع سنة 2016.",
+    "translation": "\"البيان панамي\" هو مصطلح عامًا لخمسة مليون وثائق من شرك مصمم في법ية في جمهورية پاناما في عام 2016.",
+    "duration_sec": 1.543043613433838,
+    "generated_tokens": 45,
+    "tokens_per_sec": 29.163141993024098,
+    "comet_score": 0.5377926826477051
+  },
+  {
+    "id": 16,
+    "source": "The documents showed fourteen banks helped wealthy clients hide billions of US dollars of wealth to avoid taxes and other regulations.",
+    "reference": "الوثائق بينت أن أربعتاشر بنك ساعدوا ناس أغنياء علشان يخفوا ثروات بمليارات الدولارات عشان يتهربوا من الضرايب والتعليمات التانية.",
+    "translation": "الوثائق أشاروا إلى 14 بنكًا ساعدوا clientes الأثريين في حجب مليارات من أميركيان في ضوابط الض الضرائب والاتنظيمات.",
+    "duration_sec": 1.5330736637115479,
+    "generated_tokens": 46,
+    "tokens_per_sec": 30.005081353126048,
+    "comet_score": 0.5390861630439758
+  },
+  {
+    "id": 17,
+    "source": "British newspaper The Guardian suggested Deutsche Bank controlled roughly a third of the 1200 shell companies used to accomplish this.",
+    "reference": "جريدة الجارديان البريطانية اقترحت انه دويتشه بنك سيطر تقريباً على ثلث من ال 1200 شركة قشرية مستعملة لتحقيق ده.",
+    "translation": "الجزء الكلي لصحيفة الغاردي يقدر أن controlت Deutsche Bank ما هو بنسبة تصل إلى ثلث من 1200 شركة شركات الصرف.",
+    "duration_sec": 1.453392744064331,
+    "generated_tokens": 43,
+    "tokens_per_sec": 29.585946521071047,
+    "comet_score": 0.5512343049049377
+  },
+  {
+    "id": 18,
+    "source": "There were protests worldwide, several criminal prosecutions, and the leaders of the governments of Iceland and Pakistan both resigned.",
+    "reference": "كانت فيه احتجاجات في العالم كله، وكتير من المحاكمات الجنائية، وقادة حكومتي آيسلندا وباكستان قدموا استقالاتهم.",
+    "translation": "**مظاهرات متزايدة في جميع أنحاء العالم، وفرضات جنائية صارمة، ورؤى قيصران الحكومات إيسلنديا وباكستان عادةً رُسّاه.",
+    "duration_sec": 1.8404958248138428,
+    "generated_tokens": 55,
+    "tokens_per_sec": 29.883251707763577,
+    "comet_score": 0.5017894506454468
+  },
+  {
+    "id": 19,
+    "source": "Born in Hong Kong, Ma studied at New York University and Harvard Law School and once held an American permanent resident \"green card\".",
+    "reference": "اتولد في هونغ كونغ، ودرس في جامعة نيويورك وكلية الحقوق في هارفارد، وبعد كده أخد \"البطاقة الخضراء\" عشان يقعد علطول في أمريكا.",
+    "translation": "ُنُبَيَت بْحْوَكَ هُوَغْنَكَ عَنْ هُوَغْنَكَ عَلَىَ هَوَغْنَكَ هُوَغْنَكَ عَلَىَ هَوَغْنَكَ هُوَغْنَكَ عَلَىَ هَوَغْنَكَ هُوَغْنَكَ عَلَىَ هَوَغْنَكَ",
+    "duration_sec": 4.326504230499268,
+    "generated_tokens": 128,
+    "tokens_per_sec": 29.585086060398726,
+    "comet_score": 0.26190638542175293
+  },
+  {
+    "id": 20,
+    "source": "Hsieh implied during the election that Ma might flee the country during a time of crisis.",
+    "reference": "هسيه لمح والانتخابات شغالة إنه ممكن يهرب من البلاد وقت ظهور الأزمات.",
+    "translation": "حسيّ ذهبّ في الانتخابات أنّ ما قدّ فرّى country during time of crisis.",
+    "duration_sec": 0.7719376087188721,
+    "generated_tokens": 23,
+    "tokens_per_sec": 29.795154090459985,
+    "comet_score": 0.41827914118766785
+  },
+  {
+    "id": 21,
+    "source": "Hsieh also argued that the photogenic Ma was more style than substance.",
+    "reference": "هسيه كان بيجادل كمان أن ما اللي جذاب من ناحية الشكل والصورة كان بيهتم بالشكل أكتر من الجوهر.",
+    "translation": "حسيّ أيضًا أُقَسَمَتْ أنّ الصُوْرُ الْمَأْرَى أَكَسَرَى عَلَى الْسَبْطَاعَ، وُقَضَىَتْ أنّها أَحَقَىَ عَلَى الْسَتَقَى.",
+    "duration_sec": 2.999648094177246,
+    "generated_tokens": 89,
+    "tokens_per_sec": 29.6701470325009,
+    "comet_score": 0.4097040593624115
+  },
+  {
+    "id": 22,
+    "source": "Despite these accusations, Ma won handily on a platform advocating closer ties with the Chinese mainland.",
+    "reference": "على الرغم من الاتهامات دي، فاز ما بسهولة على منصة عايزة تقوي العلاقات مع البر الرئيسي الصيني.",
+    "translation": "على الرغم من هذه التهميات، ما حاز على استراتيجية متكاملة في حقل الترابط بين مصر والمرأة العربية.",
+    "duration_sec": 1.0539181232452393,
+    "generated_tokens": 31,
+    "tokens_per_sec": 29.414049646043065,
+    "comet_score": 0.6052672266960144
+  },
+  {
+    "id": 23,
+    "source": "Today's Player of the Day is Alex Ovechkin of the Washington Capitals.",
+    "reference": "لاعبنا للنهارده أليكس أوفيتشكين وهو واحد من لاعبي فريق واشنطن كابيتالز.",
+    "translation": "اليوم الحالي هو ألكس أوفينك من فينيكس.",
+    "duration_sec": 0.6319305896759033,
+    "generated_tokens": 19,
+    "tokens_per_sec": 30.06659324680656,
+    "comet_score": 0.5095885992050171
+  },
+  {
+    "id": 24,
+    "source": "He had 2 goals and 2 assists in Washington's 5-3 win over the Atlanta Thrashers.",
+    "reference": "في فوز واشنطن ٥:٣ على أتلانتا تراشيرز ، سجل هدفين و 2 تمريرات حاسمة.",
+    "translation": "هو عذى 2 أهداف و 2 أستيبل في فوزوا 5-3 على اتلانتش رشتر.",
+    "duration_sec": 1.170417070388794,
+    "generated_tokens": 34,
+    "tokens_per_sec": 29.049473781773997,
+    "comet_score": 0.602408766746521
+  },
+  {
+    "id": 25,
+    "source": "Ovechkin's first assist of the night was on the game-winning goal by rookie Nicklas Backstrom;",
+    "reference": "مرر أوفشكين التمريرة الحاسمة الأولى بتاعته النهارده في هدف الفوز بتاع المباراة اللي جابه الصاعد نيكلاس باكستروم؛",
+    "translation": "أوفينك's أول مساعدة ليومًا كانت على هدف التعادل من قبل راسمي بيكستروم;",
+    "duration_sec": 0.9172415733337402,
+    "generated_tokens": 28,
+    "tokens_per_sec": 30.52630933226589,
+    "comet_score": 0.4738820791244507
+  },
+  {
+    "id": 26,
+    "source": "his second goal of the night was his 60th of the season, becoming the first player to score 60 or more goals in a season since 1995-96, when Jaromir Jagr and Mario Lemieux each reached that milestone.",
+    "reference": "الجون التاني الليلة كان رقم 60 له في الموسم ده، وبكده أصبح أول لاعب يسجل 60 جون أو أكتر في موسم واحد من موسم 1995-1996 لما نجح كل من جارومير جاجر وماريو ليميكس في الوصول للإنجاز ده.",
+    "translation": "لا يذكر هذا الهدف الثاني ليلة واحدة من أهدافه، مما يجعله أول لاعب ي reach 60 أو أكثر أهداف في موسمٍ منذ عام 1995-96، عندما جاروم جرج ومارو ليميوكس each reached that milestone.",
+    "duration_sec": 2.133272647857666,
+    "generated_tokens": 64,
+    "tokens_per_sec": 30.00085341377805,
+    "comet_score": 0.7257106900215149
+  },
+  {
+    "id": 27,
+    "source": "Batten was ranked 190th on the 2008 400 Richest Americans list with an estimated fortune of $2.3 billion.",
+    "reference": "باتن كان في المركز 190 في قايمة أغنى 400 واحد في أمريكا سنة 2008 وكانت ثروته حوالي 2.3 مليار دولار أمريكي.",
+    "translation": "بالتون احتلّت المرتبة 190 على قائمة ثروة 400 الأبز الأميركيين في عام 2008 بمبلغ إجمالي قدره 2.3 مليار دولار.",
+    "duration_sec": 1.7369213104248047,
+    "generated_tokens": 53,
+    "tokens_per_sec": 30.513759997013114,
+    "comet_score": 0.8621708154678345
+  },
+  {
+    "id": 28,
+    "source": "He graduated from the College of Arts & Sciences of the University of Virginia in 1950 and was a significant donor to that institution.",
+    "reference": "اتخرج من كلية الآداب والعلوم جامعة فرجينيا سنة  ١٩٥٠، وكان  متبرع كبيرللمؤسسة دي.",
+    "translation": "لمعرف هذا الكلية في جامعة فيرجينسكي عام 1950 وكان من أهم المساهمين في تلك المؤسسة.",
+    "duration_sec": 1.0849840641021729,
+    "generated_tokens": 32,
+    "tokens_per_sec": 29.493520742611167,
+    "comet_score": 0.6038072109222412
+  },
+  {
+    "id": 29,
+    "source": "Iraq's Abu Ghraib prison has been set alight during a riot.",
+    "reference": "ولعوا في سجن أبو غريب العراقي خلال أعمال شغب.",
+    "translation": "مصرى عبو غرايب مصنع حريق خلال احتجاجات.",
+    "duration_sec": 0.6046550273895264,
+    "generated_tokens": 18,
+    "tokens_per_sec": 29.769040501840024,
+    "comet_score": 0.46838751435279846
+  },
+  {
+    "id": 30,
+    "source": "The jail became notorious after prisoner abuse was discovered there after US forces took over.",
+    "reference": "بعد ما تولت القوات الأمريكية على كل حاجة، بقت سمعة السجن سيئة وده بعد اكتشاف إنهم بيعاملوا الناس المسجونة بشكل وحش.",
+    "translation": "الجزء السجنى أصبح مشهورة بعد أن تم اكتشف التعذير للمؤسسيين هناك بعد أن أُقسمت الجيش الأمريكيون.",
+    "duration_sec": 1.1694371700286865,
+    "generated_tokens": 36,
+    "tokens_per_sec": 30.784039470129816,
+    "comet_score": 0.5547857284545898
+  },
+  {
+    "id": 31,
+    "source": "Piquet Jr. crashed in the 2008 Singapore Grand Prix just after an early pit stop for Fernando Alonso, bringing out the safety car.",
+    "reference": "صد بيكيه جونيور في سباق جائزة سنغافورة الكبرى لسنة 2008 بعد ما اتوقف فيرناندو ألونسو بدري بسبب حفرة وهو بيحضر عربية الأمان.",
+    "translation": "ピケット・ジュニアは、2008年 Singapore Grand Prix で、最初のピットストップでフェルナンド・アルソンの走行中に事故を起こし、安全車に引き込まられました。",
+    "duration_sec": 1.5604736804962158,
+    "generated_tokens": 45,
+    "tokens_per_sec": 28.83739761999089,
+    "comet_score": 0.5135868191719055
+  },
+  {
+    "id": 32,
+    "source": "As the cars ahead of Alonso went in for fuel under the safety car, he moved up the pack to take victory.",
+    "reference": "في الوقت اللي العربيات اللي سابقة ألونسو وقفت ورا عربية الأمان عشان تحط بنزين، نجح إنه يتصدر المجموعة عشان يحقق الفوز اللي عايزه.",
+    "translation": "السيارات التي تسبق ألكساندرو في going في للبنزين تحت车辆 الأمان، عاد إلى المجموعة للبقاء على المنصة لتحصل على المرة.",
+    "duration_sec": 1.4280776977539062,
+    "generated_tokens": 41,
+    "tokens_per_sec": 28.709922481448437,
+    "comet_score": 0.5142278075218201
+  },
+  {
+    "id": 33,
+    "source": "Piquet Jr. was sacked after the 2009 Hungarian Grand Prix.",
+    "reference": "بيكيه جونيور استبعدوه بعد سباق جايزة المجر الكبرى في 2009.",
+    "translation": "في سنة 2009، أُلغى بيتك Jr. من منصب after the 2009 Hungarian Grand Prix.",
+    "duration_sec": 1.1099522113800049,
+    "generated_tokens": 32,
+    "tokens_per_sec": 28.830070044379987,
+    "comet_score": 0.5121961236000061
+  },
+  {
+    "id": 34,
+    "source": "At exactly 8:46 a.m. a hush fell across the city, marking the exact moment the first jet struck its target.",
+    "reference": "الدنيا كانت ساكتة في المدينة الساعة 8:46 الصبح، ودا الوقت اللي نجحت فيه الطيارة الأولى إنها تضرب الهدف المطلوب.",
+    "translation": "في exactly 8:46 ق.م. أستمر silence على مدينة، مما يعني exactly the moment the first jet struck its target.",
+    "duration_sec": 1.0687036514282227,
+    "generated_tokens": 31,
+    "tokens_per_sec": 29.007105906835253,
+    "comet_score": 0.5638286471366882
+  },
+  {
+    "id": 35,
+    "source": "Two beams of light have been rigged up to point skywards overnight.",
+    "reference": "شعاعين من الضوء اتركبوا عشان يتوجهوا نحو السماء خلال فترة الليل.",
+    "translation": "أضفان ضوّان من ضوء السماعي إلى السماء في overnight.",
+    "duration_sec": 0.7196905612945557,
+    "generated_tokens": 21,
+    "tokens_per_sec": 29.179207189025643,
+    "comet_score": 0.5493002533912659
+  },
+  {
+    "id": 36,
+    "source": "Construction is ongoing for five new skyscrapers at the site, with a transportation center and memorial park in the middle.",
+    "reference": "لسه بيبنوا خمس ناطحات سحاب جديدة في الموقع، مع موقف مواصلات وحديقة تذكارية في النص.",
+    "translation": "العمارة ongoing لـ5 سبيكرا في موقعه، مع مركز نقل و الحديقة للمذكور.",
+    "duration_sec": 0.8975527286529541,
+    "generated_tokens": 26,
+    "tokens_per_sec": 28.967657464560066,
+    "comet_score": 0.5479238629341125
+  },
+  {
+    "id": 37,
+    "source": "The PBS show has more than two-dozen Emmy awards, and its run is shorter only than Sesame Street and Mister Rogers' Neighborhood.",
+    "reference": "فاز برنامج بى بى اس بأكتر من عشرين جايزة ايمى وهو أقصر من سيسم ستريت ومستر روجرز نيبرهود.",
+    "translation": "ال show PBS يملك أكثر من 26 إمريكا إمفي، ومدى موسمه أقل من س sesame street وميرس روجرز نيمبر.",
+    "duration_sec": 1.4027495384216309,
+    "generated_tokens": 41,
+    "tokens_per_sec": 29.228311168174088,
+    "comet_score": 0.534356415271759
+  },
+  {
+    "id": 38,
+    "source": "Each episode of the show would focus on a theme in a specific book and then explore that theme through multiple stories.",
+    "reference": "كل حلقة من البرنامج بتركز على موضوع في كتاب معين وبعد كده بتركز عليه عن طريق شوية قصص.",
+    "translation": "مُصْلَحُ عَلَىِ مَوَثَقَةٍ عَلَىِ بَوَقَةٍ عَلاَزٍ فَوَقَتُ عَلَىِ حََقَىٍ عَلَىِ حَقَىٍ عَلَىِ حَقَىٍ عَلَىِ حَقَىٍ عَلَىِ حَقَىٍ عَلَىِ حَقَىٍ عَلَىِ حَقَىٍ",
+    "duration_sec": 4.293395757675171,
+    "generated_tokens": 128,
+    "tokens_per_sec": 29.81323111692612,
+    "comet_score": 0.33776527643203735
+  },
+  {
+    "id": 39,
+    "source": "Each show would also provide recommendations for books that children should look for when they went to their library.",
+    "reference": "كل برنامج  بيقدم توصيات عن كتب لازم العيال تدورعليها لما يروحوا مكتبتهم.",
+    "translation": "مُصْلَحَتِهِمُ الهرُثَى عَلَىَ الْبَیُثَى الْبَيَتِينَ، وَمُصْلَحَتِهِمُ الْبَيُثَى عَلَىَ الْبَیُثَى الْبَيَتِينَ.",
+    "duration_sec": 3.0981667041778564,
+    "generated_tokens": 92,
+    "tokens_per_sec": 29.694980543151093,
+    "comet_score": 0.30505767464637756
+  },
+  {
+    "id": 40,
+    "source": "John Grant, from WNED Buffalo (Reading Rainbow's home station) said \"Reading Rainbow taught kids why to read,... the love of reading — [the show] encouraged kids to pick up a book and to read.\"",
+    "reference": "جون جرانت، من دبليو إن إي دي بافالو (محطة ريدينج رينبو) قال: \"عرفت ريدينج رينبو ليه الأطفال بيقرأوا، ... حب القراءة - شجع [البرنامج] الأطفال إ‘نهم يدورا على كتاب ويقروه.\"",
+    "translation": "جمال جريف، من وند بروفو (مقرر قصر القراءة) قالت \"قير reading Rainbow تعليم الأطفال كيف قراءة، ... المسلسل encouraged الأطفال ليرى كتابًا وتقابلوا ذلك.\"",
+    "duration_sec": 1.7354776859283447,
+    "generated_tokens": 51,
+    "tokens_per_sec": 29.386721830836443,
+    "comet_score": 0.5354894399642944
+  },
+  {
+    "id": 41,
+    "source": "It is believed by some, including John Grant, that both the funding crunch and a shift in the philosophy of educational television programming contributed to ending the series.",
+    "reference": "بعض الناس ومنهم، جون جرانت شايف إن أزمة التمويل والتحول اللي في فلسفة البرامج التلفزيونية التعليمية أدت أن البرنامج لازم ينتهي.",
+    "translation": "تُقاسَت بعضما، بما في ذلك جون غريان، أن يكون السبب في انقطاع المسلسل بسبب قلة التمويل وتغيرات في philosophy التعليمية للتلف.",
+    "duration_sec": 1.53017258644104,
+    "generated_tokens": 45,
+    "tokens_per_sec": 29.408447386097464,
+    "comet_score": 0.5634039640426636
+  },
+  {
+    "id": 42,
+    "source": "The storm, situated about 645 miles (1040 km) west of the Cape Verde islands, is likely to dissipate before threatening any land areas, forecasters say.",
+    "reference": "في الغالب، هتنتهي العاصفة، اللي موجودة حوالي 645 ميل (1040 كم) غرب جزر الرأس الأخضر، قبل ما تهدد أي مناطق على اليابسة، زي ما بيقول خبراء التنبؤ المناخي.",
+    "translation": "لا تزال الثورة، التي تقع على بعد 645 ميل (1040 كم) غرب جزر كابور في غرب إفريقيا، متوقع أن تنتهي قبل أن تهدد أي أراض، تقرّف التنبؤون.",
+    "duration_sec": 1.9601459503173828,
+    "generated_tokens": 59,
+    "tokens_per_sec": 30.09979945138618,
+    "comet_score": 0.6150327324867249
+  },
+  {
+    "id": 43,
+    "source": "Fred currently has winds of 105 miles per hour (165 km/h) and is moving towards the northwest.",
+    "reference": "سرعة فريد دلوقتي حوالي ١٠٥ميل فى الساعة ( ١٦٥ كم / الساعة) وبيتجه للشمال الغربي.",
+    "translation": "في الوقت الحالي، يشير الفود إلى 105 ميل في الساعة (165 كلم في الساعة) ويتجهز إلى الغرب.",
+    "duration_sec": 1.1605193614959717,
+    "generated_tokens": 34,
+    "tokens_per_sec": 29.29722771378168,
+    "comet_score": 0.7585058808326721
+  },
+  {
+    "id": 44,
+    "source": "Fred is the strongest tropical cyclone ever recorded so far south and east in the Atlantic since the advent of satellite imagery, and only the third major hurricane on record east of 35°W.",
+    "reference": "فريد دا أقوى إعصار استوائي سجلوه لحد دلوقتي في جنوب وشرق المحيط الأطلسي من أول ما ظهرت صور الأقمار الصناعية، وكمان ثالث أكبر إعصار سجلوه شرق درجة 35 في الغرب.",
+    "translation": "فريد هو ثالث أضعف موسمي للأ tropical cyclones في التاريخ على الساحل الشرقي والغرب في الأطلس منذ إدخال إ imagine الصناعات، و єس ثالث حقل قوي على الإ record على الساحل الشرقي من 35 درجة غرب.",
+    "duration_sec": 2.1565945148468018,
+    "generated_tokens": 65,
+    "tokens_per_sec": 30.140111899810435,
+    "comet_score": 0.4754679203033447
+  },
+  {
+    "id": 45,
+    "source": "On September 24, 1759, Arthur Guinness signed a 9,000 year lease for the St James' Gate Brewery in Dublin, Ireland.",
+    "reference": "في يوم أربعة وعشرين سبتمبر 1759، آرثر غينيس وقع على عقد إيجار مدته 9000 سنة لمصنع الخمور سانت جيمس جيت في دبلن بأيرلندا.",
+    "translation": "سومار 24, 1759، أرميرد غينيس سلم معاهة تبلغ 9,000 عامًا لستجدب ستي جيمس' gate brewery في دبلن، جمهورية أيرلاند.",
+    "duration_sec": 1.9986555576324463,
+    "generated_tokens": 60,
+    "tokens_per_sec": 30.02018020107196,
+    "comet_score": 0.5650541186332703
+  },
+  {
+    "id": 46,
+    "source": "250 years later, Guinness has grown to a global business that turns over 10 billion euros (US$14.7 billion) every year.",
+    "reference": "بعد لما عدا 250 سنةً بقيت شركة غينيس حاجة عالمية فخمة خالص وبتحقق دلوقتي فلوس ضخمة جدًا أكتر من 10 مليار يورو (يعني 14.7 مليار دولار أمريكي) كل سنة.",
+    "translation": "250 أعوام، حديّة العالمية لكون غنيًا بمليارات من يورو (10 مليار يورو) في كل عام.",
+    "duration_sec": 1.129931926727295,
+    "generated_tokens": 34,
+    "tokens_per_sec": 30.090308270584675,
+    "comet_score": 0.5762128829956055
+  },
+  {
+    "id": 47,
+    "source": "Jonny Reid, co-driver for the A1GP New Zealand team, today made history by driving the fastest over the 48-year-old Auckland Harbour Bridge, New Zealand, legally.",
+    "reference": "جوني ريد، سائق مشارك في فريق A1GP New Zealand، صنع التاريخ النهارده عشان حقق أسرع قيادة على جسر ميناء أوكلاند، نيوزيلندا، اللي عمره 48 سنة، بشكل قانوني.",
+    "translation": "لا يذكر جونري ريد، مساعد المركب لفرق A1GP نيوزيلندا، اليوم حقق التاريخ من خلال قيادة أسرع من 48 عامًا على حريق أوايلاند هارب، نيوزيلندا، بشكل قانوني.",
+    "duration_sec": 2.0297913551330566,
+    "generated_tokens": 60,
+    "tokens_per_sec": 29.559688412441233,
+    "comet_score": 0.5721763968467712
+  },
+  {
+    "id": 48,
+    "source": "Mr Reid managed to drive the New Zealand's A1GP car, Black Beauty at speeds over 160km/h seven times over the bridge.",
+    "reference": "السيد ريد قدر يسوق عربية الجمال الأسود النيوزيلندية A1GP سبع مرات فوق الجسر بسرعة أكتر من 160 كم / ساعة.",
+    "translation": "لمر ريد مكنزلت إ managed to drive the New Zealand's A1GP car, Black Beauty, at speeds over 160km/h seven times over the bridge.",
+    "duration_sec": 1.3924846649169922,
+    "generated_tokens": 42,
+    "tokens_per_sec": 30.16191205416519,
+    "comet_score": 0.525615930557251
+  },
+  {
+    "id": 49,
+    "source": "The New Zealand police had trouble using their speed radar guns to see how fast Mr Reid was going because of how low Black Beauty is, and the only time the police managed to clock Mr Reid was when he slowed down to 160km/h.",
+    "reference": "الشرطة النيوزيلندية واجهت مشكلة في استعمال جهاز الرادار عشان تعرف السرعة إللي كان ماشي بها السيد/ ريد، ودا بسبب درجة انخفاض البلاك بيوتي. وكانت المرة الوحيدة اللي قدرت فيها الشرطة تضبط السيد/ ريد لما قلل السرعة إلى 160 كيلومتر في ساعة.",
+    "translation": "لا تزال حماية نيوزيلية في استخدام أداؤها السريع للرادي في معرفة سرعة محمد ريد بشكلٍ صعبًا بسبب أن قوته الضعيفة، وحدثت لهم only عندما أوقفوا سرعة محمد ريد عند 160 كم/س.",
+    "duration_sec": 2.1933746337890625,
+    "generated_tokens": 65,
+    "tokens_per_sec": 29.63470033740304,
+    "comet_score": 0.5940348505973816
+  },
+  {
+    "id": 50,
+    "source": "In the last 3 months, over 80 arrestees were released from the Central Booking facility without being formally charged.",
+    "reference": "في التلت شهور اللي فاتت، طلع أكتر من 80 معتقل من منشأة سنترال بوكنج بدون ما يكون فيه تهم رسمية ليهم.",
+    "translation": "في остаض 3 أشهر، أُرُفّعَتْ أكثر من 80 عارستًا من مركز التنظيم المركزي دون أن يُشَكّلوا بشكلٍ صارمة.",
+    "duration_sec": 1.6211495399475098,
+    "generated_tokens": 49,
+    "tokens_per_sec": 30.225465814576577,
+    "comet_score": 0.5616336464881897
+  },
+  {
+    "id": 51,
+    "source": "In April this year, a temporary restaining order was issued by Judge Glynn against the facility to enforce the release of those held more than 24 hours after their intake who did not receive a hearing by a court commissioner.",
+    "reference": "في شهر أبريل من العام ده، طلع القاضي جلين أمر تقييدي مؤقت ضد المنشأة عشان يفرج عن المحتجزين لأكثر من 24 ساعة من لحظة احتجازهم وإللي مقعدوش في جلسة استماع من جانب مفوض الجلسة.",
+    "translation": "في أبريل هذا العام، تم إلغاء قرار التوقف المؤقت عن إشعال المقر إلى تنفيذ إعداءThose held more than 24 hours after their admission who did not receive a hearing by a court commissioner.",
+    "duration_sec": 1.6548728942871094,
+    "generated_tokens": 50,
+    "tokens_per_sec": 30.213800813710915,
+    "comet_score": 0.3537575900554657
+  },
+  {
+    "id": 52,
+    "source": "The commissioner sets bail, if granted, and formalizes the charges filed by the arresting officer. The charges are then entered into the state's computer system where the case is tracked.",
+    "reference": "المفوض بيلاقي الكفالة لو اتقررت وبيعملها بطابع رسمي على التهم اللي يوجهها الضابط اللي نفذ الاعتقال. وبتتسجل التهم في نظام الكمبيوتر الخاص بالولاية عشان يتابعوا القضية.",
+    "translation": "**مُصْرِمَرُ الْحَكِمَةُ عَلَّمَ الْبَاعَ، وُضْعَفَهُ عَلَّيَ الْحَقَةَ الْمُُلَخَطَىَةَ، وُخِصَرَهُ عَلَّيَ الْقَوَطِىَةَ الْقَضَائِيَةَ، وُجِمَحَهُ عَلَّيَ الْس",
+    "duration_sec": 4.2186315059661865,
+    "generated_tokens": 128,
+    "tokens_per_sec": 30.341592959464794,
+    "comet_score": 0.3520526587963104
+  },
+  {
+    "id": 53,
+    "source": "The hearing also marks the date for the suspect’s right to a speedy trial.",
+    "reference": "جلسة الاستماع هتحدد برده تاريخ حق المشتبه فيه في محاكمة سريعة.",
+    "translation": "السمعة marksا موعدا ل right to a speedy trial.",
+    "duration_sec": 0.5313715934753418,
+    "generated_tokens": 16,
+    "tokens_per_sec": 30.110755253879557,
+    "comet_score": 0.36632078886032104
+  },
+  {
+    "id": 54,
+    "source": "Peter Costello, Australian treasurer and the man most likely to succeed Prime Minister John Howard as Liberal party leader has thrown his support behind a nuclear power industry in Australia.",
+    "reference": "بيتر كوستيلو، أمين الخزينة الأسترالي والرجل اللي هييجي بعد رئيس الوزارة جون هاوارد كقائد الحزب الليبرالي، بيساند مجال الطاقة النووية في أستراليا.",
+    "translation": "بيتر كوستي، رئيس حكومة أستراليا وأحد الأمور المحتملة لتكون مرشحًا ل leadership الحزينة في حزب الليبرالي، أعلمت دعمه لشركة الطاقة النووية في أستراليا.",
+    "duration_sec": 1.7948329448699951,
+    "generated_tokens": 53,
+    "tokens_per_sec": 29.529210588364222,
+    "comet_score": 0.583479106426239
+  },
+  {
+    "id": 55,
+    "source": "Mr Costello said that when nuclear power generation becomes economically viable, Australia should pursue its use.",
+    "reference": "قال كوستيلو إنه لما يكون توليد الطاقة النووية مفيد من الناحية الاقتصادية، لازم استراليا تستعملها.",
+    "translation": "مير كلف ستيفנס أشار إلى أن عندما يكون اقتصاديًا مستنيرًا، أستراليا應該 اتخذ قرارًا في استخدام الطاقة النووية.",
+    "duration_sec": 1.2360146045684814,
+    "generated_tokens": 37,
+    "tokens_per_sec": 29.934921370057335,
+    "comet_score": 0.6520237922668457
+  },
+  {
+    "id": 56,
+    "source": "\"If it becomes commercial, we should have it. That is, there's no in-principle objection to nuclear energy\" Mr Costello said.",
+    "reference": "السيد كوستيلو قال : \"لو الموضوع بقى تجاري فلازم نحصل عليه بمعنى أن مفيشاعتراض مبدئي على الطاقة النووية\".",
+    "translation": "\"Si fika commercial, we shukranin'a fiqa. Ma'a fiqa'a al-mu'min fi-na'im, wa'a'ynu'na'a fi-na'im.\"",
+    "duration_sec": 1.683318853378296,
+    "generated_tokens": 51,
+    "tokens_per_sec": 30.29729031885242,
+    "comet_score": 0.31433674693107605
+  },
+  {
+    "id": 57,
+    "source": "According to Ansa, \"police were concerned by a couple of top-level hits they feared might spark a full-blown war of succession.",
+    "reference": "وزي ما قالت إذاعة \"أنسا إن الشّرطة خافت من وقوع عمليتين اغتيال تمس ناس كبيرة في البلد، ودا ممكن يسبب في نيران بين الورثة على الرياسة.",
+    "translation": "حسب أنساه، \"مُخافَوا حَقَوةَين عَالِفَىَ حَطَىَين عَلَىَ حَقَوةٍَ عَلاَشَىَّةٍ يُسَوَقَّيَ صَعَبًا لَأَشَقَىَ حَقَوةٍَ عَلاَشَىَّةٍ عَلَىَ حَقَوةٍَ عَلاَشَىَّةٍ فَإِسْت",
+    "duration_sec": 4.240704774856567,
+    "generated_tokens": 128,
+    "tokens_per_sec": 30.183662102328103,
+    "comet_score": 0.3747714161872864
+  },
+  {
+    "id": 58,
+    "source": "Police said Lo Piccolo had the upper hand because he had been Provenzano's right-hand man in Palermo and his greater experience won him the respect of the older generation of bosses as they pursued Provenzano's policy of keeping as low as possible while strengthening their power network.",
+    "reference": "الشرطة قالت إنه كان للو بيكولو الايد الطويلة عشان كان الايد اليمين لبروفنزانو في باليرمو وخبرته الكبيرة خلت الجيل الأكبر في العمر من الرؤساء يحترمه لأنهم اتبعوا سياسة بروفنزانو اللي هي عبارة عن البعد عن الأضواء لكن بيعززوا شبكة قوتهم.",
+    "translation": "لا يُقاسَ اللُؤلُخُ صَحَ بَقَوَصَةَ الْبَرَأَخَى بِالْبَعَلاَقَ بِصَالِمََحَقَى بِاللُؤلُخَ وِبِقَوَصَةَهِ عَلَىَ الْقَوَطِىَّةِ الْأَبْرَاءَةِ كَأَنْ يُقَاسَ بِ",
+    "duration_sec": 4.243366241455078,
+    "generated_tokens": 128,
+    "tokens_per_sec": 30.164730715326602,
+    "comet_score": 0.32053592801094055
+  },
+  {
+    "id": 59,
+    "source": "These bosses had been reined in by Provenzano when he put an end to the Riina-driven war against the state that claimed the lives of Mafia crusaders Giovanni Falcone and Paolo Borsellino in 1992.\"",
+    "reference": "بروفنزانو وقف هؤلاء الرؤساء لما أنهى الحرب التي قادتها رينا ضد الدولة وسببت موت صليبي المافيا جيوفاني فالكون وباولو بورسيلينو سنة 1992.\"",
+    "translation": "لمُرّّين هذه البُسْؤَرَينَ بِصُوفَانَ فَإِسْنَويّ فيَحَقٍّ عَنْ حَقٍّ رَأَفّيّ الْرّيّنَ عَلَىَ الْحَقٍّ الْمَوَفّيّى عَلَىَ الْحَقٍّ الْمُصَوّفّى عَلَىَ الْ1992.\"",
+    "duration_sec": 4.052110910415649,
+    "generated_tokens": 124,
+    "tokens_per_sec": 30.601334154321204,
+    "comet_score": 0.31960102915763855
+  },
+  {
+    "id": 60,
+    "source": "Apple CEO Steve Jobs unveiled the device by walking onto the stage and taking the iPhone out of his jeans pocket.",
+    "reference": "كشف ستيف جوبز الرئيس التنفيذي لشركة أبل عن الجهاز لما طلع على المسرح وسحب  آي فون من جيب الجينز بتاعه.",
+    "translation": "يُسلم رئيس مجموعة Apple Steve Jobs على حافة المسجد واخبر عن إشعال الهاتف المحمول من خلال سلمه من pocket seines jeans.",
+    "duration_sec": 1.1910254955291748,
+    "generated_tokens": 36,
+    "tokens_per_sec": 30.22605320804248,
+    "comet_score": 0.5028024315834045
+  },
+  {
+    "id": 61,
+    "source": "During his 2 hour speech he stated that \"Today Apple is going to reinvent the phone, We are going to make history today\".",
+    "reference": "وخلال كلمته اللي قعد فيها ساعتين قال \"النهاردة هتخترع شركة آبل التليفون من جديد، هنصنع التاريخ النهاردة\".",
+    "translation": "During his 2-hour speech, he stated that \"اليومًا أُرُثّيّ الهاتف، وُقَومُ التّاريخَ اليوم\".",
+    "duration_sec": 1.2984333038330078,
+    "generated_tokens": 39,
+    "tokens_per_sec": 30.03619815116496,
+    "comet_score": 0.48995837569236755
+  },
+  {
+    "id": 62,
+    "source": "Brazil is the largest Roman Catholic country on Earth, and the Roman Catholic Church has consistently opposed the legalization of same-sex marriage in the country.",
+    "reference": "البرازيل أكبر دولة كاثوليكية في العالم، وكانت الكنيسة الكاثوليكية الرومانية بتعارض دايما تشريع زواج المثليين في البلاد.",
+    "translation": "البراز هو دولة Católica الرومانية الأكبر على الإبريق في العالم، وأنظمة الكنيسة الكاثوليكية لها عادةً مخالفة لتسمح بتسمية同性 الجنس في البلاد.",
+    "duration_sec": 1.59037446975708,
+    "generated_tokens": 47,
+    "tokens_per_sec": 29.55278828588022,
+    "comet_score": 0.5067226886749268
+  },
+  {
+    "id": 63,
+    "source": "The National Congress of Brazil has debated legalization for 10 years, and such civil marriages are currently only legal in Rio Grande do Sul.",
+    "reference": "الكونجرس الوطني للبرازيل ناقش مسألة التشريع لمدة عشر سنين، والزيجات المدنية دي قانونية في ريو جراندي دو سول بس في الوقت الحالي.",
+    "translation": "الج national congress do Brasil tem debateado sobre a legalização da união civil por 10 anos, e tal como as matrimões civis são atualmente legais apenas em Rio Grande do Sul.",
+    "duration_sec": 1.4036571979522705,
+    "generated_tokens": 42,
+    "tokens_per_sec": 29.92183565992596,
+    "comet_score": 0.4354649782180786
+  },
+  {
+    "id": 64,
+    "source": "The original bill was drafted by former mayor of São Paulo, Marta Suplicy. The proposed legislation, after being amended, is now in the hands of Roberto Jefferson.",
+    "reference": "مشروع القانون الأصلي اتصاغ عن طريق عمدة ساو باولو اللي فات، مارتا سوبليسي، والتشريع المقترح، بعد ما اتعدل، بقا دلوقتي في ايد روبرتو جيفرسون.",
+    "translation": "البيان الأصلي الذي تم تصميمه من قبل رئيس مدينة ساو باولو، مارتا سوپليسي، تم تعديلها وتُضع في أيدي روبرتو جيريزو.",
+    "duration_sec": 1.513960599899292,
+    "generated_tokens": 46,
+    "tokens_per_sec": 30.38388185469285,
+    "comet_score": 0.7708231210708618
+  },
+  {
+    "id": 65,
+    "source": "Protesters hope to collect a petition of 1.2 million signatures to present to the National Congress in November.",
+    "reference": "المحتجون عندهم أمل أنهم يجمعوا 1.2 مليون توقيع على عريضة عشان يرفعوها للجمعية الوطنية في شهر نوفمبر.",
+    "translation": "الظاهريين hopes أن يجمعوا petition من 1.2 مليون توقيع ليتقدم إلى مجلس النواب في نوفمبر.",
+    "duration_sec": 0.9703381061553955,
+    "generated_tokens": 30,
+    "tokens_per_sec": 30.917058507434962,
+    "comet_score": 0.6852260231971741
+  },
+  {
+    "id": 66,
+    "source": "After it became apparent that many families were seeking legal help to fight the evictions, a meeting was held on March 20 at the East Bay Community Law Center for the victims of the housing scam.",
+    "reference": "بعد ما عرفنا أن عائلات كتيرة كانت منتظرة معونة من الحكومة علشان تتعامل مع تهجيره الإخلاء، فيه اجتماع اتعمل في 20 مارس في مركز اسمه إيست باي القانوني المجتمعي علشان يتكلموا عن ضحايا عمليات النصب في الإسكان.",
+    "translation": "الآن أصبح واضحًا أن العديد من عائلات كانت تتطلب المساعدة القانونية لمعالجة حرب الإقراض، وُعقدت مؤتمر في 20 مارس في مركز القانون الإقليمي للبنية التحتية للمقابلات التي أضرّبوا من حرب الإقراض.",
+    "duration_sec": 2.2986016273498535,
+    "generated_tokens": 70,
+    "tokens_per_sec": 30.45329785166197,
+    "comet_score": 0.6645919680595398
+  },
+  {
+    "id": 67,
+    "source": "When the tenants started sharing what had occurred to them, most of the families involved suddenly realized that Carolyn Wilson of the OHA had stolen their security deposits, and skipped out of town.",
+    "reference": "المستأجرين لما بدأوا يشاركوا اللي حصلهم، معظم العائلات اللي ليها علاقة بالموضوع عرفت فجأة أن كارولين ويلسون من هيئة الإسكان في أوكلاند اتسرقت ودائع التأمين الخاصة بيها، وهربت خارج المدينة.",
+    "translation": "الاستهمار الذين بدأت sharing ما حصلوا عليه من قبلهم، عادة ما لاحظوا أن كارولين وولفان وولز من OHA احتفظوا بمدفوعهم و leftوا مدينةهم.",
+    "duration_sec": 1.7087101936340332,
+    "generated_tokens": 52,
+    "tokens_per_sec": 30.432310987393347,
+    "comet_score": 0.44570082426071167
+  },
+  {
+    "id": 68,
+    "source": "Tenants at Lockwood Gardens believe that there may be another 40 families or more to face eviction, since they learned that OHA police are also investigating other public housing properties in Oakland that may be caught up in the housing scam.",
+    "reference": "بيعتقد المستأجرون في لوكوود جاردينز أن  ٤٠ عيلة تانية أو أكثر مضطرين يخلوا بعد ما عرفوا أن شرطة أوكلاند بتحقق في ممتلكات سكنية عامة تانية في أوكلاند ممكن تكون متورطة في عملية الاحتيال.",
+    "translation": "مُقَالُ لَأَشْرَاءَات لَلَوَكْسَوود جَارَدَى، بَلَأَقَوَصَةَ أَهْلَى عَلَىَ أَخَوَصَةَ الْبَحْرَىَةَ الْأمَقْرَىَةَ عَلاَشَىَ، بَلَأَقَوَصَةَ أَهْلَى عَلَى",
+    "duration_sec": 4.292255401611328,
+    "generated_tokens": 128,
+    "tokens_per_sec": 29.8211518242713,
+    "comet_score": 0.3233776092529297
+  },
+  {
+    "id": 69,
+    "source": "The band canceled the show at Maui's War Memorial Stadium, which was set to be attended by 9,000 people, and apologized to fans.",
+    "reference": "الفرقة لغت العرض اللي في إستاد الحرب التذكاري في ماوي واللي كان هيحضره 9000 شخص، وقدمت اعتذار للمعجبين.",
+    "translation": "الفرقة ألغيّرت حفلها في ملعب مويو'س ماريور ستاديو، الذي كان 예정ًا أن يُعمل لـ9,000 شخصًا، وأشهدت إلى الجمهور.",
+    "duration_sec": 1.7788290977478027,
+    "generated_tokens": 53,
+    "tokens_per_sec": 29.794880276640374,
+    "comet_score": 0.5776155591011047
+  },
+  {
+    "id": 70,
+    "source": "The band's management company, HK Management Inc., gave no initial reason when they canceled on September 20, but blamed logistical reasons by the next day.",
+    "reference": "شركة إدارة الفرقة \"HK Management Inc.\" موضحتش سبب أولي عشان الإلغاء في يوم 20 من سبتمبر، لكنها لامت الأسباب اللوجستية اليوم اللي بعد كده.",
+    "translation": "المديرية الفرعية للموعد 20 سبتمبر، لم يحدد المنظمة أي سبب إجمالي في إلغاءها في 21 سبتمبر، وأطلق على ذلك أسباب logistics.",
+    "duration_sec": 1.5472562313079834,
+    "generated_tokens": 46,
+    "tokens_per_sec": 29.730046691176415,
+    "comet_score": 0.6621683835983276
+  },
+  {
+    "id": 71,
+    "source": "The famous Greek lawyers, Sakis Kechagioglou and George Nikolakopoulos have been imprisoned in the Athens' jail of Korydallus, as they were found guilty of graft and corruption.",
+    "reference": "المحامين اليونانيين المشهورين، ساكيس كيتشاجيوجلو وجورج نيكولاكوبولوس اتسجنوا في سجن أثينا بكوريذالوس، عشان هما متهمين بالكسب غير المشروع والفساد.",
+    "translation": "الروحيون اليونانيون السائمين ساكيس كيشيجولوس وجورج نيكولاكوفس عُبَقوا في قصر أطينا في كوريدكالوس، حيث حُكموا بالسجن لانتهابات وتزوير.",
+    "duration_sec": 2.1235830783843994,
+    "generated_tokens": 64,
+    "tokens_per_sec": 30.137742502963697,
+    "comet_score": 0.7731472849845886
+  },
+  {
+    "id": 72,
+    "source": "As a result of this, a big scandal within the Greek legal community has been raised through the exposure of illegal actions that judges, lawyers, solicitors and attorneys have done during the previous years.",
+    "reference": "الكشف عن الأفعال غير القانونية للقضاة والمحامين والمستشارين القانونيين ورجال القانون في السنين الأخيرة أدى إلى فضيحة كبيرة فى المجتمع القانوني اليوناني.",
+    "translation": "الجدال الكبير الذي تم إشعال به خلال السنوات الأخيرة في المجتمع القانوني اليوناني عُشرت من خلال إشعال أفعال غير قانونية التي done من قبل المحكمين واللجود والمحاميين وال defense attorneys خلال السنوات الأخيرة.",
+    "duration_sec": 1.9922091960906982,
+    "generated_tokens": 59,
+    "tokens_per_sec": 29.615363745823178,
+    "comet_score": 0.5789015889167786
+  },
+  {
+    "id": 73,
+    "source": "A few weeks ago, after the information published by the journalist Makis Triantafylopoulos in his popular Television show \"Zoungla\" in Alpha TV, the member of Parliament and lawyer, Petros Mantouvalos was abdicated as members of his office had been involved in illegal graft and corruption.",
+    "reference": "بعدما ما عدت أسابيع قليلة وبعد المعلومات إللي ذاعها الصحفي ماكيس تريانتافيلوبولوس في برنامجه التلفزيوني المشهور \"زونجلا\" على قناة ألفا تي في، مشوا عضو البرلمان والأبوكاتو بيتروس مانتوفالوس علشان في ناس في مكتبه اتورطوا في جرائم حرام ونصب واحتيال.",
+    "translation": "أ couple of weeks ago, بعد أن تم إشاع معلومات من صحفي ماكس تريانتوفلوفيوس في مجلة التلفزيون العربية \"زوقلا\" في إم بي سي، أُلغيّب من منصبي البرلمان واللّّجّيّة، مصطّف مونستوفيوس من رئاسة المقاطعة بسبب أن أ involveت أفراد أمانه في الفساد والغنيّة.",
+    "duration_sec": 3.37214994430542,
+    "generated_tokens": 100,
+    "tokens_per_sec": 29.654671841882625,
+    "comet_score": 0.5627159476280212
+  },
+  {
+    "id": 74,
+    "source": "Moreover, top judge Evangelos Kalousis is imprisoned as he found guilty of corruption and degenerate behaviour.",
+    "reference": "القاضي الأعلى إيفانجيلوس كالوسيس اتسجن بسب تهم الفساد والسلوك المنحل.",
+    "translation": "مما زعمت أن رئيس المحكمة الإبراهيم كالوسي مصمم على الإبقاء في السجن بسبب اتهامه بالفساد وال conduct المتساك.",
+    "duration_sec": 1.32546067237854,
+    "generated_tokens": 39,
+    "tokens_per_sec": 29.423732301324698,
+    "comet_score": 0.6013538241386414
+  },
+  {
+    "id": 75,
+    "source": "Roberts flatly refused to say about when he believes life begins, an important question when considering the ethics of abortion, saying that it would be unethical to comment on the specifics of likely cases.",
+    "reference": "رفض روبرتس تمامًا أنه يقول امتى بيعتقد ان الحياة بتبتدى، وده سؤال مهم لما نفكر في أخلاقيات الإجهاض، وقال إنه مش من الأخلاق أنه يعلق على تفاصيل الحالات المحتملة.",
+    "translation": "Roberts صرّحَتْ مَعْلُومًا رُفّّضَتْ عَنْ أُقْرَىَ عَنْ أُبْعَةَ، عَلَىَ أُقْرَىَ حَقٍّ عَنْ أُبْعَةَ، بَلَىَ أَنْ يُقَضَىَ عَلَىَ حَقٍّ عَنْ أُبْعَةَ.",
+    "duration_sec": 3.868739604949951,
+    "generated_tokens": 115,
+    "tokens_per_sec": 29.7254433596049,
+    "comet_score": 0.3423117995262146
+  },
+  {
+    "id": 76,
+    "source": "He did, however, reiterate his earlier statement that Roe v. Wade was the \"settled law of the land\", emphasizing the importance of consistent Supreme Court rulings.",
+    "reference": "غير أنه كرر تصريحه اللي فات أن قضية رو ضد ويد كانت \"قانون الأرض المستقر\"، وكمان أكد أن أحكام المحكمة العليا لازم تكون متوافقة مع بعضها.",
+    "translation": "قيلَ هُوَ ذَلِكَ عَلَىَ الْأَخَتَافِرَةَ الْأَخْرَىَةَ الْلَأَمَدَةَ الْعَشَرَىَ، عَلَىَ الْأَحَقَةَ الْعَظِيَّةَ الْلَأَمَدَةَ الْعَشَرَىَ.",
+    "duration_sec": 3.8538851737976074,
+    "generated_tokens": 114,
+    "tokens_per_sec": 29.580538822246414,
+    "comet_score": 0.352829247713089
+  },
+  {
+    "id": 77,
+    "source": "He also confirmed that he believed in the implied right to privacy which the Roe decision depended upon.",
+    "reference": "أكد برده أنه بيؤمن بالحق الضمني في الخصوصية و اللي بيعتمد عليه قرار رو.",
+    "translation": "لا يعمّر هذا الرجل أن ي believe في حق الامتنان المظلم الذي يعتمد على قرار روي.",
+    "duration_sec": 0.9463365077972412,
+    "generated_tokens": 28,
+    "tokens_per_sec": 29.587783805545822,
+    "comet_score": 0.5155777931213379
+  },
+  {
+    "id": 78,
+    "source": "Maroochydore had finished on top of the ladder, six points clear of Noosa in second.",
+    "reference": "ماروشيدور أنهت الموضوع في الصدارة وفيه فرق ست نقاط عن نوسا صاحبة المركز الثاني.",
+    "translation": "مروشيدور حانّ فوق اللمبة، سبع점 عن نوسا في ثاني.",
+    "duration_sec": 0.848846435546875,
+    "generated_tokens": 25,
+    "tokens_per_sec": 29.451734675534784,
+    "comet_score": 0.4664570391178131
+  },
+  {
+    "id": 79,
+    "source": "The two sides would meet in the major semi final where Noosa ran out winners by 11 points.",
+    "reference": "الجهتين كانوا هيتلاقوا في نص نهائي الرئيسي اللي فيه نوسا سبقت رابحين في 11 نقطة.",
+    "translation": "الاثنين سيتمعان في نصف النهائي الكبير حيث نوسا هزمت بـ 11 نقطة.",
+    "duration_sec": 0.8707120418548584,
+    "generated_tokens": 26,
+    "tokens_per_sec": 29.860618379197767,
+    "comet_score": 0.7992206811904907
+  },
+  {
+    "id": 80,
+    "source": "Maroochydore then defeated Caboolture in the Preliminary Final.",
+    "reference": "بعد كده فاز ماروتشيدور على كابولتشر في الجولة الأخيرة",
+    "translation": "مرويشيدور انتصر على كابولوت في финал الممتاز.",
+    "duration_sec": 0.6767160892486572,
+    "generated_tokens": 20,
+    "tokens_per_sec": 29.55449163652301,
+    "comet_score": 0.706903338432312
+  },
+  {
+    "id": 81,
+    "source": "Hesperonychus elizabethae is a species of the family Dromaeosauridae and is a cousin of Velociraptor .",
+    "reference": "هيسبرونيقوس إليزابيثي  بيعتبرنوع من فصيلة الدرومايوصوريات وهو قريب لفيلوسيرابتور.",
+    "translation": "حспيرون هيرونيزي هو نوع من عائلة Dromaeosauridae وهو شقيق لملء ريدفيل.",
+    "duration_sec": 1.0904908180236816,
+    "generated_tokens": 32,
+    "tokens_per_sec": 29.34458454037627,
+    "comet_score": 0.674000084400177
+  },
+  {
+    "id": 82,
+    "source": "This fully feathered, warm blooded bird of prey was believed to have walked upright on two legs with claws like the Velociraptor.",
+    "reference": "بيتظن أن الطائر الجارح ده اللي ليه ريش كامل ودم حار مشي في وضع عمودي على ساقين ليهم مخالب زي الفيلوسيرابتور.",
+    "translation": "لا يذكر هذا طائر المهاجر بالأنواع التي تحمل weight على ظهرها، وأنها كانت ذات أدمية حارة، مثل الثعلب.",
+    "duration_sec": 1.188868522644043,
+    "generated_tokens": 35,
+    "tokens_per_sec": 29.43975665379719,
+    "comet_score": 0.46217045187950134
+  },
+  {
+    "id": 83,
+    "source": "Its second claw was larger, giving rise to the name Hesperonychus which means \"western claw.\"",
+    "reference": "المخلب التاني بتاعه كان أكبر، وعشان كده اتسمى الديناصور هيسبيرونيكس اللي معناه \"المخلب الغربي.\"",
+    "translation": "لا يذكر هذا الكلب ثالث، مما أدى إلى اسمه هسبونيش، الذي يعني \"العمود الغربى\".",
+    "duration_sec": 1.0438272953033447,
+    "generated_tokens": 31,
+    "tokens_per_sec": 29.69839947612325,
+    "comet_score": 0.5383391976356506
+  },
+  {
+    "id": 84,
+    "source": "In addition to the crushing ice, extreme weather conditions have been hampering rescue efforts.",
+    "reference": "بالإضافة للجليد المدمر، الظروف الجوية القاسية لسه عائق قدام جهود الانقاذ.",
+    "translation": "فيما زعمت أنّه، addition to the crushing ice, extreme weather conditions have been hampering rescue efforts.",
+    "duration_sec": 0.8717250823974609,
+    "generated_tokens": 25,
+    "tokens_per_sec": 28.67876639644666,
+    "comet_score": 0.49483850598335266
+  },
+  {
+    "id": 85,
+    "source": "Pittman suggested that conditions wouldn't improve until sometime next week.",
+    "reference": "بيتمان قال أن الأحوال مش هتتحسن حتى وقت معين في الأسبوع الجاي.",
+    "translation": "Pittman قالت أن الظروف لن improving حتى بعض الوقت قريب.",
+    "duration_sec": 0.536994457244873,
+    "generated_tokens": 16,
+    "tokens_per_sec": 29.795465826761586,
+    "comet_score": 0.6796031594276428
+  },
+  {
+    "id": 86,
+    "source": "The amount and thickness of the pack ice, according to Pittman, is the worst it has been for sealers in the past 15 years.",
+    "reference": "بيتمان قال أن كمية وسمك حزمة الجليد هي أسوأ شيء من خمستاشر سنة بالنسبة لصائدي الفقم.",
+    "translation": "الكمية والعمق والقطعة من الثلخ، من قبل بيتمان، هي أضعفها في السنوات passedة 15 عامًا.",
+    "duration_sec": 1.198134183883667,
+    "generated_tokens": 36,
+    "tokens_per_sec": 30.046718042305205,
+    "comet_score": 0.5794995427131653
+  },
+  {
+    "id": 87,
+    "source": "News spread in the Red Lake community today as funerals for Jeff Weise and three of the nine victims were held that another student was arrested in connection with the school shootings of March 21.",
+    "reference": "إنتشرت أخبار في مجتمع البحيرة الحمراء اليوم لما كانت جنازات لجيف وايز وثلاثة من التسع ضحايا كانوا معتقلين وتلميذ ثاني اتقبض عليه وده مربوط بالطخطخة بتاعة المدرسة بتاعة مارس 21.",
+    "translation": "أُسُبْلَحَتْ حَقَى الْبَحْرَى الْرُّدْ لَقَىَ الْحَقَى عِمَيَ الْجَوَهرَى وْثُلَثَينَ الْأَشْرَىَينَ عَلَىَ عَشْرَىٍ عَلاَحَى. عَلَمَى عَلَىَ عَشْرَىٍ عِمَ",
+    "duration_sec": 4.31015944480896,
+    "generated_tokens": 128,
+    "tokens_per_sec": 29.69727724438588,
+    "comet_score": 0.3391464948654175
+  },
+  {
+    "id": 88,
+    "source": "Authorities said little officially beyond confirming today's arrest.",
+    "reference": "السلطات مقالتش أي حاجة رسمي غير انها أكدت عملية القبض اللى حصلت النهاردة.",
+    "translation": "الجهات قالت أن ذلك هو ما زالت عن القبض اليوم.",
+    "duration_sec": 0.5668480396270752,
+    "generated_tokens": 17,
+    "tokens_per_sec": 29.990400974455454,
+    "comet_score": 0.43809694051742554
+  },
+  {
+    "id": 89,
+    "source": "However, a source with knowledge of the investigation told the Minneapolis Star-Tribune that it was Louis Jourdain, 16-year old son of Red Lake Tribal Chairman Floyd Jourdain.",
+    "reference": "لكن مصدر مطلع على مجريات التحقيق قال لصحيفة مينياشرطة ستار تريبيون إن اللي عمل كده لويس جوردن،ابن الرئيس القبلي لريد ليك فلويد جوردن اللي عنده 16 سنة.",
+    "translation": "الرسالة التي لديها معرفة عن التحقيق toldت مجلة Minneapolis Star-Tribune أن يكون لويليام جورين, 16 عامًا من أصل ريد لوكل ربل، ابن رئيس قومية ريد لوكل فلويد جورين.",
+    "duration_sec": 2.1448490619659424,
+    "generated_tokens": 63,
+    "tokens_per_sec": 29.37269625036224,
+    "comet_score": 0.6300077438354492
+  },
+  {
+    "id": 90,
+    "source": "It is not known at this time what charges will be laid or what led authorities to the boy but juvenile proceedings have begun in federal court.",
+    "reference": "متعرفش في الوقت ده التهم اللي هيوجهوها أو مين اللي دل السلطات على الواد، بس الإجراءات بتاعة الأحداث بدأت في المحكمة الفيدرالية.",
+    "translation": "لا يُعرف هذا الوقت قوان القضائية التي سيتم وضع عليها أو ما أدى إلى ذلك أجهزة القضاء على الصبي، ولكن المحاكمة الجنائية للطفل أبدأت في المحكمة الفيدرالية.",
+    "duration_sec": 1.8126013278961182,
+    "generated_tokens": 52,
+    "tokens_per_sec": 28.6880513655787,
+    "comet_score": 0.712419331073761
+  },
+  {
+    "id": 91,
+    "source": "Lodin also said officials decided to cancel the runoff in order to save Afghans the expense and security risk of another election.",
+    "reference": "لودين قال كمان أن المسؤولين قرروا يلغوا جولة الإعادة عشان يوفروا على الأفغان التكاليف والمخاطر الأمنية اللي هتسببها الانتخابات التانية.",
+    "translation": "لا didّ اللّودّ أنّ officials decided to cancel the runoff in order to save Afghans the expense and security risk of another election.",
+    "duration_sec": 1.0058043003082275,
+    "generated_tokens": 30,
+    "tokens_per_sec": 29.826875855279734,
+    "comet_score": 0.3597635328769684
+  },
+  {
+    "id": 92,
+    "source": "Diplomats said that they had found enough ambiguity in the Afghan constitution to determine the runoff as unnecessary.",
+    "reference": "دبلوماسيين قالوا إن الدستور الأفغاني مش واضح أوي عشان يعتبروا جولة الإعادة ملهاش لازمة.",
+    "translation": "البلدية قالت أنهم وجدوا كالتحديات في الدستور الأفغاني كافية لتحديد runoff كغير ضروري.",
+    "duration_sec": 1.0974183082580566,
+    "generated_tokens": 33,
+    "tokens_per_sec": 30.070575414748856,
+    "comet_score": 0.5385411977767944
+  },
+  {
+    "id": 93,
+    "source": "This contradicts earlier reports, which said that cancelling the runoff would have been against the constitution.",
+    "reference": "دا بيخالف تقارير سابقة وضحت أن إلغاء جولة الإعادة كان هيتعارض مع الدستور.",
+    "translation": "تناقش هذه الت reportedات القديمة، التي قالت أن إلغاء الملوثات ستكون ضد الدستور.",
+    "duration_sec": 0.9351704120635986,
+    "generated_tokens": 28,
+    "tokens_per_sec": 29.941067038480885,
+    "comet_score": 0.5759366154670715
+  },
+  {
+    "id": 94,
+    "source": "The aircraft had been headed to Irkutsk and was being operated by interior troops.",
+    "reference": "السفينة راحت مدينة إيركوتسك وكانت بتقودها القوات الداخلية.",
+    "translation": "الطائحة كانت مقبولة إلى إيركوتسكي وأُدارت من قبل أفراد الداخلية.",
+    "duration_sec": 0.8731679916381836,
+    "generated_tokens": 26,
+    "tokens_per_sec": 29.776629753938202,
+    "comet_score": 0.5648887753486633
+  },
+  {
+    "id": 95,
+    "source": "An inquiry was established to investigate.",
+    "reference": "فتحوا التحقيق علشان الأمور تتكشف للناس.",
+    "translation": "مُقَالَةٌ أُنشِرَتَ لِإِسْتَقَالَةَ.",
+    "duration_sec": 2.668794631958008,
+    "generated_tokens": 79,
+    "tokens_per_sec": 29.601378485252823,
+    "comet_score": 0.40791210532188416
+  },
+  {
+    "id": 96,
+    "source": "The Il-76 has been a major component of both the Russian and Soviet military since the 1970s, and had already seen a serious accident in Russia last month.",
+    "reference": "الطيارة طراز إي إل-76 كانت مكون رئيسي للجيشين الروسي والسوفيتي من سبعينيات القرن العشرين، وتعرض بردو لحادث خطير في روسيا الشهر اللي فات.",
+    "translation": "الイル-76 منذ الخمسينيات، وبدأت أن تواجه حربًا صارمة في روسيا في مارس цього العام.",
+    "duration_sec": 1.0610504150390625,
+    "generated_tokens": 31,
+    "tokens_per_sec": 29.21633087421085,
+    "comet_score": 0.4956870377063751
+  },
+  {
+    "id": 97,
+    "source": "On October 7 an engine separated on takeoff, without injuries. Russia briefly grounded Il-76s after that accident.",
+    "reference": "في سبعة أكتوبر، فيه محرك انفصل وهما بيقلعوا دون إصابات، أوقفت روسيا استعملت طيارات Il-76 لفترةٍ قصيرةٍ بعد الحادثة دي.",
+    "translation": "على 7 أكتوبر أُ separate engine during takeoff, دون أن يحدث إجهاد. روسيا أُغمرت Il-76s لمدة قصيرة بعد ذلك.",
+    "duration_sec": 1.2179863452911377,
+    "generated_tokens": 36,
+    "tokens_per_sec": 29.556981602609714,
+    "comet_score": 0.533637523651123
+  },
+  {
+    "id": 98,
+    "source": "800 miles of the Trans-Alaska Pipeline System were closed down following a spill of thousands of barrels of crude oil south of Fairbanks, Alaska.",
+    "reference": "قفلوا 800 ميل من شبكة خط الأنابيب العابرة لألاسكا بعد تسرب آلاف البراميل من البترول الخام جنوب فيربانكس، ألاسكا.",
+    "translation": "800 миليون يودى من نظام管道 التمدين عبر ألاسكا، قاطعة spilled من آلاف برميل من البترول جنوب فاكين، ألاسكا.",
+    "duration_sec": 1.4981276988983154,
+    "generated_tokens": 44,
+    "tokens_per_sec": 29.369992980142126,
+    "comet_score": 0.4674335718154907
+  },
+  {
+    "id": 99,
+    "source": "A power failure following a routine fire-command system test caused relief valves to open and crude oil overflowed near the Fort Greely pump station 9.",
+    "reference": "حصل عطل في الكهربا بعد ما عملوا اختبار روتيني لنظام الحرايق كان سبب في أن صمامات التصريف تتفتح وأن النفط الخام يتسرب قريب من محطة ضخ فورت غريلي رقم 9.",
+    "translation": "**Arabic translation:**",
+    "duration_sec": 2.1270580291748047,
+    "generated_tokens": 64,
+    "tokens_per_sec": 30.088506811837615,
+    "comet_score": 0.18199004232883453
+  }
+]

@@ -1,0 +1,1002 @@
+[
+  {
+    "id": 0,
+    "source": "V pondělí vědci z Lékařské fakulty Stanfordovy univerzity oznámili vynález nového diagnostického nástroje, který dokáže třídit buňky podle typu: malý vytisknutelný čip, který lze vyrobit pomocí standardních inkoustových tiskáren za cenu přibližně jednoho amerického centu za kus.",
+    "reference": "Am Montag haben die Wisenschaftler der Stanford University School of Medicine die Erfindung eines neuen Diagnosetools bekanntgegeben, mit dem Zellen nach ihrem Typ sortiert werden können: ein winziger, ausdruckbarer Chip, der für jeweils etwa einen US-Cent mit Standard-Tintenstrahldruckern hergestellt werden kann.",
+    "translation": "Am Montag haben Wissenschaftler der medizinischen Fakultät der Stanford-Universität einen neuen diagnostischen Werkzeug angekündigt, das in der Lage ist, Zellen nach Typ zu sortieren: ein kleiner druckbarer Chip, der mit standarden Tintenstrahldruckern für etwa einen US-Dollar pro Stück hergestellt werden kann.",
+    "duration_sec": 13.571340799331665,
+    "generated_tokens": 82,
+    "tokens_per_sec": 6.042144340228946,
+    "comet_score": 0.8695083856582642
+  },
+  {
+    "id": 1,
+    "source": "Přední výzkumníci tvrdí, že to může umožnit včasné zjištění rakoviny, tuberkulózy, HIV a malárie pacientům v zemích s nízkým příjmem, kde jsou počty přeživších u chorob, jako je rakovina prsu, až o polovinu nižší oproti bohatším zemím.",
+    "reference": "Führende Forscher sagen, dass dies die Früherkennung von Krebs, Tuberkulose, HIV und Malaria für Patienten in einkommensschwachen Ländern fördern könnte, wo die Überlebensraten bei Krankheiten wie Brustkrebs teilweise nur halb so hoch sind wie in reicheren Ländern.",
+    "translation": "Vorherschem Forscher behaupten, dass dies es ermöglichen könnte, Krebs, Tuberkulose, HIV und Malaria bei Patienten in Ländern mit niedrigem Einkommen frühzeitig zu diagnostizieren, wo die Überlebenschancen bei Krankheiten wie Brustkrebs bis zu halb so hoch sind wie in reichen Ländern.",
+    "duration_sec": 14.12158489227295,
+    "generated_tokens": 85,
+    "tokens_per_sec": 6.0191544113798665,
+    "comet_score": 0.8343102931976318
+  },
+  {
+    "id": 2,
+    "source": "Letoun JAS 39C Gripen havaroval na přistávací dráze přibližně kolem 9:30 h ráno místního času (02:30 UTC) a explodoval, což vyústilo v uzavření letiště pro komerční lety.",
+    "reference": "Der JAS 39C Gripen stürzte gegen 9:30 Uhr Ortszeit (02:30 UTC) auf eine Startbahn und explodierte, sodass der Flughafen für kommerzielle Flüge geschlossen werden musste.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 12.226492404937744,
+    "generated_tokens": 76,
+    "tokens_per_sec": 6.216010077371572,
+    "comet_score": 0.32459160685539246
+  },
+  {
+    "id": 3,
+    "source": "Pilot byl identifikován jako velitel letky Dilokrit Pattavee.",
+    "reference": "Der Pilot wurde als Staffelführer Dilokrit Pattavee identifiziert.",
+    "translation": "Der Pilot wurde als Flugzeugführer Dilokrit Pattavee identifiziert.",
+    "duration_sec": 3.4120943546295166,
+    "generated_tokens": 21,
+    "tokens_per_sec": 6.154577751200602,
+    "comet_score": 0.9344683289527893
+  },
+  {
+    "id": 4,
+    "source": "Místní média uvedla, že hasičské vozidlo letiště se během odpovídání převalilo.",
+    "reference": "Lokale Medien berichten, dass ein Feuerwehrwagen während der Rettungsaktion umkippte.",
+    "translation": "Die lokale Medien berichteten, dass das Feuerwehrfahrzeug des Flughafens während des Lufteinsatzes umgekippt ist.",
+    "duration_sec": 6.081912040710449,
+    "generated_tokens": 37,
+    "tokens_per_sec": 6.083613138817756,
+    "comet_score": 0.8334845900535583
+  },
+  {
+    "id": 5,
+    "source": "28letý Vidal přišel do týmu Barcelony před třemi sezónami ze Sevilly.",
+    "reference": "Der 28-jährige Vidal war vor drei Spielzeiten von Sevilla zu Barça gekommen.",
+    "translation": "Der 28-jährige Vidal kam vor drei Saisons in den Kader von Barcelona von Sevilla.",
+    "duration_sec": 3.9441986083984375,
+    "generated_tokens": 24,
+    "tokens_per_sec": 6.084886280547958,
+    "comet_score": 0.8068069815635681
+  },
+  {
+    "id": 6,
+    "source": "Od přestupu do katalánského hlavního města odehrál Vidal za klub 49 utkání.",
+    "reference": "Seit seinem Umzug in die katalanische Hauptstadt hatte Vidal für den Verein 49 Partien gespielt.",
+    "translation": "Die Übersetzung lautet:",
+    "duration_sec": 5.584986925125122,
+    "generated_tokens": 34,
+    "tokens_per_sec": 6.087749256322259,
+    "comet_score": 0.3832228183746338
+  },
+  {
+    "id": 7,
+    "source": "Protest začal kolem 11:00 h místního času (UTC +1) na ulici Whitehall naproti vjezdu do oficiálního sídla předsedy vlády v Downing Street střeženému policií.",
+    "reference": "Der Protest begann gegen 11:00 Uhr Ortszeit (UTC +1) in Whitehall gegenüber dem von der Polizei bewachten Eingang zur Downing Street, dem offiziellen Wohnsitz des Premierministers.",
+    "translation": "Die Proteste begannen etwa um 11:00 Uhr Ortszeit (UTC +1) auf der Whitehall gegenüber dem Eingang zum offiziellen Sitz des Premierministers in der Downing Street, der von der Polizei bewacht wird.",
+    "duration_sec": 9.48118257522583,
+    "generated_tokens": 57,
+    "tokens_per_sec": 6.011908277026543,
+    "comet_score": 0.9013205170631409
+  },
+  {
+    "id": 8,
+    "source": "Krátce po 11. hodině zablokovali protestující ve Whitehallu provoz silnice směřující na sever.",
+    "reference": "Kurz nach 11.00 Uhr blockierten die Demonstranten den Verkehr Richtung Norden in Whitehall.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 5.876223087310791,
+    "generated_tokens": 36,
+    "tokens_per_sec": 6.126384152728812,
+    "comet_score": 0.3881620168685913
+  },
+  {
+    "id": 9,
+    "source": "V 11:20 policie požádala protestující, aby se přesunuli zpátky na chodník, s odůvodněním, že potřebují nastolit rovnováhu mezi právem demonstrovat a narůstajícím provozem.",
+    "reference": "Um 11:20 Uhr forderte die Polizei die Demonstranten dazu auf, wieder auf die Bürgersteige zurückzukehren, und gab dazu an, dass man das Demonstrationsrecht mit dem Verkehrsaufkommen abwägen müsse.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 11.548949480056763,
+    "generated_tokens": 70,
+    "tokens_per_sec": 6.061157347763889,
+    "comet_score": 0.2992754578590393
+  },
+  {
+    "id": 10,
+    "source": "Kolem 11:29 se protest přesunul po Whitehallu kolem Trafalgar Square, podél Strand, kolem Aldwychu a na Kingsway směrem k Holbornu, kde Konzervativní strana pořádala jarní fórum v hotelu Grand Connaught Rooms.",
+    "reference": "Gegen 11.29 Uhr zog der Protest nach Whitehall, vorbei am Trafalgar Square, die Straße Strand entlang, vorbei an Aldwych und den Kingsway entlang nach Holborn, wo die Konservative Partei ihr Frühjahrsforum im Hotel Grand Connaught Rooms abhielt.",
+    "translation": "Umrechnuto na němčina:",
+    "duration_sec": 13.36562705039978,
+    "generated_tokens": 81,
+    "tokens_per_sec": 6.0603217263627895,
+    "comet_score": 0.18693894147872925
+  },
+  {
+    "id": 11,
+    "source": "Nadalův rekord ze vzájemných utkání proti Kanaďanovi je 7–2.",
+    "reference": "Nadals Rekord im direkten Vergleich gegen den Kanadier liegt bei 7:2.",
+    "translation": "Die Bilanz Nadal gegen Kanada liegt bei 7-2.",
+    "duration_sec": 2.668816089630127,
+    "generated_tokens": 16,
+    "tokens_per_sec": 5.995167693333808,
+    "comet_score": 0.7959888577461243
+  },
+  {
+    "id": 12,
+    "source": "Nedávno prohrál s Raonicem v Brisbane Open.",
+    "reference": "Vor kurzem verlor er bei den Brisbane Open gegen Raonic.",
+    "translation": "Vor kurzem verlor er gegen Raonic in Brisbane Open.",
+    "duration_sec": 2.3990378379821777,
+    "generated_tokens": 15,
+    "tokens_per_sec": 6.252506635166891,
+    "comet_score": 0.9514027237892151
+  },
+  {
+    "id": 13,
+    "source": "Nadal za zápas proměnil na síti 88 % bodů a 76 bodů získal na první podání.",
+    "reference": "Nadal sackte 88% der Netzpunkte im Spiel ein, womit er im ersten Aufschlag 76 Punkte gewann.",
+    "translation": "Nadal wechselte nach dem Spiel 88 % der Punkte und erzielte 76 Punkte auf dem ersten Serve.",
+    "duration_sec": 4.544695138931274,
+    "generated_tokens": 28,
+    "tokens_per_sec": 6.161029319688196,
+    "comet_score": 0.6395862102508545
+  },
+  {
+    "id": 14,
+    "source": "Král antuky po zápase prohlásil: „Jsem nadšený z toho, že jsem se vrátil zpět do finálových kol nejdůležitějších událostí. Jsem zde, abych se pokusil vyhrát.“",
+    "reference": "Nach dem Spiel sagte der Sandplatz-König: „Ich freue mich einfach, wieder in den Finalrunden der wichtigsten Turniere zu sein. Ich bin hier, weil ich versuchen will zu gewinnen.“",
+    "translation": "Der Antike-König erklärte nach dem Spiel: „Ich bin begeistert, dass ich wieder in die Endrunde der wichtigsten Ereignisse zurückgekehrt bin. Ich bin hier, um zu versuchen, zu gewinnen.“",
+    "duration_sec": 8.996252298355103,
+    "generated_tokens": 54,
+    "tokens_per_sec": 6.00249950858687,
+    "comet_score": 0.7628098130226135
+  },
+  {
+    "id": 15,
+    "source": "„Panama Papers“ je zastřešující pojem pro zhruba deset milionů dokumentů od panamské advokátní kanceláře Mossack Fonseca, které unikly do médií na jaře 2016.",
+    "reference": "\"\"\"Panama Papers\"\" ist ein Sammelbegriff für ungefähr zehn Millionen Dokumente aus der panamaischen Rechtsanwaltskanzlei Mossack Fonseca, die der Presse im Frühjahr 2016 zugespielt wurden.\"",
+    "translation": "\"Panama Papers\" ist ein Oberbegriff für etwa zehn Millionen Dokumente der panamaischen Anwaltskanzlei Mossack Fonseca, die im Frühjahr 2016 in die Öffentlichkeit gelangten.",
+    "duration_sec": 9.372214555740356,
+    "generated_tokens": 57,
+    "tokens_per_sec": 6.081806990332745,
+    "comet_score": 0.8906143307685852
+  },
+  {
+    "id": 16,
+    "source": "Dokumenty ukázaly, že čtrnáct bank pomohlo bohatým klientům skrýt miliardy amerických dolarů, aby se vyhnuli daním a jiným předpisům.",
+    "reference": "Die Dokumente zeigten, dass vierzehn Banken reichen Klienten dabei halfen, Vermögen im Wert von mehreren Milliarden US-Dollar zu verstecken, um Steuern und andere gesetzliche Vorgaben zu umgehen.",
+    "translation": "Die Dokumente zeigten, dass vierzehn Banken reichen Kunden geholfen haben, Milliarden US-Dollar zu verstecken, um Steuern und anderen Vorschriften zu entgehen.",
+    "duration_sec": 8.338263750076294,
+    "generated_tokens": 50,
+    "tokens_per_sec": 5.996452199001562,
+    "comet_score": 0.9146339297294617
+  },
+  {
+    "id": 17,
+    "source": "Britské noviny The Guardian naznačily, že Deutsche Bank kontrolovala zhruba třetinu z 1 200 fiktivních společností, které k tomuto účelu sloužily.",
+    "reference": "Die britische Zeitung The Guardian deutete an, dass die Deutsche Bank etwa ein Drittel der 1200 Briefkastenfirmen kontrollierte, die genutzt wurden, um das zu erreichen.",
+    "translation": "Die britischen Zeitungen The Guardian haben angedeutet, dass die Deutsche Bank etwa ein Drittel von 1.200 fiktiven Unternehmen kontrollierte, die zu diesem Zweck dienten.",
+    "duration_sec": 7.236945390701294,
+    "generated_tokens": 45,
+    "tokens_per_sec": 6.2180930725026915,
+    "comet_score": 0.8508280515670776
+  },
+  {
+    "id": 18,
+    "source": "Došlo k celosvětovým protestům, několika trestním stíháním a lídři islandské a pákistánské vlády rezignovali.",
+    "reference": "Es kam weltweit zu Protesten, mehreren Strafverfolgungen, und die Regierungschefs von Island und Pakistan sind beide zurückgetreten.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 7.457571744918823,
+    "generated_tokens": 45,
+    "tokens_per_sec": 6.0341357132313895,
+    "comet_score": 0.3704274594783783
+  },
+  {
+    "id": 19,
+    "source": "Ma se narodil v Honkongu, studoval na New York University a Harward Law School a byl držitelem americké „zelené karty“ pro trvalé rezidenty.",
+    "reference": "\"Ma wurde in Hongkong geboren, studierte an der New York University und der Harvard Law School und war im Besitz einer amerikanischen „Green Card\"\" für dauerhaft Ansässige.\"",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 9.202640056610107,
+    "generated_tokens": 56,
+    "tokens_per_sec": 6.085210293515295,
+    "comet_score": 0.4067942798137665
+  },
+  {
+    "id": 20,
+    "source": "Hsieh během volby naznačil, že by Ma mohla během krize utéct ze země.",
+    "reference": "Hsieh deutete während der Wahl an, dass Ma während einer Krisenzeit aus dem Land fliehen könnte.",
+    "translation": "Hsieh signalisierte während der Wahl, dass Ma während der Krise das Land verlassen könnte.",
+    "duration_sec": 3.6675121784210205,
+    "generated_tokens": 23,
+    "tokens_per_sec": 6.27128115220117,
+    "comet_score": 0.8638373017311096
+  },
+  {
+    "id": 21,
+    "source": "Hsieh také argumentoval, že fotogenický Ma má více stylu než podstaty.",
+    "reference": "Hsieh argumentierte zudem, dass die photogene Ma mehr Stil als Substanz war.",
+    "translation": "Hsieh argumentierte auch, dass der fotogenische Ma mehr Stil als Substanz hat.",
+    "duration_sec": 3.710832118988037,
+    "generated_tokens": 23,
+    "tokens_per_sec": 6.198070745995434,
+    "comet_score": 0.8519369959831238
+  },
+  {
+    "id": 22,
+    "source": "Ma navzdory těmto obviněním hladce vyhrál na platformě prosazující užší vazby s čínskou pevninou.",
+    "reference": "Trotz dieser Vorwürfe hat Ma auf einem Podium, das für engere Beziehungen zum chinesischen Festland eintritt, mühelos gewonnen.x",
+    "translation": "Die Übersetzung lautet:",
+    "duration_sec": 7.280404567718506,
+    "generated_tokens": 46,
+    "tokens_per_sec": 6.318330193347378,
+    "comet_score": 0.3842923641204834
+  },
+  {
+    "id": 23,
+    "source": "Dnešním hráčem dne je Alexandr Ovečkin z týmu Washington Capitals.",
+    "reference": "Der Spieler des Tages ist heute Alex Ovechkin von den Washington Capitals.",
+    "translation": "Der Spieler des Tages ist Alexandr Ovečkin vom Team Washington Capitals.",
+    "duration_sec": 2.9981696605682373,
+    "generated_tokens": 18,
+    "tokens_per_sec": 6.003662913655291,
+    "comet_score": 0.9188733696937561
+  },
+  {
+    "id": 24,
+    "source": "Při vítězství Washingtonu nad Atlanta Trashers 5-3 zaznamenal 2 góly a 2 asistence.",
+    "reference": "Beim 5:3-Sieg Washingtons gegen die Atlanta Thrashers machte er 2 Tore und 2 Assists.",
+    "translation": "Bei dem Sieg von Washington gegen Atlanta Trashers 5-3 erzielte er 2 Tore und 2 Assists.",
+    "duration_sec": 4.710259199142456,
+    "generated_tokens": 29,
+    "tokens_per_sec": 6.156773709030642,
+    "comet_score": 0.9089985489845276
+  },
+  {
+    "id": 25,
+    "source": "Ovečkinova první asistence večera byla při výherním gólu nováčka Nicklase Backstroma;",
+    "reference": "Ovechkins erster Assist des Abends führte zum Siegestreffer des Neulings Nicklas Backstrom;",
+    "translation": "Die erste Assistenz von Ovečkin in der Partie war der Siegtreffer des Neulings Nicklas Backstrom.",
+    "duration_sec": 4.523250341415405,
+    "generated_tokens": 28,
+    "tokens_per_sec": 6.190238851833769,
+    "comet_score": 0.7896901965141296
+  },
+  {
+    "id": 26,
+    "source": "jeho druhý gól večera byl jeho 60. gólem v sezóně, a stal se tak prvním hráčem, který vstřelil 60 a více gólů za sezónu od 1995-96, kdy tohoto milníku dosáhli Jaromír Jágr a Mario Lemieux.",
+    "reference": "Sein zweites Tor des Abends war sein sechzigstes der Saison, womit er der erste Spieler mit 60 oder mehr Toren in einer Saison seit 1995-96 ist, als Jaromir Jagr und Mario Lemieux diesen Meilenstein erreichten.",
+    "translation": "Sein zweiter Treffer des Abends war sein 60. Tor der Saison, und er wurde so zum ersten Spieler, der 60 und mehr Tore in einer Saison schoss, seit 1995-96, als Jaromír Jágr und Mario Lemieux diesen Meilenstein erreichten.",
+    "duration_sec": 10.781432390213013,
+    "generated_tokens": 66,
+    "tokens_per_sec": 6.121635568564375,
+    "comet_score": 0.8989835977554321
+  },
+  {
+    "id": 27,
+    "source": "Batten se v roce 2008 zařadil na 190. místo na seznamu 400 nejbohatších Američanů, přičemž hodnota jeho majetku byla odhadnuta na 2,3 miliardy amerických dolarů.",
+    "reference": "Batten wurde auf der Liste der 400 reichsten Amerikaner von 2008 mit einem geschätzten Vermögen von 2,3 Milliarden Dollar auf Rang 190 geführt.",
+    "translation": "Übersetzung:",
+    "duration_sec": 8.11949634552002,
+    "generated_tokens": 51,
+    "tokens_per_sec": 6.281177776271745,
+    "comet_score": 0.266807496547699
+  },
+  {
+    "id": 28,
+    "source": "Vystudoval Fakultu umění a věd na univerzitě ve Virginii roku 1950 a stal se významným dárcem této instituce.",
+    "reference": "Er machte im Jahr 1950 seinen Abschluss am College of Arts & Sciences der University of Virginia und war ein bedeutender Stifter dieser Institution.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 7.363366603851318,
+    "generated_tokens": 45,
+    "tokens_per_sec": 6.1113349940315755,
+    "comet_score": 0.3812176585197449
+  },
+  {
+    "id": 29,
+    "source": "Irácké vězení Abú Ghraíb bylo zapáleno během protestů.",
+    "reference": "Das Abu-Ghraib-Gefängnis im Irak ist während eines Aufruhrs in Brand gesetzt worden.",
+    "translation": "Das irakische Gefängnis Abu Ghraib wurde während der Proteste in Brand gesteckt.",
+    "duration_sec": 3.7199153900146484,
+    "generated_tokens": 23,
+    "tokens_per_sec": 6.182936327460241,
+    "comet_score": 0.9258058667182922
+  },
+  {
+    "id": 30,
+    "source": "Vězení se stalo nechvalně známým poté, co zde byly objeveny případy zneužívání vězňů po převzetí moci americkými silami.",
+    "reference": "Das Gefängnis wurde berüchtigt, nachdem dort nach der Übernahme durch US-Streitkräfte Misshandlungen von Gefangenenen aufgedeckt wurden.",
+    "translation": "Die Gefängnis wurde negativ bekannt, nachdem dort Fälle von Misshandlung von Gefangenen nach der Übernahme der Macht durch amerikanische Truppen entdeckt wurden.",
+    "duration_sec": 7.10809326171875,
+    "generated_tokens": 43,
+    "tokens_per_sec": 6.049442292995819,
+    "comet_score": 0.8503054976463318
+  },
+  {
+    "id": 31,
+    "source": "Piquet Jr. havaroval při Velké ceně Singapuru v roce 2008 záhy poté, kdy musel Fernando Alonso zajet hned na začátku závodů do boxů, na trať pak vyjel safety car.",
+    "reference": "Piquet Junior hatte beim Grand Prix von Singapur im Jahr 2008 direkt nach einem frühen Boxenstopp von Fernando Alonso einen Unfall, was zum Einsatz des Safety Cars führte.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 10.354332208633423,
+    "generated_tokens": 64,
+    "tokens_per_sec": 6.180987697751953,
+    "comet_score": 0.30391937494277954
+  },
+  {
+    "id": 32,
+    "source": "Protože vozy nacházející se před Alonsem zajely do boxů dočerpat palivo po dobu safety caru na trati, posunul se před ně a závod vyhrál.",
+    "reference": "Als die Autos vor Alonso hinter dem Safety-Car zum Tanken einfuhren, rückte er im Feld auf und holte sich den Sieg.",
+    "translation": "Da die Fahrzeuge vor Alonsem in die Box einfuhren, um während des Safety-Cars Benzin nachzufüllen, rückte er vor und gewann das Rennen.",
+    "duration_sec": 7.050852060317993,
+    "generated_tokens": 43,
+    "tokens_per_sec": 6.098553711260353,
+    "comet_score": 0.7391178011894226
+  },
+  {
+    "id": 33,
+    "source": "Piquet junior byl po Velké ceně Maďarska v roce 2009 propuštěn.",
+    "reference": "Piquet Jr. wurde nach dem Ungarischen Grand Prix in 2009 gefeuert.",
+    "translation": "Die Übersetzung lautet:",
+    "duration_sec": 4.643383264541626,
+    "generated_tokens": 28,
+    "tokens_per_sec": 6.030085910378547,
+    "comet_score": 0.32930901646614075
+  },
+  {
+    "id": 34,
+    "source": "Přesně v 8:46 hodin dopoledne zavládlo ve městě ticho, což byl přesně okamžik, kdy první tryskáč zasáhl svůj cíl.",
+    "reference": "Um genau 8:46 Uhr fiel eine Stille über die Stadt und markierte den exakten Moment, in dem das erste Flugzeug sein Ziel traf.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 8.910113096237183,
+    "generated_tokens": 55,
+    "tokens_per_sec": 6.172761154202068,
+    "comet_score": 0.36295270919799805
+  },
+  {
+    "id": 35,
+    "source": "Dva paprsky světla byly nastaveny tak, aby pře noc směřovaly do nebe.",
+    "reference": "Zwei Flutlichter wurden so aufgestellt, dass ihre Lichtkegel nachts in Richtung Himmel zeigten.",
+    "translation": "Zwei Lichter wurden so eingestellt, dass sie in der Nacht zum Himmel zeigten.",
+    "duration_sec": 3.8470470905303955,
+    "generated_tokens": 23,
+    "tokens_per_sec": 5.978611506112074,
+    "comet_score": 0.7430530190467834
+  },
+  {
+    "id": 36,
+    "source": "Dále na pozemku probíhá výstavba pěti nových mrakodrapů spolu s dopravním centrem a památníkem uprostřed nich.",
+    "reference": "Auf dem Gelände werden derzeit fünf neue Wolkenkratzer gebaut, mit einem Transportzentrum und einem Gedenkpark in der Mitte.",
+    "translation": "Hier auf dem Grundstück wird der Bau von fünf neuen Wolkenkratzern zusammen mit einem Verkehrszentrum und einem Denkmal inmitten davon durchgeführt.",
+    "duration_sec": 6.585584402084351,
+    "generated_tokens": 40,
+    "tokens_per_sec": 6.073872500569565,
+    "comet_score": 0.866213858127594
+  },
+  {
+    "id": 37,
+    "source": "Tento seriál PBS získal přes dva tucty ocenění Emmy a déle se vysílaly už jen Sezame, otevři se a Mister Rogers' Neighborhood.",
+    "reference": "Die PBS-Sendung gewann mehr als zwei Dutzend Emmy-Preise und ihre Laufzeit ist nur kürzer als die Sesamstraße und Mister Roger‘s Neighborhood.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 7.719631910324097,
+    "generated_tokens": 48,
+    "tokens_per_sec": 6.217913050466262,
+    "comet_score": 0.38025856018066406
+  },
+  {
+    "id": 38,
+    "source": "Každá epizoda pořadu se soustředí na téma konkrétní knihy a potom toto téma zkoumá skrze několik příběhů.",
+    "reference": "Jede Episode der Sendung konzentriert sich auf ein Thema in einem bestimmten Buch und erforscht dieses Thema dann in mehreren Geschichten.",
+    "translation": "Die jeweilige Episode des Programms konzentriert sich auf ein bestimmtes Buch und untersucht dieses Thema dann durch mehrere Geschichten.",
+    "duration_sec": 4.985814571380615,
+    "generated_tokens": 31,
+    "tokens_per_sec": 6.217639977616703,
+    "comet_score": 0.9137792587280273
+  },
+  {
+    "id": 39,
+    "source": "V každém dílu bylo také poskytnuto doporučení na knihy, které děti měly vyhledat, když šly do knihovny.",
+    "reference": "Jede Show gab auch Empfehlungen für Bücher, nach denen Kinder Ausschau halten sollten, wenn sie in ihre Bibliothek gehen.",
+    "translation": "In jedem Teil wurde auch eine Empfehlung für Bücher gegeben, die Kinder suchen sollten, wenn sie in die Bibliothek gingen.",
+    "duration_sec": 5.085008859634399,
+    "generated_tokens": 32,
+    "tokens_per_sec": 6.293007718043726,
+    "comet_score": 0.9059900641441345
+  },
+  {
+    "id": 40,
+    "source": "John Grant z WNED Buffalo (domovská stanice Reading Rainbow) řekl: „Reading Rainbow naučilo děti, proč mají číst... lásce ke čtení — [tento pořad] povzbudil děti, aby si vzaly knížku a četly.“",
+    "reference": "\"John Grant von WNED Buffalo (Reading Rainbows Heimatstation) sagte: \"\"Reading Rainbow hat Kindern beigebracht, warum sie lesen sollten, ... die Liebe zum Lesen - [die Show] hat Kinder dazu ermutigt, ein Buch in die Hand zu nehmen und zu lesen.\"\"\"",
+    "translation": "John Grant von WNED Buffalo (Herkunftssender von Reading Rainbow) sagte: „Reading Rainbow hat Kindern beigebracht, warum sie lesen sollten... Liebe zum Lesen — [dieser Sender] hat die Kinder ermutigt, ein Buch zu nehmen und zu lesen.“",
+    "duration_sec": 10.188922882080078,
+    "generated_tokens": 60,
+    "tokens_per_sec": 5.888748074197903,
+    "comet_score": 0.8623098731040955
+  },
+  {
+    "id": 41,
+    "source": "Někteří včetně Johna Granta věří, že k ukončení série přispěla jak krize financování, tak i posun ve filozofii programování vzdělávací televize.",
+    "reference": "Einige Personen, darunter John Grant, sind der Ansicht, dass sowohl die Finanzierungskrise als auch ein Wandel in der Philosophie des Bildungsfernsehens zum Ende der Serie beigetragen haben.",
+    "translation": "Einige, darunter John Grant, glauben, dass die Serie durch die Finanzkrise und einen Wechsel in der Philosophie der Bildungsfernsehsendung beendet wurde.",
+    "duration_sec": 7.254595756530762,
+    "generated_tokens": 43,
+    "tokens_per_sec": 5.927277196843169,
+    "comet_score": 0.8604556322097778
+  },
+  {
+    "id": 42,
+    "source": "Vědci uvedli, že bouře, která se nacházela ve vzdálenosti 645 mil (1040 km) západně od Kapverdských ostrovů, se pravděpodobně rozptýlí dřív, než by stihla zasáhnout pevninu.",
+    "reference": "Prognostiker sagen, dass sich der Sturm, der etwa 645 Meilen (1040 km) westlich der Kapverdischen Inseln befindet, wahrscheinlich auflösen wird, bevor er Landflächen bedroht.",
+    "translation": "Wissenschaftler sagten, dass der Sturm, der sich etwa 645 Meilen (1040 km) westlich der Kapverdischen Inseln befand, wahrscheinlich vorher auseinanderbrechen wird, bevor er das Festland erreichen kann.",
+    "duration_sec": 9.912084102630615,
+    "generated_tokens": 59,
+    "tokens_per_sec": 5.952330447271095,
+    "comet_score": 0.83977872133255
+  },
+  {
+    "id": 43,
+    "source": "Hurikán Fred momentálně dosahuje rychlosti větru 150 mil v hodině (165 km/h) a pohybuje se severozápadním směrem.",
+    "reference": "Fred hat derzeit Winde mit einer Geschwindigkeit von 105 Meilen pro Stunde (165 km/h) und bewegt sich in Richtung Nordwesten.",
+    "translation": "Übersetzung:",
+    "duration_sec": 7.292240858078003,
+    "generated_tokens": 44,
+    "tokens_per_sec": 6.0338105743255666,
+    "comet_score": 0.21581993997097015
+  },
+  {
+    "id": 44,
+    "source": "Fred je nejsilnějším tropickým cyklonem, který byl tak daleko jihovýchodně v Atlantiku zaznamenán od příchodu satelitních snímků, a teprve třetí velký zaznamenaný hurikán východně od poledníku 35° západní délky.",
+    "reference": "Fred ist der stärkste tropische Wirbelsturm, der seit dem Einsatz von Satellitenbildern jemals so weit südlich und östlich im Atlantik aufgezeichnet wurde, und erst der dritte größere Wirbelsturm, der östlich von 35°W registriert wurde.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 12.538298845291138,
+    "generated_tokens": 75,
+    "tokens_per_sec": 5.98167270739179,
+    "comet_score": 0.2735653519630432
+  },
+  {
+    "id": 45,
+    "source": "24. září 1759 podepsal Artur Guiness smlouvu o pronájmu pivovaru Brána Sv. Jakuba v Dublinu v Irsku na 9 000 let.",
+    "reference": "Am 24 September 1759 unterzeichnete Arthur Guinness einen 9000-jährigen Pachtvertrag für die St. James' Gate Brewery in Dublin, Irland.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 8.314465284347534,
+    "generated_tokens": 51,
+    "tokens_per_sec": 6.133888140228389,
+    "comet_score": 0.36869266629219055
+  },
+  {
+    "id": 46,
+    "source": "O 250 let později se Guinness stává celosvětovým podnikem s obratem více než 10 miliard euro (14,7 miliardy dolarů) ročně.",
+    "reference": "250 Jahre später ist Guinness zu einem globalen Unternehmen mit einem Jahresumsatz von über 10 Milliarden Euro (14,7 Milliarden US-Dollar) herangewachsen.",
+    "translation": "250 Jahre später wird Guinness ein weltweiter Konzern mit einem Umsatz von mehr als 10 Milliarden Euro (14,7 Milliarden Dollar) pro Jahr.",
+    "duration_sec": 6.120151996612549,
+    "generated_tokens": 37,
+    "tokens_per_sec": 6.045601485139451,
+    "comet_score": 0.9241763949394226
+  },
+  {
+    "id": 47,
+    "source": "Jonny Reid, spoluřidič novozélandského týmu A1GP, se dnes zapsal do historie nejrychlejším legálním přejezdem 48 let starého mostu Auckland Harbour Bridge.",
+    "reference": "Jonny Reid, Beifahrer für das A1GP-Team Neuseeland, hat heute Geschichte geschrieben, als er legal in neuer Rekordzeit über die 48 Jahre alte Auckland Harbour Bridge in Neuseeland gefahren ist.",
+    "translation": "Jonny Reid, der Co-Pilot des neuseeländischen A1GP-Teams, hat heute mit dem schnellsten legalen Überqueren des 48 Jahre alten Auckland Harbour Bridge Geschichte geschrieben.",
+    "duration_sec": 7.3200061321258545,
+    "generated_tokens": 45,
+    "tokens_per_sec": 6.14753583367986,
+    "comet_score": 0.8409055471420288
+  },
+  {
+    "id": 48,
+    "source": "Pan Reid dokázal přejet přes most sedmkrát novozélandským vozem pro A1GP Black Beauty, a to rychlostí přes 160 km/h.",
+    "reference": "Reid schaffte es, Neuseelands A1GP-Auto Black Beauty sieben Mal mit Geschwindigkeiten von über 160 km/h über die Brücke zu fahren.",
+    "translation": "Übersetzung:",
+    "duration_sec": 7.899352073669434,
+    "generated_tokens": 49,
+    "tokens_per_sec": 6.203040394076062,
+    "comet_score": 0.22197511792182922
+  },
+  {
+    "id": 49,
+    "source": "Novozélandská policie měla potíže použít na změření rychlosti pana Reida rychlostní radarové pistole kvůli tomu, jak je Black Beauty nízká. Jeho rychlost se podařilo změřit pouze v případě, kdy zpomalil na 160km/h.",
+    "reference": "Die neuseeländische Polizei hatte wegen der geringen Höhe von Black Beauty Schwierigkeiten, die Geschwindigkeit Reids mit ihren Radarpistolen zu erfassen, und es gelang ihr nur ein einziges Mal, die Geschwindigkeit zu messen, als Reid auf 160 km/h abbremste.",
+    "translation": "Die neuseeländische Polizei hatte Schwierigkeiten, die Geschwindigkeit von Herrn Reid mit einer Geschwindigkeitsradarpistole zu messen, da Black Beauty sehr niedrig ist. Seine Geschwindigkeit konnte nur gemessen werden, als er auf 160 km/h abgebremst wurde.",
+    "duration_sec": 11.66103196144104,
+    "generated_tokens": 72,
+    "tokens_per_sec": 6.174410655770334,
+    "comet_score": 0.7325387001037598
+  },
+  {
+    "id": 50,
+    "source": "Během posledních tří měsíců bylo ze zařízení Central Booking propuštěno více než 80 zadržených, aniž by byli formálně obviněni.",
+    "reference": "In den letzten drei Monaten wurden über 80 Festgenommene, ohne offizielle Anklage, aus der zentralen Haftanstalt entlassen.",
+    "translation": "Während der letzten drei Monate wurden mehr als 80 Inhaftierte aus dem Zentrales Buchungszentrum entlassen, ohne dass sie formell angeklagt wurden.",
+    "duration_sec": 6.699658155441284,
+    "generated_tokens": 41,
+    "tokens_per_sec": 6.119715222589512,
+    "comet_score": 0.8280325531959534
+  },
+  {
+    "id": 51,
+    "source": "Letos v dubnu byl vydán dočasný soudní příkaz soudcem Glynnem proti zařízení na vymáhání propuštění osob zadržovaných déle než 24 hodin po přijetí, které nebyly vyslechnuty u soudního komisaře.",
+    "reference": "Im April dieses Jahres erließ Richter Glynn eine einstweilige Verfügung gegen die Einrichtung, um die Freilassung derjenigen durchzusetzen, die länger als 24 Stunden nach ihrer Verhaftung festgehalten worden waren und keine Anhörung durch einen Gerichtskommissar erhalten hatten.",
+    "translation": "Hierzu eine Übersetzung des Textes ins Deutsche:",
+    "duration_sec": 12.968979597091675,
+    "generated_tokens": 78,
+    "tokens_per_sec": 6.01435135401799,
+    "comet_score": 0.28253480792045593
+  },
+  {
+    "id": 52,
+    "source": "Komisař v případě oprávnění vydá zatykač a formalizuje obvinění podaná zatýkajícím činitelem. Obvinění jsou poté zadána do státního počítačového systému, kde je případ sledován.",
+    "reference": "Der Kommissar setzt die Kaution fest, falls sie gewährt wird, und formalisiert die vom festnehmenden Beamten eingereichte Anklage. Die Anklage wird dann in das Computersystem des Bundesstaates eingegeben, wo der Fall verfolgt wird.",
+    "translation": "Der Kommissar erteilt im Falle der Genehmigung einen Haftbefehl und formalisiert die Anschuldigungen, die vom Festnahmeeinleitenden Beamten eingereicht wurden. Die Anschuldigungen werden dann in das staatliche Computer-System eingetragen, wo der Fall verfolgt wird.",
+    "duration_sec": 12.266610860824585,
+    "generated_tokens": 75,
+    "tokens_per_sec": 6.114158250468733,
+    "comet_score": 0.8684282898902893
+  },
+  {
+    "id": 53,
+    "source": "Slyšení také stanovilo datum pro práva podezřelého na rychlý proces.",
+    "reference": "Die Anhörung markiert auch den Zeitpunkt des Rechts des Beschuldigten auf ein zügiges Gerichtsverfahren.",
+    "translation": "Die Anhörung bestimmte auch ein Datum für die Rechte des Beschuldigten auf einen schnellen Prozess.",
+    "duration_sec": 4.387048959732056,
+    "generated_tokens": 27,
+    "tokens_per_sec": 6.154478841660581,
+    "comet_score": 0.8520163893699646
+  },
+  {
+    "id": 54,
+    "source": "Australský ministr financí Peter Costello, který je nejpravděpodobnějším kandidátem k nahrazení předsedy vlády Johna Howarda na postu vůdce liberální strany, podpořil australskou jadernou energetiku.",
+    "reference": "Peter Costello, australischer Schatzmeister und der Mann, der am ehesten die Nachfolge von Premierminister John Howard als Parteivorsitzender der Liberalen antreten wird, hat seine Unterstützung für eine Kernkraftindustrie in Australien zum Ausdruck gebracht.",
+    "translation": "Der australische Finanzminister Peter Costello, der wahrscheinlichste Kandidat, um den Vorsitzenden der Liberalen Partei John Howard zu ersetzen, unterstützt die australische Atomenergie.",
+    "duration_sec": 8.34351396560669,
+    "generated_tokens": 50,
+    "tokens_per_sec": 5.992678888788113,
+    "comet_score": 0.8348880410194397
+  },
+  {
+    "id": 55,
+    "source": "Costello prohlásil, že jakmile se výroba jaderné energie stane ekonomicky životaschopnou, Austrálie by měla pokračovat v jejím využívání.",
+    "reference": "Herr Costello sagte, dass Australien die Nutzung von Atomenergie anstreben solle, sobald deren Erzeugung wirtschaftlich rentabel ist.",
+    "translation": "Costello sagte, dass sobald die Produktion von Atomenergie wirtschaftlich tragfähig wird, sollte Australien sie weiterhin nutzen.",
+    "duration_sec": 5.272923946380615,
+    "generated_tokens": 32,
+    "tokens_per_sec": 6.068739152205126,
+    "comet_score": 0.8918282389640808
+  },
+  {
+    "id": 56,
+    "source": "„Pokud se stane komerčním produktem, měli bychom ji mít. Znamená to, že nemáme vůči jaderné energii principiální námitky,“ řekl Costello.",
+    "reference": "\"\"\"Wenn es kommerziell verfügbar wird, sollten wir es haben. Ich meine, es gibt keine prinzipiellen Einwände gegen Atomenergie\"\", sagte Herr Costello.\"",
+    "translation": "„Wenn sie ein kommerzieller Produkt wird, sollten wir sie haben. Das bedeutet, dass wir keine prinzipiellen Bedenken gegen Atomenergie haben,“ sagte Costello.",
+    "duration_sec": 6.543341875076294,
+    "generated_tokens": 40,
+    "tokens_per_sec": 6.1130842257166345,
+    "comet_score": 0.8761400580406189
+  },
+  {
+    "id": 57,
+    "source": "Podle Ansa „měla policie obavu, že několik zásahů na nejvyšší úrovni by mohlo zapříčinit otevřenou válku o následnictví.",
+    "reference": "Laut Ansa „war die Polizei wegen einiger Morde in den hohen Rängen besorgt, die, wie sie befürchteten, einen regelrechten Erbfolgekrieg auslösen könnten.",
+    "translation": "Přepište text do německého jazyka:",
+    "duration_sec": 9.63213062286377,
+    "generated_tokens": 57,
+    "tokens_per_sec": 5.9176938344979675,
+    "comet_score": 0.28320467472076416
+  },
+  {
+    "id": 58,
+    "source": "Policie uvedla, že Lo Piccolo měl navrch, protože byl pravou rukou Provenzana v Palermu a díky větším zkušenostem si získal respekt starší generace šéfů, když prosazovali Provenzanovu politiku co nejméně nápadného rozšiřování jejich sféry vlivu.",
+    "reference": "Die Polizei sagte, dass Lo Piccolo die Oberhand habe, weil er in Palermo Provenzanos rechte Hand war und seine größere Erfahrung ihm den Respekt der älteren Generationen einbrachte. Diese verfolgten Provenzanos Politik, keine Aufmerksamkeit auf sich zu ziehen, während sie ihr Machtnetzwerk stärkten.",
+    "translation": "Die Polizei sagte, dass Lo Piccolo oben stand, weil er die rechte Hand von Provenzano in Palermo war und durch seine größere Erfahrung hatte er Respekt bei der älteren Generation der Chefs, als sie Provenzano's Politik der möglichst unauffälligen Ausweitung ihres Einflusses verfochten.",
+    "duration_sec": 12.678261995315552,
+    "generated_tokens": 76,
+    "tokens_per_sec": 5.994512499274821,
+    "comet_score": 0.7953130602836609
+  },
+  {
+    "id": 59,
+    "source": "Tito šéfové byli Provenzanem ovládnuti, když ukončil válku vedenou Riinem proti státu, která si v roce 1992 vyžádala životy bojovníků s mafií Giovanniho Falconeho a Paola Borsellina.“",
+    "reference": "Diese Bosse waren von Provenzano im Zaum gehalten worden, als er dem von Riina geführten Krieg gegen den Staat ein Ende setzte, der 1992 das Leben der Mafia-Kreuzritter Giovanni Falcone und Paolo Borsellino forderte.“",
+    "translation": "Die Chefs wurden von Provenzano kontrolliert, als er den Krieg am Rhein gegen den Staat beendete, der 1992 das Leben von Mafiakämpfern Giovanni Falconeho und Paola Borsellina kostete.",
+    "duration_sec": 9.209309101104736,
+    "generated_tokens": 56,
+    "tokens_per_sec": 6.0808036070026485,
+    "comet_score": 0.816245436668396
+  },
+  {
+    "id": 60,
+    "source": "Výkonný ředitel společnosti Apple, Steve Jobs, představil zařízení tak, že šel na pódium a vytáhl iPhone z kapsy svých džín.",
+    "reference": "Apple-CEO Steve Jobs enthüllte das Gerät, indem er die Bühne betrat und das iPhone aus der Tasche seiner Jeans holte.",
+    "translation": "Der CEO von Apple, Steve Jobs, stellte das Gerät vor, indem er auf die Bühne ging und das iPhone aus seiner Jeansjacke zog.",
+    "duration_sec": 5.848838567733765,
+    "generated_tokens": 36,
+    "tokens_per_sec": 6.155068152949353,
+    "comet_score": 0.8963468074798584
+  },
+  {
+    "id": 61,
+    "source": "Během své dvouhodinové řeči prohlásil, že „Apple dnes znovu vynalezne telefon, dnes se zapíšeme do historie“.",
+    "reference": "Während seiner zweistündigen Rede erklärte er: „Apple wird heute das Telefon neu erfinden; Wir werden heute Geschichte schreiben“.",
+    "translation": "Während seiner zweistündigen Rede erklärte er, dass „Apple heute den Telefon wiederentdeckt, heute schreiben wir uns in die Geschichte ein“.",
+    "duration_sec": 5.842267036437988,
+    "generated_tokens": 36,
+    "tokens_per_sec": 6.161991530936437,
+    "comet_score": 0.8427627086639404
+  },
+  {
+    "id": 62,
+    "source": "Brazílie je největší římskokatolickou zemí na světě, a římskokatolická církev v této zemi vytrvale oponovala legalizaci sňatků osob stejného pohlaví.",
+    "reference": "Brasilien ist das größte römisch-katholische Land der Welt und die römisch-katholische Kirche hat sich fortwährend gegen die Legalisierung der gleichgeschlechtlichen Ehe im Land gestellt.",
+    "translation": "Brasil ist die größte römisch-katholische Nation der Welt, und die römisch-katholische Kirche in diesem Land hat sich stets der Legalisierung von Ehen zwischen Personen gleichen Geschlechts widersetzt.",
+    "duration_sec": 8.989484548568726,
+    "generated_tokens": 54,
+    "tokens_per_sec": 6.007018501255191,
+    "comet_score": 0.9155291318893433
+  },
+  {
+    "id": 63,
+    "source": "Národní kongres Brazílie diskutuje o legalizaci již 10 let a civilní sňatky jsou v současné době legální pouze v Rio Grande do Sul.",
+    "reference": "Der brasilianische Nationalkongress debattiert seit 10 Jahren über die Legalisierung, und solche bürgerlichen Ehen sind derzeit nur in Rio Grande do Sul gesetzlich erlaubt.",
+    "translation": "Der nationale Kongress Brasiliens diskutiert über die Legalisierung seit 10 Jahren und Zivilunionen sind derzeit nur in Rio Grande do Sul legal.",
+    "duration_sec": 5.93642783164978,
+    "generated_tokens": 37,
+    "tokens_per_sec": 6.232704422470408,
+    "comet_score": 0.8641377091407776
+  },
+  {
+    "id": 64,
+    "source": "Původní návrh zákona podala bývalá starostka São Paula, Marta Suplicy. Navrhovaný zákon byl pak upraven a nyní je v rukou Roberta Jeffersona.",
+    "reference": "Der ursprüngliche Gesetzentwurf stammt von der früheren Bürgermeisterin von São Paulo, Marta Suplicy. Nach einer Änderung ist der Gesetzesvorschlag jetzt in den Händen von Roberto Jefferson.",
+    "translation": "Die ursprüngliche Gesetzesvorlage wurde von der ehemaligen Bürgermeisterin von São Paulo, Marta Suplicy, eingereicht. Die vorgeschlagene Gesetzesänderung wurde dann überarbeitet und liegt nun in den Händen von Robert Jefferson.",
+    "duration_sec": 10.968597888946533,
+    "generated_tokens": 66,
+    "tokens_per_sec": 6.017177461351799,
+    "comet_score": 0.8749438524246216
+  },
+  {
+    "id": 65,
+    "source": "Protestující mají v plánu získat pod petici 1,2 miliony podpisů, než ji v listopadu předloží brazilskému národnímu kongresu.",
+    "reference": "Die Demonstranten hoffen darauf, eine Petition mit 1,2 Millionen Unterschriften sammeln zu können, die dann im November dem Nationalkongress vorgelegt werden soll.",
+    "translation": "Die Demonstranten planen, 1,2 Millionen Unterschriften für die Petition zu sammeln, bevor sie sie im November dem brasilianischen Nationalkongress vorlegen.",
+    "duration_sec": 6.7834227085113525,
+    "generated_tokens": 42,
+    "tokens_per_sec": 6.191564613436431,
+    "comet_score": 0.918830394744873
+  },
+  {
+    "id": 66,
+    "source": "Jakmile bylo očividné, že mnoho rodin hledalo právní pomoc při boji proti vystěhování, bylo 20. března uspořádáno setkání v East Bay Community Law Center pro oběti podvodu s bydlením.",
+    "reference": "Für die Opfer des Immobilienbetrugs wurde am 20. März im East Bay Community Law Center ein Treffen veranstaltet, nachdem klar wurde, dass zahlreiche Familien nach juristischer Hilfe suchten, um sich gegen die Räumungen zu wehren.",
+    "translation": "Sobald es offensichtlich wurde, dass viele Familien rechtliche Hilfe suchten, um sich gegen die Vertreibung zu wehren, wurde am 20. März ein Treffen im East Bay Community Law Center für Opfer von Wohnraumbetrug organisiert.",
+    "duration_sec": 10.022566080093384,
+    "generated_tokens": 61,
+    "tokens_per_sec": 6.086265684110275,
+    "comet_score": 0.8586438894271851
+  },
+  {
+    "id": 67,
+    "source": "Když nájemníci začali sdělovat, co se jim stalo, většina zúčastněných rodin si najednou uvědomila že Carolyn Wilson z OHA ukradla jejich kauce a zmizela z města.",
+    "reference": "Als die Mieter zu erzählen begannen, was ihnen zugestoßen war, wurde den meisten der betroffenen Familien plötzlich klar, das Carolyn Wilson vom OHA ihre Kaution gestohlen und die Stadt verlassen hatte.x",
+    "translation": "Wenn die Mieter begannen, zu berichten, was ihnen widerfahren war, bemerkten die meisten der beteiligten Familien plötzlich, dass Carolyn Wilson von der OHA ihre Kaution gestohlen und aus der Stadt verschwunden war.",
+    "duration_sec": 9.470054388046265,
+    "generated_tokens": 58,
+    "tokens_per_sec": 6.124568838085183,
+    "comet_score": 0.8856584429740906
+  },
+  {
+    "id": 68,
+    "source": "Nájemníci Lockwood Gardens se domnívají, že může dojít k vystěhování dalších 40 nebo více rodin, protože se dozvěděli, že policejní oddělení OHA také vyšetřuje další veřejné bytové nemovitosti v Oaklandu, které by mohly být zapleteny do podvodu s bydlením.",
+    "reference": "Bewohner der Lockwood Gardens glauben, dass weitere 40 Familien oder mehr von Räumungen bedroht sein könnten, seit sie erfahren haben, dass die Polizei der Wohnungsbaubehörde von Oakland (OHA) weitere Wohngebäude untersucht, die vom Wohnungsbetrug betroffen sein könnten.",
+    "translation": "Die Mieter von Lockwood Gardens glauben, dass es zu einem weiteren Umzug von 40 oder mehr Familien kommen könnte, da sie erfahren haben, dass auch das Polizeirevier OHA weitere öffentliche Wohnanlagen in Oakland untersucht, die möglicherweise in einen Wohnungsbetrugsfall verwickelt sind.",
+    "duration_sec": 12.142996311187744,
+    "generated_tokens": 73,
+    "tokens_per_sec": 6.011695806309575,
+    "comet_score": 0.8507639765739441
+  },
+  {
+    "id": 69,
+    "source": "Hudební skupina zrušila vystoupení na stadionu War Memorial Stadium na ostrově Maui, které mělo mít návštěvnost 9 000 diváků, a svým fanouškům se omluvila.",
+    "reference": "Die Band brach den Auftritt im War-Memorial-Stadion von Maui ab, der von 9.000 Leuten besucht werden sollte, und entschuldigte sich bei den Fans.",
+    "translation": "Die Musikgruppe hat ihr Konzert im War Memorial Stadium auf der Insel Maui, das 9 000 Zuschauer anziehen sollte, abgesagt und sich bei ihren Fans entschuldigt.",
+    "duration_sec": 7.591953992843628,
+    "generated_tokens": 46,
+    "tokens_per_sec": 6.059046201196792,
+    "comet_score": 0.8570504784584045
+  },
+  {
+    "id": 70,
+    "source": "Firma HK Management Inc. zodpovědná za management kapely původně ke zrušení dne 20. září neuvedla žádný důvod, ale další den svalila vinu na logistické příčiny.",
+    "reference": "Die Managementfirma der Band, HK Management Inc., gab keinen anfänglichen Grund an, als sie am 20. September absagte, machte aber bereits am nächsten Tag logistische Gründe dafür verantwortlich.",
+    "translation": "Die Firma HK Management Inc., die für die Band verantwortlich war, gab am 20. September keinen Grund für die Auflösung an, doch am nächsten Tag verlegte sie die Schuld auf logistische Gründe.",
+    "duration_sec": 8.220448970794678,
+    "generated_tokens": 51,
+    "tokens_per_sec": 6.20404070157129,
+    "comet_score": 0.8722714781761169
+  },
+  {
+    "id": 71,
+    "source": "Slavní řečtí právníci Sakis Kechagioglou a George Nikolakopoulos byli uvězněni v athénském vězení Korydallus poté, co byli shledáni vinnými z úplatkářství a korupce.",
+    "reference": "Die berühmten griechischen Rechtsanwälte Sakis Kechagioglou und George Nikolakopoulos sind im Athener Korydallus-Gefängnis inhaftiert worden, da sie der Bestechung und der Korruption für schuldig befunden wurden.",
+    "translation": "Die berühmten griechischen Juristen Sakis Kechagioglou und George Nikolakopoulos wurden im Korydallos-Gefängnis in Athen inhaftiert, nachdem sie wegen Bestechung und Korruption verurteilt worden waren.",
+    "duration_sec": 9.165040493011475,
+    "generated_tokens": 56,
+    "tokens_per_sec": 6.110174858769158,
+    "comet_score": 0.8904864192008972
+  },
+  {
+    "id": 72,
+    "source": "Výsledkem byl velký skandál v řecké právní komunitě, který byl prohlouben objevením nelegálních aktivit, které v předchozích letech činili soudci, právníci a advokáti .",
+    "reference": "Infolgedessen kam es in der griechischen Juristengemeinde zu einem großen Skandal durch die Aufdeckung illegaler Handlungen, die Richter, Anwälte, Notare und Staatsanwälte in den Jahren zuvor begangen hatten.",
+    "translation": "Die Folge war ein großer Skandal in der griechischen Rechtsbranche, der durch die Entdeckung illegaler Aktivitäten, die in den vorherigen Jahren von Richtern, Rechtsanwälten und Anwälten begangen wurden, vertieft wurde.",
+    "duration_sec": 10.51064920425415,
+    "generated_tokens": 64,
+    "tokens_per_sec": 6.089062507584804,
+    "comet_score": 0.8603727221488953
+  },
+  {
+    "id": 73,
+    "source": "Před pár týdny a poté, co tuto informaci zveřejnil žurnalista Makis Triantafylopoulos ve svém populárním televizním pořadu „Zoungla“ na Alpha TV, byl člen Parlamentu a právník Petros Mantouvalos abdikován kvůli tomu, že se členové jeho úřadu podíleli na ilegálních úplatcích a korupci.",
+    "reference": "Vor einigen Wochen musste der Abgeordnete und Anwalt Petros Mantouvalos nach den Informationen, die der Journalist Makis Triantafylopoulos in seiner beliebten Fernsehsendung „Zoungla“ bei Alpha TV öffentlich machte, abdanken, da Mitglieder seines Büros in illegale Bestechung und Korruption verwickelt gewesen waren.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 15.855995893478394,
+    "generated_tokens": 96,
+    "tokens_per_sec": 6.054491981767289,
+    "comet_score": 0.3215791881084442
+  },
+  {
+    "id": 74,
+    "source": "Navíc je nejvyšší soudce Evangelos Kalousis ve vězení, protože byl shledán vinným z korupce a zvrhlého chování.",
+    "reference": "Darüber hinaus wurde der oberste Richter Evangelos Kalousis inhaftiert, da er der Korruption und des verkommenen Verhaltens schuldig gesprochen wurde.",
+    "translation": "Der höchste Richter Evangelos Kalousis ist im Gefängnis, weil er wegen Bestechung und Verhaltensverstoß verurteilt wurde.",
+    "duration_sec": 6.167582035064697,
+    "generated_tokens": 37,
+    "tokens_per_sec": 5.999109503472032,
+    "comet_score": 0.8234999775886536
+  },
+  {
+    "id": 75,
+    "source": "Roberts rozhodně odmítl uvést, kdy podle něj začíná život – což je v etice potratů důležitá otázka – slovy, že komentovat specifika souvisejících případů by bylo neetické.",
+    "reference": "Roberts weigerte sich schlichtweg, etwas darüber zu sagen, wann seiner Meinung nach das Leben beginnt – eine wichtige Frage, wenn es um die Ethik der Abtreibung geht – und meinte, es wäre unethisch, sich zu den Einzelheiten möglicher Fälle zu äußern.",
+    "translation": "Übersetzung:",
+    "duration_sec": 11.33962368965149,
+    "generated_tokens": 69,
+    "tokens_per_sec": 6.084858006617029,
+    "comet_score": 0.21946068108081818
+  },
+  {
+    "id": 76,
+    "source": "Zopakoval nicméně své dřívější prohlášení, že případ Roe vs. Wade představoval „ustálenou judikaturu země“, čímž zdůraznil význam konzistentních výroků Nejvyššího soudu.",
+    "reference": "\"Allerdings wiederholte er seine vorherige Erklärung, dass Roe v. Wade \"\"geltende Rechtsprechung des Landes\"\" sei und betonte die Bedeutung von konsequenter Rechtsprechung durch den Supreme Court.\"",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 11.099893569946289,
+    "generated_tokens": 67,
+    "tokens_per_sec": 6.036093911873806,
+    "comet_score": 0.37892261147499084
+  },
+  {
+    "id": 77,
+    "source": "Také potvrdil, že věří v nevyslovené právo na soukromí, na němž Roeho rozhodnutí záviselo.",
+    "reference": "Er bestätigte außerdem, dass er an das implizite Recht auf Privatsphäre glaube, auf dem die Entscheidung im Fall Roe beruhe.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 7.491114377975464,
+    "generated_tokens": 47,
+    "tokens_per_sec": 6.274099904038862,
+    "comet_score": 0.3686363995075226
+  },
+  {
+    "id": 78,
+    "source": "Město Maroochydore skončilo na vrcholu žebříčku, šest bodů před druhou Noosou.",
+    "reference": "Maroochydore führte am Ende die Rangfolge an, mit sechs Punkten Vorsprung vor Noosa als Zweitem.",
+    "translation": "Die Stadt Maroochydore beendete auf dem ersten Platz, sechs Punkte vor der zweiten Noosa.",
+    "duration_sec": 4.408494234085083,
+    "generated_tokens": 27,
+    "tokens_per_sec": 6.124540164132356,
+    "comet_score": 0.783758819103241
+  },
+  {
+    "id": 79,
+    "source": "Tato dvě mužstva se utkala ve velkém semifinále, v němž Noosa na vítěze ztratila 11 bodů.",
+    "reference": "Die beiden Gegner trafen sich im wichtigsten Halbfinale, wo Noosa die Gewinner um 11 Punkte übertraf.",
+    "translation": "Die beiden Mannschaften trafen sich im großen Halbfinale, in dem Noosa 11 Punkte auf den Sieger verlor.",
+    "duration_sec": 5.051680564880371,
+    "generated_tokens": 32,
+    "tokens_per_sec": 6.3345256274646875,
+    "comet_score": 0.8588415384292603
+  },
+  {
+    "id": 80,
+    "source": "Maroochydore pak v předběžném finále porazil Caboolture.",
+    "reference": "Maroochydore besiegte Caboolture dann im vorläufigen Finale.",
+    "translation": "Maroochydore besiegte dann Caboolture im Halbfinale.",
+    "duration_sec": 3.0576486587524414,
+    "generated_tokens": 19,
+    "tokens_per_sec": 6.213925182546067,
+    "comet_score": 0.8753995299339294
+  },
+  {
+    "id": 81,
+    "source": "Hesperonychus elizabethae je druh z čeledi Dromaeosauridae a je příbuzný rodu Velociraptora.",
+    "reference": "Hesperonychus elizabethae ist eine Art aus der Familie der Dromaeosauridae und ein naher Verwandter des Velociraptors.",
+    "translation": "Hesperonychus elizabethae ist ein Gattung aus der Familie der Dromaeosauridae und ist verwandt mit der Gattung Velociraptor.",
+    "duration_sec": 6.270269393920898,
+    "generated_tokens": 38,
+    "tokens_per_sec": 6.060345674595968,
+    "comet_score": 0.8830680251121521
+  },
+  {
+    "id": 82,
+    "source": "Tento plně opeřený, teplokrevný dravý pták údajně chodil vzpřímeně po dvou nohách s drápy jako Velociraptor.",
+    "reference": "Es wird angenommen, dass dieser voll gefiederte warmblütige Raubvogel aufrecht auf zwei Beinen lief und Krallen wie der Velociraptor hatte.",
+    "translation": "Dieser vollfedrige, warmblütige Raubvogel soll angeblich auf zwei Beinen mit Krallen wie ein Velociraptor aufrecht gegangen sein.",
+    "duration_sec": 6.5552825927734375,
+    "generated_tokens": 40,
+    "tokens_per_sec": 6.101948990589073,
+    "comet_score": 0.6840512156486511
+  },
+  {
+    "id": 83,
+    "source": "Jeho druhý dráp byl větší, a proto byl pojmenován Hesperonychus, což znamená „západní dráp“.",
+    "reference": "\"Seine zweite Klaue war größer, was ihm den Namen Hesperonychus einbrachte, was „westliche Klaue\"\" bedeutet.\"",
+    "translation": "Sein zweiter Zahn war größer, und deshalb wurde er Hesperonychus genannt, was so viel bedeutet wie „westlicher Zahn“.",
+    "duration_sec": 5.833961009979248,
+    "generated_tokens": 36,
+    "tokens_per_sec": 6.170764586602552,
+    "comet_score": 0.7925501465797424
+  },
+  {
+    "id": 84,
+    "source": "Kromě drtivého ledu se snahy o záchranu potýkaly i s extrémními klimatickými podmínkami.",
+    "reference": "Zusätzlich zu dem erdrückenden Eis haben extreme Wetterbedingungen die Rettungsarbeiten behindert.",
+    "translation": "Die Bemühungen um die Rettung standen nicht nur vor dem drückenden Eis, sondern auch vor extremen Wetterbedingungen.",
+    "duration_sec": 5.3347179889678955,
+    "generated_tokens": 33,
+    "tokens_per_sec": 6.1858940000658755,
+    "comet_score": 0.7576132416725159
+  },
+  {
+    "id": 85,
+    "source": "Pittman naznačil, že se podmínky nezlepší až do příštího týdne.",
+    "reference": "Pittman deutete an, dass sich die Bedingungen erst irgendwann in der nächsten Woche verbessern würden.",
+    "translation": "Pittman signalisierte, dass die Bedingungen erst in der nächsten Woche besser werden.",
+    "duration_sec": 3.38676381111145,
+    "generated_tokens": 21,
+    "tokens_per_sec": 6.200609540914024,
+    "comet_score": 0.9331720471382141
+  },
+  {
+    "id": 86,
+    "source": "Množství a tloušťka pole ledových ker byly podle Pittmana pro lovce tuleňů nejhorší za posledních 15 let.",
+    "reference": "Gemessen an seiner Menge und Dicke ist es Pittman zufolge das schlimmste Packeis, von dem Robbenfangschiffe in den letzten 15 Jahren betroffen waren.",
+    "translation": "Die Menge und Dicke des Eispolsters waren laut Pittman für die Robbenjäger die schlechtesten in den letzten 15 Jahren.",
+    "duration_sec": 5.664483547210693,
+    "generated_tokens": 35,
+    "tokens_per_sec": 6.178851029982197,
+    "comet_score": 0.7459958791732788
+  },
+  {
+    "id": 87,
+    "source": "Zatímco se dnes v komunitě Red Lake konaly pohřby Jeffa Weise a tří z devíti obětí, rozšířily se zprávy, že byl zadržen další student ve spojitosti se střelbou na škole z 21. března.",
+    "reference": "Als heute die Bestattungen von Jeff Weise und drei der neun Opfer stattfanden, verbreitete sich die Nachricht von der Verhaftung eines weiteren Schülers in Verbindung mit den Erschießungen an einer Schule am 21. März in der Red-Lake-Gemeinschaft.",
+    "translation": "Während heute in der Gemeinschaft von Red Lake die Beerdigungen von Jeff Weise und drei von neun Opfern stattfanden, verbreiteten sich Berichte, dass ein weiterer Schüler in Verbindung mit dem Schießerei vom 21. März festgenommen wurde.",
+    "duration_sec": 11.108115911483765,
+    "generated_tokens": 68,
+    "tokens_per_sec": 6.121650200796015,
+    "comet_score": 0.8466958403587341
+  },
+  {
+    "id": 88,
+    "source": "Kromě dnešního zatčení sdělily úřady oficiálně jen málo.",
+    "reference": "Die Behörden sagten über die Bestätigung der heutigen Festnahme hinaus offiziell wenig.",
+    "translation": "Die Behörden haben heute nur wenig offiziell bekannt gegeben.",
+    "duration_sec": 2.5776169300079346,
+    "generated_tokens": 16,
+    "tokens_per_sec": 6.20728387284093,
+    "comet_score": 0.8403674364089966
+  },
+  {
+    "id": 89,
+    "source": "Zdroj informací týkajících se vyšetřování však pro Minneapolis Star-Tribune uvedl, že šlo o Louise Jourdaina, šestnáctiletého syna kmenového předsedy Red Lake Floyda Jourdaina.",
+    "reference": "Eine Quelle, die über Kenntnis der Untersuchung verfügt, teilte der Star Tribune in Minneapolis jedoch mit, dass es sich um Louis Jourdain handelt, den 16-jährigen Sohn des Stammesvorsitzenden des Red Lake-Stammes Floyd Jourdain.",
+    "translation": "Die Quelle der Informationen zu den Ermittlungen, die der Minneapolis Star-Tribune zitierte, nannte den 16-jährigen Sohn des Stammesoberhaupts Red Lake, Floyd Jourdain, namens Louis Jourdain.",
+    "duration_sec": 9.383439779281616,
+    "generated_tokens": 58,
+    "tokens_per_sec": 6.1811021719415145,
+    "comet_score": 0.7847579717636108
+  },
+  {
+    "id": 90,
+    "source": "V tuto chvíli není známo, jaké obvinění bude vzneseno, ani co úřady k chlapci dovedlo, ale u federálního soudu již bylo zahájeno řízení pro mladistvé.",
+    "reference": "Zur Zeit ist nicht bekannt, welche Vorwürfe erhoben werden oder was die Behörden zu dem Jungen geführt hat, aber vor dem Bundesgericht hat ein Jugendverfahren begonnen.",
+    "translation": "Derzeit ist nicht bekannt, welche Anschuldigungen erhoben werden, noch was die Behörden mit dem Jungen gemacht haben, aber vor dem Bundesgericht wurde bereits ein Verfahren gegen ihn eingeleitet.",
+    "duration_sec": 7.737068176269531,
+    "generated_tokens": 48,
+    "tokens_per_sec": 6.203900354299767,
+    "comet_score": 0.909769594669342
+  },
+  {
+    "id": 91,
+    "source": "Lodin také řekl, že se příslušné orgány rozhodly druhé kolo zrušit, aby Afgháncům ušetřily výdaje a snížily bezpečnostní riziko dalších voleb.",
+    "reference": "Lodin gab weiterhin an, die Entscheidung zur Absage der Stichwahl sei getroffen worden, um den Afghanen die Kosten und das Sicherheitsrisiko einer weiteren Wahl zu ersparen.",
+    "translation": "Lodin sagte auch, dass die zuständigen Behörden beschlossen, das zweite Runde abzusagen, um den Afghanen Ausgaben zu sparen und das Sicherheitsrisiko bei weiteren Wahlen zu verringern.",
+    "duration_sec": 8.89337944984436,
+    "generated_tokens": 54,
+    "tokens_per_sec": 6.071932531895402,
+    "comet_score": 0.8457546830177307
+  },
+  {
+    "id": 92,
+    "source": "Diplomati uvádějí, že v afghánské ústavě nalezli dostatek nejednoznačnosti na to, aby toto druhé kolo označili za nepotřebné.",
+    "reference": "Diplomaten sagten, sie hätten genug Unklarheit in der afghanischen Verfassung gefunden, um die Stichwahl für unnötig zu befinden.",
+    "translation": "Die Diplomaten behaupten, dass sie in der afghanischen Verfassung genügend Unklarheiten gefunden haben, um dieses zweite Rennen als unnötig zu bezeichnen.",
+    "duration_sec": 7.295546293258667,
+    "generated_tokens": 45,
+    "tokens_per_sec": 6.1681467283103295,
+    "comet_score": 0.8665498495101929
+  },
+  {
+    "id": 93,
+    "source": "To je v rozporu s dřívějšími zprávami, podle kterých by zrušení druhého kola bylo v rozporu s ústavou.",
+    "reference": "Dies widerspricht früheren Berichten, denen zufolge eine Absage der Stichwahlen verfassungswidrig ist.",
+    "translation": "Die Aussage widerspricht früheren Meldungen, nach denen die Abschaffung der zweiten Runde mit der Verfassung in Konflikt stünde.",
+    "duration_sec": 6.734010934829712,
+    "generated_tokens": 41,
+    "tokens_per_sec": 6.08849620186083,
+    "comet_score": 0.8872056603431702
+  },
+  {
+    "id": 94,
+    "source": "Letadlo mířilo do Irkutsku a bylo provozováno jednotkami ministerstva vnitra.",
+    "reference": "Das Flugzeug war auf dem Weg nach Irkutsk und wurde von Truppen des russischen Innenministeriums betrieben.",
+    "translation": "Die Maschine flog nach Irkutsk und wurde von Einheiten des Innenministeriums betrieben.",
+    "duration_sec": 4.283492088317871,
+    "generated_tokens": 26,
+    "tokens_per_sec": 6.069813942439242,
+    "comet_score": 0.8792592287063599
+  },
+  {
+    "id": 95,
+    "source": "Za účelem prošetření bylo zahájeno pátrání.",
+    "reference": "Es wurde eine Untersuchung zur Aufklärung des Unfalls eingeleitet.",
+    "translation": "Die Untersuchung wurde eingeleitet.",
+    "duration_sec": 1.6027708053588867,
+    "generated_tokens": 10,
+    "tokens_per_sec": 6.239195252724132,
+    "comet_score": 0.8061255812644958
+  },
+  {
+    "id": 96,
+    "source": "Letadlo Il-76 bylo významnou součástí ruské i sovětské armády od 70. let a minulý měsíc zažilo v Rusku vážnou nehodu.",
+    "reference": "Die Il-76 ist seit den 1970er Jahren ein Hauptbestandteil sowohl des russischen als auch des sowjetischen Militärs und hatte im vergangenen Monat bereits einen schweren Unfall in Russland erlebt.",
+    "translation": "Hier ist die Übersetzung ins Deutsche:",
+    "duration_sec": 9.183374643325806,
+    "generated_tokens": 56,
+    "tokens_per_sec": 6.097976198836566,
+    "comet_score": 0.34008243680000305
+  },
+  {
+    "id": 97,
+    "source": "7. října se motor oddělil během vzletu, ke zraněním nedošlo. Po této nehodě Rusko na krátkou dobu uzemnilo Il-76.",
+    "reference": "Am 7. Oktober löste sich beim Start ein Triebwerk, es wurde allerdings niemand verletzt. Nach diesem Unfall setzte Russland die Il-76 kurzzeitig außer Dienst.",
+    "translation": "7. Oktober trennte sich der Motor während des Startvorgangs, es kam zu Verletzungen nicht. Nach dieser Unfall gab Russland den Il-76 für eine kurze Zeit aus dem Verkehr.",
+    "duration_sec": 7.335110425949097,
+    "generated_tokens": 46,
+    "tokens_per_sec": 6.271207565910369,
+    "comet_score": 0.8194472789764404
+  },
+  {
+    "id": 98,
+    "source": "800 mil Transaljašského potrubního systému bylo zavřeno v důsledku úniku tisíců barelů surové ropy jižně od města Fairbanks na Aljašce.",
+    "reference": "800 Meilen der Trans-Alaska-Pipeline wurden nach dem Auslaufen von Tausenden von Fässern Rohöl südlich von Fairbanks, Alaska, stillgelegt.",
+    "translation": "800 Meilen des Trans-Alaska-Pipelinesystems wurden wegen eines Lecks von Tausenden Fasseln Rohöl südlich der Stadt Fairbanks in Alaska geschlossen.",
+    "duration_sec": 6.115117788314819,
+    "generated_tokens": 37,
+    "tokens_per_sec": 6.0505784648501955,
+    "comet_score": 0.8947907090187073
+  },
+  {
+    "id": 99,
+    "source": "Výpadek proudu po rutinní zkoušce požárního zabezpečovacího systému způsobil otevření pojistných ventilů a přetékání ropy poblíž čerpací stanice Fort Greely 9.",
+    "reference": "Ein Stromausfall nach einer routinemäßigen Prüfung des Systems zur Feuerbekämpfung führte in der Nähe der Pumpstation 9 von Fort Greely zum Öffnen von Überdruckventilen und zum Überlaufen von Rohöl.",
+    "translation": "Ich kann die Übersetzung nicht durchführen, da ich keine spezifischen Informationen über den Text habe. Bitte gib mir den Text in der tschechischen Sprache, den du übersetzen lassen möchtest.",
+    "duration_sec": 8.353791952133179,
+    "generated_tokens": 51,
+    "tokens_per_sec": 6.105011986440112,
+    "comet_score": 0.3410576581954956
+  }
+]

@@ -1,0 +1,2510 @@
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:15.979581 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:28.433535 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:35.283927 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:42.122034 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:48.959755 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:37:55.672968 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:02.381862 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:09.105703 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:15.976109 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:22.715669 ---
+Command: /usr/bin/python3 src/benchmark.py --model meta-llama/Llama-3.1-8B-Instruct --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: meta-llama/Llama-3.1-8B-Instruct
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:29.523012 ---
+Command: /usr/bin/python3 src/benchmark.py --model meta-llama/Llama-3.1-8B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: meta-llama/Llama-3.1-8B-Instruct
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:36.349298 ---
+Command: /usr/bin/python3 src/benchmark.py --model meta-llama/Llama-3.1-8B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: meta-llama/Llama-3.1-8B-Instruct
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:43.164821 ---
+Command: /usr/bin/python3 src/benchmark.py --model Qwen/Qwen2.5-7B-Instruct --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: Qwen/Qwen2.5-7B-Instruct
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:49.983659 ---
+Command: /usr/bin/python3 src/benchmark.py --model Qwen/Qwen2.5-7B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: Qwen/Qwen2.5-7B-Instruct
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:38:56.818007 ---
+Command: /usr/bin/python3 src/benchmark.py --model Qwen/Qwen2.5-7B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 5, in <module>
+    import torch
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 430, in <module>
+    _load_global_deps()
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 381, in _load_global_deps
+    _preload_cuda_deps()
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 348, in _preload_cuda_deps
+    _preload_cuda_lib(lib_folder, lib_name)
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 318, in _preload_cuda_lib
+    ctypes.CDLL(lib_path)
+  File "/usr/lib/python3.12/ctypes/__init__.py", line 373, in __init__
+    class _FuncPtr(_CFuncPtr):
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 09:43:07.373519 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:43:14.245869 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:43:20.967803 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 9, in <module>
+    from transformers import (
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2317, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2345, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/tokenization_auto.py", line 40, in <module>
+    from .auto_factory import _LazyAutoMapping
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/auto_factory.py", line 43, in <module>
+    from ...generation import GenerationMixin
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2317, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2345, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/generation/utils.py", line 43, in <module>
+    from ..masking_utils import create_masks_for_generate
+  File "/usr/local/lib/python3.12/dist-packages/transformers/masking_utils.py", line 40, in <module>
+    from torch._dynamo._trace_wrapped_higher_order_op import TransformGetItemToIndex
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/__init__.py", line 13, in <module>
+    from . import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile.py", line 14, in <module>
+    from torch._dynamo.convert_frame import GraphRuntimeEnv
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/convert_frame.py", line 60, in <module>
+    from torch._dynamo.symbolic_convert import TensorifyState
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/symbolic_convert.py", line 53, in <module>
+    from torch._dynamo.exc import ObservedException, TensorifyScalarRestartAnalysis
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/exc.py", line 44, in <module>
+    from .utils import counters
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/utils.py", line 2500, in <module>
+    if has_triton_package():
+       ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_triton.py", line 9, in has_triton_package
+    import triton  # noqa: F401
+    ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/triton/__init__.py", line 8, in <module>
+    from .runtime import (
+  File "/usr/local/lib/python3.12/dist-packages/triton/runtime/__init__.py", line 1, in <module>
+    from .autotuner import (Autotuner, Config, Heuristics, autotune, heuristics)
+  File "/usr/local/lib/python3.12/dist-packages/triton/runtime/autotuner.py", line 11, in <module>
+    from .. import knobs
+  File "/usr/local/lib/python3.12/dist-packages/triton/knobs.py", line 15, in <module>
+    from triton._C.libtriton import getenv, getenv_bool  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1322, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 1262, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1532, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1506, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1605, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 147, in _path_stat
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 09:43:59.894148 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:44:06.679815 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+`trust_remote_code` is not supported anymore.
+Please check that the Hugging Face dataset 'Muennighoff/flores200' isn't based on a loading script and remove `trust_remote_code`.
+If the dataset is based on a loading script, please ask the dataset author to remove it and convert it to a standard format like Parquet.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[!] Aligned pair load failed: Dataset scripts are no longer supported, but found flores200.py. Falling back to single-language loads...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 252, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 108, in main
+    dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1688, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1315, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1207, in dataset_module_factory
+    raise e1 from None
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1167, in dataset_module_factory
+    raise RuntimeError(f"Dataset scripts are no longer supported, but found {filename}")
+RuntimeError: Dataset scripts are no longer supported, but found flores200.py
+
+
+--- COMMAND RUN AT 2026-05-20 09:44:13.408137 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 5, in <module>
+    import torch
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 2785, in <module>
+    from torch import _meta_registrations
+  File "/usr/local/lib/python3.12/dist-packages/torch/_meta_registrations.py", line 12, in <module>
+    from torch._decomp import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_decomp/__init__.py", line 277, in <module>
+    import torch._decomp.decompositions
+  File "/usr/local/lib/python3.12/dist-packages/torch/_decomp/decompositions.py", line 4775, in <module>
+    @out_wrapper()
+     ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_prims_common/wrappers.py", line 292, in _out_wrapper
+    @wraps(fn)
+     ^^^^^^^^^
+  File "/usr/lib/python3.12/functools.py", line 35, in update_wrapper
+    def update_wrapper(wrapper,
+    
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 09:51:31.058150 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+Generating validation split:   0%|          | 0/997 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 997/997 [00:00<00:00, 18545.37 examples/s]
+Generating validation split:   0%|          | 0/997 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 997/997 [00:00<00:00, 239201.53 examples/s]
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d842b-3314ecbf7552e7cd178f6132;012f1d7c-6748-46f3-8802-589c65b81521)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 268, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 132, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d842b-3314ecbf7552e7cd178f6132;012f1d7c-6748-46f3-8802-589c65b81521)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 09:51:40.721624 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+Generating validation split:   0%|          | 0/997 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 997/997 [00:00<00:00, 207570.79 examples/s]
+Generating validation split:   0%|          | 0/997 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 997/997 [00:00<00:00, 280577.10 examples/s]
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d8434-5179a10b01b8b31811db4aa1;e3350b12-4016-4705-98b3-544cbe1cd6ff)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 268, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 132, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d8434-5179a10b01b8b31811db4aa1;e3350b12-4016-4705-98b3-544cbe1cd6ff)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 09:51:49.758268 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 9, in <module>
+    from transformers import (
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2317, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2345, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/tokenization_auto.py", line 40, in <module>
+    from .auto_factory import _LazyAutoMapping
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/auto_factory.py", line 43, in <module>
+    from ...generation import GenerationMixin
+  File "<frozen importlib._bootstrap>", line 1412, in _handle_fromlist
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2317, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py", line 2345, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/importlib/__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/generation/utils.py", line 43, in <module>
+    from ..masking_utils import create_masks_for_generate
+  File "/usr/local/lib/python3.12/dist-packages/transformers/masking_utils.py", line 40, in <module>
+    from torch._dynamo._trace_wrapped_higher_order_op import TransformGetItemToIndex
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/__init__.py", line 13, in <module>
+    from . import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/aot_compile.py", line 14, in <module>
+    from torch._dynamo.convert_frame import GraphRuntimeEnv
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/convert_frame.py", line 60, in <module>
+    from torch._dynamo.symbolic_convert import TensorifyState
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/symbolic_convert.py", line 59, in <module>
+    from . import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/trace_rules.py", line 59, in <module>
+    from .variables import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/variables/__init__.py", line 19, in <module>
+    from .base import VariableTracker
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/variables/base.py", line 28, in <module>
+    from ..guards import GuardBuilder, install_guard
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/guards.py", line 84, in <module>
+    from torch._dynamo.source import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/source.py", line 952, in <module>
+    @dataclass_with_cached_hash(frozen=True)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_guards.py", line 1109, in wrap
+    new_cls = dataclasses.dataclass(cls_inner, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 1275, in dataclass
+    return wrap(cls)
+           ^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 1265, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 1127, in _process_class
+    cls.__hash__ = hash_action(cls, field_list, globals)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 884, in _hash_add
+    return _set_qualname(cls, _hash_fn(flds, globals))
+                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 677, in _hash_fn
+    return _create_fn('__hash__',
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/dataclasses.py", line 473, in _create_fn
+    exec(txt, globals, ns)
+  File "<string>", line 0, in <module>
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 10:10:05.158628 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+The cache for model files in Transformers v4.22.0 has been updated. Migrating your old cache. This is a one-time only operation. You can interrupt this and resume the migration later on by calling `transformers.utils.move_cache()`.
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d8881-077146fa6fe3cf95716e1cc2;289506a4-3bec-4bd8-a877-55181f1d8a50)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 268, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 132, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 976, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 420, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d8881-077146fa6fe3cf95716e1cc2;289506a4-3bec-4bd8-a877-55181f1d8a50)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 10:10:10.270227 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d8886-1f54cf9c142677f545b6627f;03be0fdb-6831-4b1a-a07b-3dfedc0aaa24)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 268, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 132, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 976, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 420, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d8886-1f54cf9c142677f545b6627f;03be0fdb-6831-4b1a-a07b-3dfedc0aaa24)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 10:10:15.297290 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 105, in main
+    dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="dev")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1720, in load_dataset
+    ds = builder_instance.as_dataset(split=split, verification_mode=verification_mode, in_memory=keep_in_memory)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1052, in as_dataset
+    datasets = map_nested(
+               ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/py_utils.py", line 492, in map_nested
+    mapped = function(data_struct)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1082, in _build_single_dataset
+    ds = self._as_dataset(
+         ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1156, in _as_dataset
+    dataset_kwargs = ArrowReader(cache_dir, self.info).read(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 248, in read
+    files = self.get_file_instructions(name, instructions, split_infos)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 221, in get_file_instructions
+    file_instructions = make_file_instructions(
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 130, in make_file_instructions
+    absolute_instructions = instruction.to_absolute(name2len)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 620, in to_absolute
+    return [_rel_to_abs_instr(rel_instr, name2len) for rel_instr in self._relative_instructions]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 437, in _rel_to_abs_instr
+    raise ValueError(f'Unknown split "{split}". Should be one of {list(name2len)}.')
+ValueError: Unknown split "dev". Should be one of ['validation'].
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 109, in main
+    dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="devtest")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1720, in load_dataset
+    ds = builder_instance.as_dataset(split=split, verification_mode=verification_mode, in_memory=keep_in_memory)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1052, in as_dataset
+    datasets = map_nested(
+               ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/py_utils.py", line 492, in map_nested
+    mapped = function(data_struct)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1082, in _build_single_dataset
+    ds = self._as_dataset(
+         ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 1156, in _as_dataset
+    dataset_kwargs = ArrowReader(cache_dir, self.info).read(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 248, in read
+    files = self.get_file_instructions(name, instructions, split_infos)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 221, in get_file_instructions
+    file_instructions = make_file_instructions(
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 130, in make_file_instructions
+    absolute_instructions = instruction.to_absolute(name2len)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 620, in to_absolute
+    return [_rel_to_abs_instr(rel_instr, name2len) for rel_instr in self._relative_instructions]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/arrow_reader.py", line 437, in _rel_to_abs_instr
+    raise ValueError(f'Unknown split "{split}". Should be one of {list(name2len)}.')
+ValueError: Unknown split "devtest". Should be one of ['validation'].
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 268, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 113, in main
+    dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="validation")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/load.py", line 1708, in load_dataset
+    builder_instance.download_and_prepare(
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 884, in download_and_prepare
+    self._download_and_prepare(
+  File "/usr/local/lib/python3.12/dist-packages/datasets/builder.py", line 925, in _download_and_prepare
+    split_generators: list[SplitGenerator] = self._split_generators(dl_manager, **split_generators_kwargs)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/packaged_modules/parquet/parquet.py", line 110, in _split_generators
+    data_files = dl_manager.download(self.config.data_files)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/download/download_manager.py", line 159, in download
+    downloaded_path_or_paths = map_nested(
+                               ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/py_utils.py", line 520, in map_nested
+    _single_map_nested((function, obj, batched, batch_size, types, None, True, None))
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/py_utils.py", line 407, in _single_map_nested
+    mapped = [_single_map_nested((function, v, batched, batch_size, types, None, True, None)) for v in pbar]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/py_utils.py", line 388, in _single_map_nested
+    return [mapped_item for batch in iter_batched(data_struct, batch_size) for mapped_item in function(batch)]
+                                                                                              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/download/download_manager.py", line 220, in _download_batched
+    self._download_single(url_or_filename, download_config=download_config)
+  File "/usr/local/lib/python3.12/dist-packages/datasets/download/download_manager.py", line 229, in _download_single
+    out = cached_path(url_or_filename, download_config=download_config)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/datasets/utils/file_utils.py", line 188, in cached_path
+    ).hf_hub_download(
+      ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/hf_api.py", line 5467, in hf_hub_download
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1175, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1727, in _download_to_tmp_and_move
+    xet_get(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 633, in xet_get
+    download_files(
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 10:13:01.177275 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+/kaggle/working/Model_compression_MT/src/benchmark.py:122: DeprecationWarning: Python 3.14 will, by default, filter extracted tar archives and reject files or modify their metadata. Use the filter argument to control this behavior.
+  tar.extractall()
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Downloading FLORES-200 raw dataset from https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz...
+[*] Extracting FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d8930-087c0245507ff7ff028d2a96;b100df1d-f6f2-4183-817b-0817c6a2621b)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 314, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 178, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 976, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 420, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d8930-087c0245507ff7ff028d2a96;b100df1d-f6f2-4183-817b-0817c6a2621b)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 10:13:05.477836 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 401 Client Error: Unauthorized for url: https://huggingface.co/google/gemma-2b-it/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 402, in cached_file
+    resolved_file = hf_hub_download(
+                    ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6a0d8934-4eacb0fe1834b90052aefa3e;6e511eb7-d13a-4502-8774-d82c050e488a)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 314, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 178, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 42, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 976, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 632, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 689, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 420, in cached_file
+    raise EnvironmentError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/google/gemma-2b-it.
+401 Client Error. (Request ID: Root=1-6a0d8934-4eacb0fe1834b90052aefa3e;6e511eb7-d13a-4502-8774-d82c050e488a)
+
+Cannot access gated repo for url https://huggingface.co/google/gemma-2b-it/resolve/main/config.json.
+Access to model google/gemma-2b-it is restricted. You must have access to it and be authenticated to access it. Please log in.
+
+
+--- COMMAND RUN AT 2026-05-20 10:13:08.931675 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 5, in <module>
+    import torch
+  File "/usr/local/lib/python3.12/dist-packages/torch/__init__.py", line 2785, in <module>
+    from torch import _meta_registrations
+  File "/usr/local/lib/python3.12/dist-packages/torch/_meta_registrations.py", line 12, in <module>
+    from torch._decomp import (
+  File "/usr/local/lib/python3.12/dist-packages/torch/_decomp/__init__.py", line 278, in <module>
+    import torch._refs
+  File "/usr/local/lib/python3.12/dist-packages/torch/_refs/__init__.py", line 6875, in <module>
+    import torch._refs.nn.functional
+  File "/usr/local/lib/python3.12/dist-packages/torch/_refs/nn/functional/__init__.py", line 1200, in <module>
+    @out_wrapper()
+     ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_prims_common/wrappers.py", line 288, in _out_wrapper
+    sig = inspect.signature(fn)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/inspect.py", line 3348, in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/inspect.py", line 3085, in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/inspect.py", line 2549, in _signature_from_callable
+    pass
+KeyboardInterrupt
+
+
+--- COMMAND RUN AT 2026-05-20 10:28:51.061295 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Downloading shards:   0%|          | 0/2 [00:00<?, ?it/s]Downloading shards:  50%|█████     | 1/2 [00:20<00:20, 20.93s/it]Downloading shards: 100%|██████████| 2/2 [00:21<00:00,  9.22s/it]Downloading shards: 100%|██████████| 2/2 [00:21<00:00, 10.98s/it]
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.74s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.05s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.45s/it]
+2026-05-20 10:29:28.460284: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779272968.688534     744 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779272968.757822     744 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779272969.300030     744 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779272969.300082     744 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779272969.300086     744 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779272969.300090     744 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 28.09 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-2b-it_fp16_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 28.09s | Peak VRAM: 3054.90MB | Avg Speed: 30.30 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 10:32:13.345100 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-2b-it_fp16_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-2b-it_fp16_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files:  40%|████      | 2/5 [00:00<00:00, 12.65it/s]Fetching 5 files:  80%|████████  | 4/5 [00:10<00:03,  3.01s/it]Fetching 5 files: 100%|██████████| 5/5 [00:10<00:00,  2.07s/it]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:01<00:13,  1.14s/it]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:01<00:06,  1.63it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:01<00:04,  2.15it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:03,  2.52it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  2.78it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:02<00:02,  2.96it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:02<00:01,  3.09it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.18it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.21it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:03<00:00,  3.21it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.19it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.18it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:04<00:00,  3.11it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:04<00:00,  3.11it/s]
+[*] COMET System Score: 0.4097
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-2b-it_fp16_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.4097
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 10:32:51.305369 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.76s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.06s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.47s/it]
+2026-05-20 10:33:03.273906: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779273183.302491    1854 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779273183.310606    1854 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779273183.332935    1854 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273183.332968    1854 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273183.332972    1854 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273183.332975    1854 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 5.90 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-2b-it_fp16_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 5.90s | Peak VRAM: 3024.46MB | Avg Speed: 30.62 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 10:34:54.314035 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-2b-it_fp16_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-2b-it_fp16_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 75983.77it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.62it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  2.86it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:02,  3.43it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.72it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.90it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  4.02it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.08it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.11it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:00,  4.10it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.06it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  3.97it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.89it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.73it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.73it/s]
+[*] COMET System Score: 0.7465
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-2b-it_fp16_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.7465
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 10:35:18.267857 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-2b-it --precision fp16 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+=== Starting Benchmark ===
+Model: google/gemma-2b-it
+Precision: fp16
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-2b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.64s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.40s/it]
+2026-05-20 10:35:30.008288: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779273330.030911    1918 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779273330.038188    1918 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779273330.057300    1918 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273330.057325    1918 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273330.057328    1918 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273330.057330    1918 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 5.72 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-2b-it_fp16_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 5.72s | Peak VRAM: 3022.00MB | Avg Speed: 29.74 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 10:38:40.267696 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-2b-it_fp16_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-2b-it_fp16_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 76260.07it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.70it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  2.97it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.17it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.48it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.67it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.79it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.51it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.34it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.21it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:03<00:00,  3.20it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.10it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:04<00:00,  2.98it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:04<00:00,  2.85it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:04<00:00,  2.85it/s]
+[*] COMET System Score: 0.5217
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-2b-it_fp16_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.5217
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 10:39:04.918840 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-7b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:21<01:05, 21.67s/it]Downloading shards:  50%|█████     | 2/4 [00:50<00:52, 26.16s/it]Downloading shards:  75%|███████▌  | 3/4 [01:12<00:24, 24.04s/it]Downloading shards: 100%|██████████| 4/4 [01:23<00:00, 18.78s/it]Downloading shards: 100%|██████████| 4/4 [01:23<00:00, 20.80s/it]
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:21<01:03, 21.21s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:41<00:41, 20.60s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:01<00:20, 20.24s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:04<00:00, 13.75s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:04<00:00, 16.25s/it]
+2026-05-20 10:41:48.259966: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779273708.278119    1982 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779273708.283911    1982 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779273708.299517    1982 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273708.299538    1982 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273708.299541    1982 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779273708.299544    1982 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 156.99 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-7b-it_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 156.99s | Peak VRAM: 5322.18MB | Avg Speed: 4.59 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 10:59:42.903753 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-7b-it_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-7b-it_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 21890.94it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:06,  1.81it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  3.17it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:02,  3.88it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:00<00:02,  4.29it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:01,  4.54it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  4.67it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.61it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.66it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:01<00:00,  4.64it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.47it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  4.42it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:02<00:00,  4.37it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:02<00:00,  4.41it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  4.32it/s]
+[*] COMET System Score: 0.2853
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-7b-it_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.2853
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 11:00:09.063517 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-7b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:01, 20.42s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:40<00:40, 20.17s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:54<00:17, 17.28s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:01<00:00, 13.26s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:01<00:00, 15.34s/it]
+2026-05-20 11:01:21.983843: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779274882.003383    2582 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779274882.009541    2582 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779274882.025451    2582 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779274882.025474    2582 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779274882.025478    2582 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779274882.025481    2582 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 67.21 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-7b-it_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 67.21s | Peak VRAM: 5275.53MB | Avg Speed: 4.55 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 11:16:31.402326 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-7b-it_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-7b-it_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 20702.39it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.61it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  2.85it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:02,  3.45it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.79it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.98it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  4.13it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.19it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.22it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:00,  4.21it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.15it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  4.09it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  4.00it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.88it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.88it/s]
+[*] COMET System Score: 0.6518
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-7b-it_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.6518
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 11:16:56.338938 ---
+Command: /usr/bin/python3 src/benchmark.py --model google/gemma-7b-it --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+`config.hidden_act` is ignored, you should use `config.hidden_activation` instead.
+Gemma's activation function will be set to `gelu_pytorch_tanh`. Please, use
+`config.hidden_activation` if you want to override this behaviour.
+See https://github.com/huggingface/transformers/pull/29402 for more details.
+=== Starting Benchmark ===
+Model: google/gemma-7b-it
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: google/gemma-7b-it
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:00, 20.32s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:40<00:40, 20.07s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:53<00:17, 17.15s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:00<00:00, 13.05s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:00<00:00, 15.16s/it]
+2026-05-20 11:18:07.942126: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779275887.960258    2650 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779275887.966592    2650 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779275887.983087    2650 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779275887.983113    2650 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779275887.983117    2650 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779275887.983120    2650 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 66.27 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/google_gemma-7b-it_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 66.27s | Peak VRAM: 5275.04MB | Avg Speed: 4.52 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 11:38:55.446860 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/google_gemma-7b-it_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/google_gemma-7b-it_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 56375.05it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.69it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  2.85it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:02,  3.51it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.88it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:01,  4.03it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  4.18it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.27it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.33it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:00,  4.34it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.37it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  4.26it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:02<00:00,  4.23it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  4.13it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  4.13it/s]
+[*] COMET System Score: 0.2771
+[*] Updated translation file with individual COMET scores: outputs/google_gemma-7b-it_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.2771
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 11:39:20.601658 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: CohereForAI/aya-expanse-8b
+[*] Architecture detection: Decoder-only (CausalLM)
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:18<00:56, 18.70s/it]Downloading shards:  50%|█████     | 2/4 [00:42<00:42, 21.46s/it]Downloading shards:  75%|███████▌  | 3/4 [01:05<00:22, 22.47s/it]Downloading shards: 100%|██████████| 4/4 [01:19<00:00, 19.21s/it]Downloading shards: 100%|██████████| 4/4 [01:20<00:00, 20.01s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:02, 20.78s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:40<00:40, 20.21s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:00<00:20, 20.09s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:01<00:00, 12.61s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:01<00:00, 15.42s/it]
+2026-05-20 11:41:57.075301: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779277317.097986    2718 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779277317.105389    2718 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779277317.124792    2718 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779277317.124818    2718 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779277317.124822    2718 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779277317.124825    2718 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 150.63 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 150.63s | Peak VRAM: 4850.81MB | Avg Speed: 6.07 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 11:53:50.281308 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/CohereForAI_aya-expanse-8b_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 63743.22it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.60it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.70it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.26it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.56it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.71it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.76it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.74it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.73it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.69it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.60it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.52it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.47it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.32it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.32it/s]
+[*] COMET System Score: 0.9052
+[*] Updated translation file with individual COMET scores: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.9052
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 11:54:15.399276 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: CohereForAI/aya-expanse-8b
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:12<00:37, 12.45s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:31<00:32, 16.20s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:40<00:12, 12.82s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:44<00:00,  9.69s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:44<00:00, 11.24s/it]
+2026-05-20 11:55:13.101274: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779278113.329402    3317 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779278113.397802    3317 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779278113.942230    3317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278113.942278    3317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278113.942282    3317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278113.942285    3317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 50.72 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 50.72s | Peak VRAM: 4840.20MB | Avg Speed: 6.06 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 12:06:00.166185 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/CohereForAI_aya-expanse-8b_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 65331.84it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:09,  1.30it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.38it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:01<00:03,  2.92it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.23it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.40it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.55it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.58it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.63it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.63it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.62it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.55it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.44it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.35it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.35it/s]
+[*] COMET System Score: 0.9151
+[*] Updated translation file with individual COMET scores: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.9151
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 12:06:33.941251 ---
+Command: /usr/bin/python3 src/benchmark.py --model CohereForAI/aya-expanse-8b --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: CohereForAI/aya-expanse-8b
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: CohereForAI/aya-expanse-8b
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:16<00:49, 16.66s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:19<00:16,  8.32s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:21<00:05,  5.60s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:22<00:00,  3.63s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:22<00:00,  5.53s/it]
+2026-05-20 12:07:07.729529: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779278827.752813    3384 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779278827.760844    3384 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779278827.781900    3384 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278827.781928    3384 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278827.781940    3384 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779278827.781943    3384 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+[*] Model loaded in 28.40 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 28.40s | Peak VRAM: 4837.17MB | Avg Speed: 6.12 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 12:20:18.550486 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/CohereForAI_aya-expanse-8b_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 58579.66it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.57it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.71it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.25it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.48it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.64it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.71it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.72it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.70it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.66it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.64it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.57it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.54it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.40it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.40it/s]
+[*] COMET System Score: 0.8400
+[*] Updated translation file with individual COMET scores: outputs/CohereForAI_aya-expanse-8b_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.8400
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 12:20:43.883215 ---
+Command: /usr/bin/python3 src/benchmark.py --model meta-llama/Llama-3.1-8B-Instruct --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: meta-llama/Llama-3.1-8B-Instruct
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: meta-llama/Llama-3.1-8B-Instruct
+[*] Architecture detection: Decoder-only (CausalLM)
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:21<01:03, 21.19s/it]Downloading shards:  50%|█████     | 2/4 [00:43<00:43, 21.91s/it]Downloading shards:  75%|███████▌  | 3/4 [01:06<00:22, 22.17s/it]Downloading shards: 100%|██████████| 4/4 [01:12<00:00, 15.89s/it]Downloading shards: 100%|██████████| 4/4 [01:12<00:00, 18.09s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:01, 20.61s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:40<00:40, 20.43s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [01:00<00:20, 20.20s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:05<00:00, 14.21s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:05<00:00, 16.47s/it]
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+2026-05-20 12:23:14.493913: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779279794.517286    3451 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779279794.525294    3451 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779279794.546551    3451 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779279794.546580    3451 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779279794.546584    3451 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779279794.546588    3451 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+/usr/local/lib/python3.12/dist-packages/transformers/generation/configuration_utils.py:567: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/transformers/generation/configuration_utils.py:572: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[*] Model loaded in 145.47 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+    - Processed 100/100 sentences...
+[*] Translations saved to outputs/meta-llama_Llama-3.1-8B-Instruct_int8_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 145.47s | Peak VRAM: 3370.89MB | Avg Speed: 6.10 tok/s
+
+
+--- COMMAND RUN AT 2026-05-20 12:37:51.219640 ---
+Command: /usr/bin/python3 src/evaluate.py --translation_file outputs/meta-llama_Llama-3.1-8B-Instruct_int8_translations.json --summary_csv outputs/benchmark_summary.csv
+
+=== Starting COMET Evaluation ===
+File: outputs/meta-llama_Llama-3.1-8B-Instruct_int8_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 80971.12it/s]
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Encoder model frozen.
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0,1]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+[*] Loading model from checkpoint on GPU (CUDA)...
+[*] Running COMET predictions...
+Predicting: 0it [00:00, ?it/s]Predicting: 0it [00:00, ?it/s]Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.61it/s]Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:03,  2.75it/s]Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:02,  3.39it/s]Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.73it/s]Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.90it/s]Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.97it/s]Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.01it/s]Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.00it/s]Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.93it/s]Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.84it/s]Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  3.76it/s]Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.72it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.57it/s]Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.57it/s]
+[*] COMET System Score: 0.7128
+[*] Updated translation file with individual COMET scores: outputs/meta-llama_Llama-3.1-8B-Instruct_int8_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.7128
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-20 12:38:16.198352 ---
+Command: /usr/bin/python3 src/benchmark.py --model meta-llama/Llama-3.1-8B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: meta-llama/Llama-3.1-8B-Instruct
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: meta-llama/Llama-3.1-8B-Instruct
+[*] Architecture detection: Decoder-only (CausalLM)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:19<00:57, 19.21s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:39<00:39, 19.75s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:58<00:19, 19.55s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:02<00:00, 13.53s/it]Loading checkpoint shards: 100%|██████████| 4/4 [01:02<00:00, 15.74s/it]
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+2026-05-20 12:39:29.590476: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779280769.615081    4047 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779280769.623362    4047 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779280769.645833    4047 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779280769.645874    4047 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779280769.645878    4047 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779280769.645882    4047 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+/usr/local/lib/python3.12/dist-packages/transformers/generation/configuration_utils.py:567: UserWarning: `do_sample` is set to `False`. However, `temperature` is set to `0.6` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `temperature`.
+  warnings.warn(
+/usr/local/lib/python3.12/dist-packages/transformers/generation/configuration_utils.py:572: UserWarning: `do_sample` is set to `False`. However, `top_p` is set to `0.9` -- this flag is only used in sample-based generation modes. You should set `do_sample=True` or unset `top_p`.
+  warnings.warn(
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:128001 for open-end generation.
+[*] Model loaded in 68.86 seconds.
+[*] Performing 5-sentence warm-up...
+[*] Starting translation inference...
+    - Processed 10/100 sentences...
+    - Processed 20/100 sentences...
+    - Processed 30/100 sentences...
+    - Processed 40/100 sentences...
+    - Processed 50/100 sentences...
+    - Processed 60/100 sentences...
+    - Processed 70/100 sentences...
+    - Processed 80/100 sentences...
+    - Processed 90/100 sentences...
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 326, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 247, in main
+    outputs = model.generate(
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/generation/utils.py", line 2024, in generate
+    result = self._sample(
+             ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/generation/utils.py", line 2982, in _sample
+    outputs = self(**model_inputs, return_dict=True)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/llama/modeling_llama.py", line 1189, in forward
+    outputs = self.model(
+              ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/llama/modeling_llama.py", line 1001, in forward
+    layer_outputs = decoder_layer(
+                    ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/llama/modeling_llama.py", line 750, in forward
+    hidden_states = self.mlp(hidden_states)
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/llama/modeling_llama.py", line 309, in forward
+    down_proj = self.down_proj(self.act_fn(self.gate_proj(x)) * self.up_proj(x))
+                                                                ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/accelerate/hooks.py", line 175, in new_forward
+    output = module._old_forward(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/nn/modules.py", line 1106, in forward
+    out = bnb.matmul(x, self.weight, bias=self.bias, state=self.state)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/autograd/_functions.py", line 366, in matmul
+    return MatMul8bitLt.apply(A, B, out, bias, state)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/autograd/function.py", line 583, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/autograd/_functions.py", line 156, in forward
+    output, subA = torch.ops.bitsandbytes.int8_mixed_scaled_mm(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 1209, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1181, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/library.py", line 742, in func_no_dynamo
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/backends/default/ops.py", line 91, in _
+    output = torch.ops.bitsandbytes.int8_scaled_mm.default(CA, CB, SCA, SCB, bias=bias, dtype=A.dtype)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 819, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1181, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/library.py", line 742, in func_no_dynamo
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/backends/default/ops.py", line 109, in _
+    out_i32 = torch.ops.bitsandbytes.int8_linear_matmul.default(A, B)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_ops.py", line 819, in __call__
+    return self._op(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_compile.py", line 54, in inner
+    return disable_fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/_dynamo/eval_frame.py", line 1181, in _fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/library.py", line 742, in func_no_dynamo
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/backends/cuda/ops.py", line 17, in _
+    return _int8_linear_matmul_impl(A, B, out)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/bitsandbytes/backends/cuda/ops.py", line 73, in _int8_linear_matmul_impl
+    has_error = lib.cigemmlt_32(ctx, m, n, k, ptrA, ptrB, ptrC, ptrRowScale, lda, ldb, ldc, stream)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
