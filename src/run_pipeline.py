@@ -41,6 +41,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="WMT26 Automation Pipeline Runner")
     parser.add_argument("--limit", type=int, default=100, help="Number of sentences to run benchmark on")
     parser.add_argument("--only_model", type=str, default=None, help="Run only this model name (e.g. Gemma-2B)")
+    parser.add_argument("--skip_models", type=str, default=None, help="Comma-separated list of model names to skip (e.g. Gemma-2B,Gemma-7B)")
     parser.add_argument("--only_lang", type=str, default=None, help="Run only this lang pair (e.g. ces_Latn-deu_Latn)")
     return parser.parse_args()
 
@@ -75,6 +76,10 @@ def main():
         if not models_to_run:
             print(f"[!] Model '{args.only_model}' not found in configuration list.")
             sys.exit(1)
+            
+    if args.skip_models:
+        skip_list = [s.strip().lower() for s in args.skip_models.split(",")]
+        models_to_run = [m for m in models_to_run if m["name"].lower() not in skip_list]
             
     # Filter language pairs if specified
     langs_to_run = LANG_PAIRS
@@ -136,7 +141,7 @@ def main():
                 
             # Step 2: Identify output translation file and run evaluation
             model_alias = model_id.replace("/", "_")
-            translation_file = os.path.join(output_dir, f"{model_alias}_{precision}_translations.json")
+            translation_file = os.path.join(output_dir, f"{model_alias}_{precision}_{src}_{tgt}_translations.json")
             
             if not os.path.exists(translation_file):
                 print(f"[!] ERROR: Expected translation file not found: {translation_file}")
@@ -162,6 +167,23 @@ def main():
                 
             print(f"[+] SUCCESS: Completed pipeline for {model_name} ({precision}) on {lang_desc}")
             successful_runs += 1
+            
+        # Clean up model cache from disk to prevent disk full errors
+        try:
+            import shutil
+            hf_home = os.environ.get("HF_HOME")
+            if hf_home:
+                cache_dir = os.path.join(hf_home, "hub")
+            else:
+                cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "huggingface", "hub")
+                
+            model_cache_dir = os.path.join(cache_dir, f"models--{model_id.replace('/', '--')}")
+            if os.path.exists(model_cache_dir):
+                print(f"[*] Cleaning up disk cache for {model_name} ({model_id}) to free space...")
+                shutil.rmtree(model_cache_dir, ignore_errors=True)
+                print(f"[+] Disk space freed!")
+        except Exception as e:
+            print(f"[!] Failed to clean cache for {model_name}: {e}")
             
     print("\n" + "=" * 60)
     print("PIPELINE EXECUTION SUMMARY")

@@ -26,14 +26,20 @@ def main():
     # Extract model and precision from filename
     # E.g. outputs/google_gemma-2b_fp16_translations.json -> model="google/gemma-2b", precision="fp16"
     filename = os.path.basename(args.translation_file)
+    src_lang, tgt_lang = "Unknown", "Unknown"
     if filename.endswith("_translations.json"):
         parts = filename[:-len("_translations.json")].split("_")
-        # Reconstruct the model name and precision
-        # E.g., for google_gemma-2b_fp16, parts = ["google", "gemma-2b", "fp16"]
-        precision = parts[-1]
-        model_alias = "_".join(parts[:-1])
-        # Replace the first underscore with slash to guess the original HF model name
-        # E.g., google_gemma-2b -> google/gemma-2b
+        # The filename format is {model_alias}_{precision}_{src_lang}_{tgt_lang}_translations.json
+        # Language codes like ces_Latn contain one underscore, so they split into two parts: ["ces", "Latn"]
+        if len(parts) >= 5:
+            tgt_lang = f"{parts[-2]}_{parts[-1]}"
+            src_lang = f"{parts[-4]}_{parts[-3]}"
+            precision = parts[-5]
+            model_alias = "_".join(parts[:-5])
+        else:
+            precision = parts[-1]
+            model_alias = "_".join(parts[:-1])
+            
         if "_" in model_alias:
             model = model_alias.replace("_", "/", 1)
         else:
@@ -91,7 +97,14 @@ def main():
         # Check if the row matches our model and precision
         # E.g. we matches by model name (or alias) and precision
         # Since model name in CSV is the full Hugging Face name, let's look for matching entries
-        mask = (df["precision"] == precision) & (df["model"].apply(lambda x: x.replace("/", "_") == model_alias or x == model))
+        # Check if the row matches our model, precision, and language pair
+        if "src_lang" in df.columns and "tgt_lang" in df.columns:
+            mask = (df["precision"] == precision) & \
+                   (df["model"].apply(lambda x: x.replace("/", "_") == model_alias or x == model)) & \
+                   (df["src_lang"] == src_lang) & \
+                   (df["tgt_lang"] == tgt_lang)
+        else:
+            mask = (df["precision"] == precision) & (df["model"].apply(lambda x: x.replace("/", "_") == model_alias or x == model))
         
         if mask.any():
             df.loc[mask, "comet_score"] = system_score
@@ -103,6 +116,8 @@ def main():
             new_row = {
                 "model": [model],
                 "precision": [precision],
+                "src_lang": [src_lang],
+                "tgt_lang": [tgt_lang],
                 "load_time_sec": [None],
                 "peak_vram_mb": [None],
                 "avg_tokens_per_sec": [None],
@@ -119,6 +134,8 @@ def main():
         summary_data = {
             "model": [model],
             "precision": [precision],
+            "src_lang": [src_lang],
+            "tgt_lang": [tgt_lang],
             "load_time_sec": [None],
             "peak_vram_mb": [None],
             "avg_tokens_per_sec": [None],

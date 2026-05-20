@@ -100,7 +100,7 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
     
     model_alias = args.model.replace("/", "_")
-    output_json_path = os.path.join(args.output_dir, f"{model_alias}_{args.precision}_translations.json")
+    output_json_path = os.path.join(args.output_dir, f"{model_alias}_{args.precision}_{args.src_lang}_{args.tgt_lang}_translations.json")
     summary_csv_path = os.path.join(args.output_dir, "benchmark_summary.csv")
     
     print(f"=== Starting Benchmark ===")
@@ -302,6 +302,8 @@ def main():
     summary_data = {
         "model": [args.model],
         "precision": [args.precision],
+        "src_lang": [args.src_lang],
+        "tgt_lang": [args.tgt_lang],
         "load_time_sec": [load_time],
         "peak_vram_mb": [peak_vram],
         "avg_tokens_per_sec": [avg_tokens_per_sec],
@@ -312,8 +314,8 @@ def main():
     if os.path.exists(summary_csv_path):
         df_old = pd.read_csv(summary_csv_path)
         df_combined = pd.concat([df_old, df_new], ignore_index=True)
-        # Drop duplicates based on model and precision, keeping the latest run
-        df_combined = df_combined.drop_duplicates(subset=["model", "precision"], keep="last")
+        # Drop duplicates based on model, precision, and language pair, keeping the latest run
+        df_combined = df_combined.drop_duplicates(subset=["model", "precision", "src_lang", "tgt_lang"], keep="last")
         df_combined.to_csv(summary_csv_path, index=False)
     else:
         df_new.to_csv(summary_csv_path, index=False)
