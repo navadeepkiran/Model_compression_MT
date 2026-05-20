@@ -284,8 +284,7 @@ def main():
         total_tokens += num_generated_tokens
         total_duration += duration
         
-        if (idx + 1) % 10 == 0:
-            print(f"    - Processed {idx + 1}/{len(src_sentences)} sentences...")
+        print(f"    - Processed {idx + 1}/{len(src_sentences)} sentences (time: {duration:.2f}s, speed: {tokens_per_sec:.1f} tok/s)...")
             
     # Measure VRAM
     if torch.cuda.is_available():
