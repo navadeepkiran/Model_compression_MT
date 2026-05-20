@@ -100,13 +100,13 @@ def main():
     print("[*] Loading FLORES-200 dataset...")
     try:
         # Try loading as aligned pair
-        dataset = load_dataset("Muennighoff/flores200", f"{args.src_lang}-{args.tgt_lang}", split="dev")
+        dataset = load_dataset("Muennighoff/flores200", f"{args.src_lang}-{args.tgt_lang}", split="dev", trust_remote_code=True)
         src_sentences = dataset[f"sentence_{args.src_lang}"][:args.limit]
         tgt_sentences = dataset[f"sentence_{args.tgt_lang}"][:args.limit]
     except Exception as e:
         print(f"[!] Aligned pair load failed: {e}. Falling back to single-language loads...")
-        dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
-        dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev")
+        dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+        dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev", trust_remote_code=True)
         src_sentences = [item["sentence"] for item in dataset_src][:args.limit]
         tgt_sentences = [item["sentence"] for item in dataset_tgt][:args.limit]
         
