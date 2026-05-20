@@ -98,33 +98,79 @@ def main():
     
     # Load dataset
     print("[*] Loading FLORES-200 dataset...")
-    try:
-        # Load from tomasmajercik/flores-parquet which is a script-free Parquet mirror of FLORES-200
-        # This works perfectly on modern datasets (>=3.x, >=4.x) libraries where custom scripts are blocked
+    import urllib.request
+    import tarfile
+    
+    dataset_dir = "flores200_dataset"
+    tar_path = "flores200_dataset.tar.gz"
+    url = "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz"
+    
+    loaded_successfully = False
+    src_sentences, tgt_sentences = [], []
+    
+    # 1. Try downloading directly from Meta Research CDN (fast, script-free, bypasses HuggingFace Hub bugs)
+    if not os.path.exists(dataset_dir):
+        print(f"[*] Downloading FLORES-200 raw dataset from {url}...")
         try:
-            dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="dev")
-            dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="dev")
-        except Exception:
-            try:
-                dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="devtest")
-                dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="devtest")
-            except Exception:
-                dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="validation")
-                dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="validation")
+            opener = urllib.request.build_opener()
+            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+            urllib.request.install_opener(opener)
+            urllib.request.urlretrieve(url, tar_path)
+            
+            print("[*] Extracting FLORES-200 dataset...")
+            with tarfile.open(tar_path, "r:gz") as tar:
+                tar.extractall()
+            if os.path.exists(tar_path):
+                os.remove(tar_path)
+        except Exception as e:
+            print(f"[!] Direct download from Meta failed: {e}. Will attempt Hugging Face fallback.")
+            
+    # 2. Try loading from local extracted files
+    if os.path.exists(dataset_dir):
+        try:
+            for split in ["dev", "devtest"]:
+                src_path = os.path.join(dataset_dir, split, f"{args.src_lang}.{split}")
+                tgt_path = os.path.join(dataset_dir, split, f"{args.tgt_lang}.{split}")
                 
-        src_sentences = [item["sentence"] for item in dataset_src][:args.limit]
-        tgt_sentences = [item["sentence"] for item in dataset_tgt][:args.limit]
-    except Exception as e:
-        print(f"[!] Parquet load failed: {e}. Falling back to Muennighoff/flores200 (older library compatible)...")
-        # Legacy fallback if they have an older datasets library version that supports custom python loaders
+                if os.path.exists(src_path) and os.path.exists(tgt_path):
+                    print(f"[*] Reading sentences from local FLORES-200 files (split: {split})...")
+                    with open(src_path, "r", encoding="utf-8") as f:
+                        src_sentences = [line.strip() for line in f if line.strip()][:args.limit]
+                    with open(tgt_path, "r", encoding="utf-8") as f:
+                        tgt_sentences = [line.strip() for line in f if line.strip()][:args.limit]
+                    loaded_successfully = True
+                    break
+        except Exception as e:
+            print(f"[!] Failed to read local FLORES-200 files: {e}")
+            
+    # 3. Fallback to HF Datasets library if direct download / extraction failed
+    if not loaded_successfully:
+        print("[!] Local loading failed. Falling back to Hugging Face datasets library...")
         try:
-            dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
-            dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev", trust_remote_code=True)
-        except Exception:
-            dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
-            dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev")
-        src_sentences = [item["sentence"] for item in dataset_src][:args.limit]
-        tgt_sentences = [item["sentence"] for item in dataset_tgt][:args.limit]
+            try:
+                dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="dev")
+                dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="dev")
+            except Exception:
+                try:
+                    dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="devtest")
+                    dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="devtest")
+                except Exception:
+                    dataset_src = load_dataset("tomasmajercik/flores-parquet", name=args.src_lang, split="validation")
+                    dataset_tgt = load_dataset("tomasmajercik/flores-parquet", name=args.tgt_lang, split="validation")
+                    
+            src_sentences = [item["sentence"] for item in dataset_src][:args.limit]
+            tgt_sentences = [item["sentence"] for item in dataset_tgt][:args.limit]
+            loaded_successfully = True
+        except Exception as e:
+            print(f"[!] Hugging Face Parquet loading failed: {e}. Trying legacy Muennighoff/flores200...")
+            try:
+                dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev", trust_remote_code=True)
+                dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev", trust_remote_code=True)
+            except Exception:
+                dataset_src = load_dataset("Muennighoff/flores200", args.src_lang, split="dev")
+                dataset_tgt = load_dataset("Muennighoff/flores200", args.tgt_lang, split="dev")
+            src_sentences = [item["sentence"] for item in dataset_src][:args.limit]
+            tgt_sentences = [item["sentence"] for item in dataset_tgt][:args.limit]
         
     print(f"[*] Loaded {len(src_sentences)} sentences.")
     
