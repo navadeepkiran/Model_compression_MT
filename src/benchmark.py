@@ -208,11 +208,21 @@ def main():
         src_text = src_sentences[i]
         if is_seq2seq:
             inputs = tokenizer(src_text, return_tensors="pt").to(model.device)
-            _ = model.generate(**inputs, max_new_tokens=args.max_new_tokens)
+            _ = model.generate(
+                **inputs,
+                max_new_tokens=args.max_new_tokens,
+                do_sample=False,
+                num_beams=1
+            )
         else:
             prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
             inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-            _ = model.generate(**inputs, max_new_tokens=args.max_new_tokens)
+            _ = model.generate(
+                **inputs,
+                max_new_tokens=args.max_new_tokens,
+                do_sample=False,
+                num_beams=1
+            )
             
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
