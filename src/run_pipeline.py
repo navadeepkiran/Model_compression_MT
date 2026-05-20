@@ -61,19 +61,45 @@ def parse_args():
     return parser.parse_args()
 
 def run_command(cmd, log_file=None):
-    """Runs a shell command and logs its output."""
+    """Runs a shell command, streams its output to console in real-time, and logs it."""
     print(f"Executing: {' '.join(cmd)}")
     
+    log_f = None
     if log_file:
-        with open(log_file, "a", encoding="utf-8") as f:
-            f.write(f"\n\n--- COMMAND RUN AT {datetime.now()} ---\n")
-            f.write(f"Command: {' '.join(cmd)}\n\n")
-            f.flush()
-            result = subprocess.run(cmd, stdout=f, stderr=subprocess.STDOUT, text=True)
-    else:
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        log_f = open(log_file, "a", encoding="utf-8")
+        log_f.write(f"\n\n--- COMMAND RUN AT {datetime.now()} ---\n")
+        log_f.write(f"Command: {' '.join(cmd)}\n\n")
+        log_f.flush()
         
-    return result.returncode == 0
+    try:
+        # Start the subprocess with stdout and stderr piped
+        process = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1  # Line-buffered
+        )
+        
+        # Read stdout line by line as it becomes available
+        for line in process.stdout:
+            sys.stdout.write(line)
+            sys.stdout.flush()
+            if log_f:
+                log_f.write(line)
+                log_f.flush()
+                
+        process.wait()
+        returncode = process.returncode
+    except Exception as e:
+        print(f"[!] Error running command: {e}")
+        returncode = -1
+    finally:
+        if log_f:
+            log_f.close()
+            
+    return returncode == 0
+
 
 def main():
     args = parse_args()
@@ -136,7 +162,7 @@ def main():
             
             # Step 1: Run Benchmarking
             benchmark_cmd = [
-                sys.executable, "src/benchmark.py",
+                sys.executable, "-u", "src/benchmark.py",
                 "--model", model_id,
                 "--precision", precision,
                 "--src_lang", src,
@@ -168,7 +194,7 @@ def main():
             print(f"[+] Benchmark succeeded. Evaluating quality with COMET...")
             
             evaluate_cmd = [
-                sys.executable, "src/evaluate.py",
+                sys.executable, "-u", "src/evaluate.py",
                 "--translation_file", translation_file,
                 "--summary_csv", os.path.join(output_dir, "benchmark_summary.csv")
             ]
