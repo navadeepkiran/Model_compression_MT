@@ -4,6 +4,19 @@ import sys
 import argparse
 from datetime import datetime
 
+# Automatically load Kaggle Secrets for HuggingFace token if available
+# This propagates the token to all spawned benchmark subprocesses
+try:
+    from kaggle_secrets import UserSecretsClient
+    user_secrets = UserSecretsClient()
+    hf_token = user_secrets.get_secret("HF_TOKEN")
+    if hf_token:
+        os.environ["HF_TOKEN"] = hf_token
+        os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+except Exception:
+    pass
+
+
 # Define the models and their target precisions (from the max-feasible table)
 # You can edit the HF model IDs below if you use local paths or specific model versions.
 MODELS = [

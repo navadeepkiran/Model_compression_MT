@@ -2,6 +2,18 @@ import os
 import argparse
 import time
 import json
+
+# Automatically load Kaggle Secrets for HuggingFace if available
+try:
+    from kaggle_secrets import UserSecretsClient
+    user_secrets = UserSecretsClient()
+    hf_token = user_secrets.get_secret("HF_TOKEN")
+    if hf_token:
+        os.environ["HF_TOKEN"] = hf_token
+        os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+except Exception:
+    pass
+
 import torch
 import pandas as pd
 from datetime import datetime
