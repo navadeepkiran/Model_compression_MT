@@ -4,6 +4,20 @@ import sys
 import argparse
 from datetime import datetime
 
+# Check required imports
+try:
+    import comet
+    import bitsandbytes
+    import datasets
+    import transformers
+    import accelerate
+except ImportError as e:
+    print(f"\n[!] WARNING: Missing required dependency: {e.name}")
+    print("Please install the dependencies by running this command in a notebook cell first:")
+    print("!pip install -r requirements.txt")
+    print("\nStarting the pipeline anyway, but it may fail during execution.\n")
+
+
 # Automatically load Kaggle Secrets for HuggingFace token if available
 # This propagates the token to all spawned benchmark subprocesses
 try:
