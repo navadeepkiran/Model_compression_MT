@@ -22,3 +22,4 @@
 [2026-05-20 10:10:15.297170] Benchmark failed: Gemma-2B (fp16) for eng_Latn->zho_Hans
 [2026-05-20 10:13:05.477650] Benchmark failed: Gemma-2B (fp16) for ces_Latn->deu_Latn
 [2026-05-20 10:13:08.931582] Benchmark failed: Gemma-2B (fp16) for eng_Latn->zho_Hans
+[2026-05-20 19:38:16.462359] Benchmark failed: Qwen-2.5-7B (int8) for ces_Latn->deu_Latn
