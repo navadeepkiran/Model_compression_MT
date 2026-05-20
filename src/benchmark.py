@@ -77,9 +77,15 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     
     model_class = AutoModelForSeq2SeqLM if is_seq2seq else AutoModelForCausalLM
     
-    # Prepare model loading arguments
+    # For single GPU setups, force device_map to 'cuda:0' to prevent accelerate from
+    # calculating the memory budget based on the larger unquantized (FP16) model size
+    # and incorrectly trying to offload layers to CPU/disk.
+    device_map = "auto"
+    if torch.cuda.is_available() and torch.cuda.device_count() == 1:
+        device_map = "cuda:0"
+        
     load_kwargs = {
-        "device_map": "auto",
+        "device_map": device_map,
         "trust_remote_code": True
     }
     if attn_implementation:
