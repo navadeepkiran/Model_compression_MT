@@ -6415,3 +6415,2297 @@ Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
 Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
 Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
 Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+
+
+--- COMMAND RUN AT 2026-05-21 07:38:48.206737 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model mistralai/Mistral-7B-Instruct-v0.3 --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: mistralai/Mistral-7B-Instruct-v0.3
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: mistralai/Mistral-7B-Instruct-v0.3
+[*] Architecture detection: Decoder-only (CausalLM)
+[*] Forcing attention implementation: eager
+2026-05-21 07:38:55.228017: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779349135.250634     240 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779349135.258281     240 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779349135.279004     240 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779349135.279054     240 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779349135.279060     240 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779349135.279065     240 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]
+Fetching 3 files:  33%|███▎      | 1/3 [01:07<02:14, 67.06s/it]
+Fetching 3 files:  67%|██████▋   | 2/3 [01:07<00:27, 27.68s/it]
+Fetching 3 files: 100%|██████████| 3/3 [01:07<00:00, 22.39s/it]
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:09<00:19,  9.92s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:19<00:09,  9.84s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:31<00:00, 10.63s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:31<00:00, 10.43s/it]
+[*] Model loaded in 108.99 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 1/100 sentences (time: 17.25s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 2/100 sentences (time: 18.29s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 3/100 sentences (time: 14.74s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 4/100 sentences (time: 5.52s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 5/100 sentences (time: 6.59s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 6/100 sentences (time: 4.80s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 7/100 sentences (time: 22.50s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 8/100 sentences (time: 11.49s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 9/100 sentences (time: 7.34s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 10/100 sentences (time: 14.01s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 11/100 sentences (time: 14.01s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 12/100 sentences (time: 5.83s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 13/100 sentences (time: 3.27s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 14/100 sentences (time: 5.67s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 15/100 sentences (time: 19.09s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 16/100 sentences (time: 12.49s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 17/100 sentences (time: 9.60s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 18/100 sentences (time: 9.44s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 19/100 sentences (time: 13.26s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 20/100 sentences (time: 16.02s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 21/100 sentences (time: 6.06s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 22/100 sentences (time: 4.16s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 23/100 sentences (time: 8.14s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 24/100 sentences (time: 3.80s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 25/100 sentences (time: 6.18s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 26/100 sentences (time: 8.92s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 27/100 sentences (time: 24.46s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 28/100 sentences (time: 11.95s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 29/100 sentences (time: 7.58s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 30/100 sentences (time: 4.53s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 31/100 sentences (time: 9.15s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 32/100 sentences (time: 11.89s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 33/100 sentences (time: 13.05s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 34/100 sentences (time: 5.49s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 35/100 sentences (time: 9.12s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 36/100 sentences (time: 5.51s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 37/100 sentences (time: 7.74s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 38/100 sentences (time: 10.98s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 39/100 sentences (time: 12.66s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 40/100 sentences (time: 12.12s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 41/100 sentences (time: 14.00s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 42/100 sentences (time: 8.99s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 43/100 sentences (time: 13.33s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 44/100 sentences (time: 8.89s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 45/100 sentences (time: 15.06s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 46/100 sentences (time: 9.29s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 47/100 sentences (time: 10.29s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 48/100 sentences (time: 18.70s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 49/100 sentences (time: 9.53s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 50/100 sentences (time: 15.77s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 51/100 sentences (time: 7.52s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 52/100 sentences (time: 13.11s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 53/100 sentences (time: 22.06s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 54/100 sentences (time: 24.29s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 55/100 sentences (time: 11.07s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 56/100 sentences (time: 8.66s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 57/100 sentences (time: 9.26s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 58/100 sentences (time: 8.08s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 59/100 sentences (time: 24.21s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 60/100 sentences (time: 14.22s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 61/100 sentences (time: 8.67s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 62/100 sentences (time: 9.09s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 63/100 sentences (time: 11.43s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 64/100 sentences (time: 7.72s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 65/100 sentences (time: 12.56s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 66/100 sentences (time: 9.20s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 67/100 sentences (time: 10.36s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 68/100 sentences (time: 11.88s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 69/100 sentences (time: 18.40s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 70/100 sentences (time: 18.43s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 71/100 sentences (time: 22.65s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 72/100 sentences (time: 13.06s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 73/100 sentences (time: 12.77s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 74/100 sentences (time: 17.46s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 75/100 sentences (time: 7.60s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 76/100 sentences (time: 14.99s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 77/100 sentences (time: 11.70s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 78/100 sentences (time: 12.49s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 79/100 sentences (time: 5.37s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 80/100 sentences (time: 6.27s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 81/100 sentences (time: 8.94s, speed: 5.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 82/100 sentences (time: 7.46s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 83/100 sentences (time: 16.90s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 84/100 sentences (time: 7.04s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 85/100 sentences (time: 11.90s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 86/100 sentences (time: 5.50s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 87/100 sentences (time: 6.98s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 88/100 sentences (time: 13.64s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 89/100 sentences (time: 5.64s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 90/100 sentences (time: 12.82s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 91/100 sentences (time: 11.70s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 92/100 sentences (time: 11.09s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 93/100 sentences (time: 9.03s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 94/100 sentences (time: 9.81s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 95/100 sentences (time: 5.38s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 96/100 sentences (time: 3.38s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 97/100 sentences (time: 10.97s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 98/100 sentences (time: 9.37s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 99/100 sentences (time: 9.49s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 100/100 sentences (time: 12.69s, speed: 5.2 tok/s)...
+[*] Translations saved to outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_ces_Latn_deu_Latn_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 108.99s | Peak VRAM: 7714.63MB | Avg Speed: 5.18 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 08:01:02.684395 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_ces_Latn_deu_Latn_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 08:01:09.311751: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779350469.335791     798 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779350469.343590     798 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779350469.363630     798 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350469.363675     798 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350469.363681     798 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350469.363686     798 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_ces_Latn_deu_Latn_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files:  20%|██        | 1/5 [00:00<00:00,  5.53it/s]
+Fetching 5 files:  80%|████████  | 4/5 [00:12<00:03,  3.47s/it]
+Fetching 5 files: 100%|██████████| 5/5 [00:12<00:00,  2.59s/it]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:09,  1.26it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.23it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:01<00:03,  2.86it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.21it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.49it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.64it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.74it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.80it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.77it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.75it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  3.73it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.69it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.67it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.67it/s]
+[*] COMET System Score: 0.8089
+[*] Updated translation file with individual COMET scores: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_ces_Latn_deu_Latn_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.8089
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-21 08:01:53.278690 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model mistralai/Mistral-7B-Instruct-v0.3 --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: mistralai/Mistral-7B-Instruct-v0.3
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: mistralai/Mistral-7B-Instruct-v0.3
+[*] Architecture detection: Decoder-only (CausalLM)
+[*] Forcing attention implementation: eager
+2026-05-21 08:02:00.222197: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779350520.245519    1361 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779350520.254026    1361 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779350520.273704    1361 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350520.273729    1361 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350520.273732    1361 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779350520.273734    1361 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:14<00:28, 14.44s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:31<00:15, 15.71s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:49<00:00, 16.88s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:49<00:00, 16.44s/it]
+[*] Model loaded in 59.16 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 1/100 sentences (time: 25.57s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 2/100 sentences (time: 18.30s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 3/100 sentences (time: 17.51s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 4/100 sentences (time: 13.26s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 5/100 sentences (time: 16.92s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 6/100 sentences (time: 7.32s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 7/100 sentences (time: 7.84s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 8/100 sentences (time: 17.42s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 9/100 sentences (time: 11.76s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 10/100 sentences (time: 8.65s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 11/100 sentences (time: 25.38s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 12/100 sentences (time: 4.14s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 13/100 sentences (time: 13.03s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 14/100 sentences (time: 21.44s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 15/100 sentences (time: 17.27s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 16/100 sentences (time: 12.34s, speed: 4.7 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 17/100 sentences (time: 14.96s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 18/100 sentences (time: 16.15s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 19/100 sentences (time: 16.00s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 20/100 sentences (time: 8.70s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 21/100 sentences (time: 16.35s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 22/100 sentences (time: 4.55s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 23/100 sentences (time: 14.27s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 24/100 sentences (time: 8.90s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 25/100 sentences (time: 23.12s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 26/100 sentences (time: 19.99s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 27/100 sentences (time: 25.49s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 28/100 sentences (time: 9.59s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 29/100 sentences (time: 17.42s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 30/100 sentences (time: 5.14s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 31/100 sentences (time: 5.48s, speed: 4.7 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 32/100 sentences (time: 24.91s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 33/100 sentences (time: 21.59s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 34/100 sentences (time: 8.27s, speed: 4.7 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 35/100 sentences (time: 7.79s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 36/100 sentences (time: 3.94s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 37/100 sentences (time: 13.64s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 38/100 sentences (time: 25.43s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 39/100 sentences (time: 13.53s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 40/100 sentences (time: 11.61s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 41/100 sentences (time: 15.07s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 42/100 sentences (time: 9.78s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 43/100 sentences (time: 12.63s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 44/100 sentences (time: 8.39s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 45/100 sentences (time: 13.43s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 46/100 sentences (time: 13.31s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 47/100 sentences (time: 10.12s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 48/100 sentences (time: 14.96s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 49/100 sentences (time: 16.49s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 50/100 sentences (time: 13.50s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 51/100 sentences (time: 13.74s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 52/100 sentences (time: 21.09s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 53/100 sentences (time: 20.11s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 54/100 sentences (time: 10.93s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 55/100 sentences (time: 15.66s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 56/100 sentences (time: 7.40s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 57/100 sentences (time: 8.81s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 58/100 sentences (time: 10.27s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 59/100 sentences (time: 21.85s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 60/100 sentences (time: 25.18s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 61/100 sentences (time: 13.55s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 62/100 sentences (time: 15.05s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 63/100 sentences (time: 16.45s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 64/100 sentences (time: 15.50s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 65/100 sentences (time: 11.56s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 66/100 sentences (time: 6.57s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 67/100 sentences (time: 23.88s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 68/100 sentences (time: 14.36s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 69/100 sentences (time: 25.71s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 70/100 sentences (time: 10.85s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 71/100 sentences (time: 10.57s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 72/100 sentences (time: 17.24s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 73/100 sentences (time: 12.23s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 74/100 sentences (time: 17.69s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 75/100 sentences (time: 8.39s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 76/100 sentences (time: 24.67s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 77/100 sentences (time: 20.64s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 78/100 sentences (time: 14.23s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 79/100 sentences (time: 7.21s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 80/100 sentences (time: 13.39s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 81/100 sentences (time: 4.35s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 82/100 sentences (time: 8.25s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 83/100 sentences (time: 16.99s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 84/100 sentences (time: 10.61s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 85/100 sentences (time: 12.11s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 86/100 sentences (time: 4.46s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 87/100 sentences (time: 16.43s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 88/100 sentences (time: 21.21s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 89/100 sentences (time: 15.76s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 90/100 sentences (time: 15.64s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 91/100 sentences (time: 18.88s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 92/100 sentences (time: 9.55s, speed: 4.8 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 93/100 sentences (time: 9.23s, speed: 4.9 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 94/100 sentences (time: 10.87s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 95/100 sentences (time: 14.50s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 96/100 sentences (time: 9.22s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 97/100 sentences (time: 20.02s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 98/100 sentences (time: 14.43s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 99/100 sentences (time: 18.25s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 100/100 sentences (time: 18.89s, speed: 5.0 tok/s)...
+[*] Translations saved to outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_zho_Hans_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 59.16s | Peak VRAM: 7695.73MB | Avg Speed: 4.99 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 08:28:47.337201 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_zho_Hans_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 08:28:54.193903: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779352134.222884    1389 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779352134.232075    1389 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779352134.258229    1389 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352134.258279    1389 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352134.258286    1389 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352134.258291    1389 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_zho_Hans_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 42799.02it/s]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:09,  1.23it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.20it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:01<00:03,  2.66it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:03,  2.85it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.15it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:02,  3.36it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.51it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.57it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.64it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.66it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:03<00:00,  3.65it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.63it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.62it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.62it/s]
+[*] COMET System Score: 0.7474
+[*] Updated translation file with individual COMET scores: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_zho_Hans_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.7474
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-21 08:29:22.983011 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model mistralai/Mistral-7B-Instruct-v0.3 --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: mistralai/Mistral-7B-Instruct-v0.3
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: mistralai/Mistral-7B-Instruct-v0.3
+[*] Architecture detection: Decoder-only (CausalLM)
+[*] Forcing attention implementation: eager
+2026-05-21 08:29:30.168117: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779352170.192900    1430 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779352170.200670    1430 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779352170.220471    1430 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352170.220510    1430 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352170.220513    1430 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779352170.220516    1430 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Loading checkpoint shards:   0%|          | 0/3 [00:00<?, ?it/s]
+Loading checkpoint shards:  33%|███▎      | 1/3 [00:13<00:26, 13.19s/it]
+Loading checkpoint shards:  67%|██████▋   | 2/3 [00:28<00:14, 14.30s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:41<00:00, 13.99s/it]
+Loading checkpoint shards: 100%|██████████| 3/3 [00:41<00:00, 13.96s/it]
+[*] Model loaded in 52.06 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 1/100 sentences (time: 24.91s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 2/100 sentences (time: 25.62s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 3/100 sentences (time: 25.10s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 4/100 sentences (time: 24.99s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 5/100 sentences (time: 18.18s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 6/100 sentences (time: 25.11s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 7/100 sentences (time: 16.55s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 8/100 sentences (time: 24.77s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 9/100 sentences (time: 18.32s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 10/100 sentences (time: 25.06s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 11/100 sentences (time: 25.09s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 12/100 sentences (time: 11.59s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 13/100 sentences (time: 25.02s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 14/100 sentences (time: 12.32s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 15/100 sentences (time: 24.91s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 16/100 sentences (time: 25.10s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 17/100 sentences (time: 24.73s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 18/100 sentences (time: 25.03s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 19/100 sentences (time: 24.96s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 20/100 sentences (time: 25.00s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 21/100 sentences (time: 16.25s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 22/100 sentences (time: 12.78s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 23/100 sentences (time: 25.49s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 24/100 sentences (time: 19.55s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 25/100 sentences (time: 24.89s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 26/100 sentences (time: 24.87s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 27/100 sentences (time: 25.14s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 28/100 sentences (time: 22.73s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 29/100 sentences (time: 24.32s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 30/100 sentences (time: 15.78s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 31/100 sentences (time: 18.42s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 32/100 sentences (time: 25.11s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 33/100 sentences (time: 25.11s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 34/100 sentences (time: 24.88s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 35/100 sentences (time: 25.26s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 36/100 sentences (time: 15.95s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 37/100 sentences (time: 22.26s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 38/100 sentences (time: 21.13s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 39/100 sentences (time: 25.13s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 40/100 sentences (time: 23.49s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 41/100 sentences (time: 25.26s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 42/100 sentences (time: 25.19s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 43/100 sentences (time: 25.19s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 44/100 sentences (time: 24.90s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 45/100 sentences (time: 25.61s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 46/100 sentences (time: 24.96s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 47/100 sentences (time: 20.83s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 48/100 sentences (time: 25.09s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 49/100 sentences (time: 24.96s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 50/100 sentences (time: 24.96s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 51/100 sentences (time: 24.00s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 52/100 sentences (time: 25.18s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 53/100 sentences (time: 25.20s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 54/100 sentences (time: 14.58s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 55/100 sentences (time: 25.19s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 56/100 sentences (time: 25.28s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 57/100 sentences (time: 23.66s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 58/100 sentences (time: 25.36s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 59/100 sentences (time: 25.44s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 60/100 sentences (time: 25.15s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 61/100 sentences (time: 25.09s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 62/100 sentences (time: 25.05s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 63/100 sentences (time: 25.02s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 64/100 sentences (time: 25.03s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 65/100 sentences (time: 20.10s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 66/100 sentences (time: 20.88s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 67/100 sentences (time: 25.44s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 68/100 sentences (time: 24.93s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 69/100 sentences (time: 25.30s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 70/100 sentences (time: 25.13s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 71/100 sentences (time: 25.11s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 72/100 sentences (time: 24.99s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 73/100 sentences (time: 25.31s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 74/100 sentences (time: 25.16s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 75/100 sentences (time: 24.61s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 76/100 sentences (time: 25.26s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 77/100 sentences (time: 25.07s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 78/100 sentences (time: 22.38s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 79/100 sentences (time: 10.39s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 80/100 sentences (time: 25.00s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 81/100 sentences (time: 24.89s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 82/100 sentences (time: 24.26s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 83/100 sentences (time: 25.05s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 84/100 sentences (time: 20.62s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 85/100 sentences (time: 18.09s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 86/100 sentences (time: 14.50s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 87/100 sentences (time: 21.65s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 88/100 sentences (time: 25.03s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 89/100 sentences (time: 15.03s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 90/100 sentences (time: 25.50s, speed: 5.0 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 91/100 sentences (time: 24.97s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 92/100 sentences (time: 24.96s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 93/100 sentences (time: 25.21s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 94/100 sentences (time: 25.15s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 95/100 sentences (time: 24.75s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 96/100 sentences (time: 13.00s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 97/100 sentences (time: 24.97s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 98/100 sentences (time: 24.27s, speed: 5.2 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 99/100 sentences (time: 25.16s, speed: 5.1 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:2 for open-end generation.
+    - Processed 100/100 sentences (time: 25.38s, speed: 5.0 tok/s)...
+[*] Translations saved to outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_arz_Arab_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 52.06s | Peak VRAM: 7695.23MB | Avg Speed: 5.10 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 09:10:55.205011 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_arz_Arab_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 09:11:02.674242: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779354662.702612    1458 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779354662.711242    1458 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779354662.744145    1458 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779354662.744177    1458 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779354662.744180    1458 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779354662.744182    1458 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_arz_Arab_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 51527.08it/s]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.51it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.57it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.20it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.55it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.81it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.91it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.97it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.00it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:00,  4.04it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.04it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  4.01it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.95it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.98it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.97it/s]
+[*] COMET System Score: 0.6016
+[*] Updated translation file with individual COMET scores: outputs/mistralai_Mistral-7B-Instruct-v0.3_int8_eng_Latn_arz_Arab_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.6016
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-21 09:11:32.215106 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model EuroLLM/EuroLLM-9B-Instruction --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: EuroLLM/EuroLLM-9B-Instruction
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: EuroLLM/EuroLLM-9B-Instruction
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 453, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-6a0ecc4a-0774ec1a2e4ffab9047e1269;232b9a6e-3369-49ff-868c-0216d2cbaae3)
+
+Repository Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 511, in cached_files
+    raise OSError(
+OSError: EuroLLM/EuroLLM-9B-Instruction is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+
+--- COMMAND RUN AT 2026-05-21 09:11:39.718928 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model EuroLLM/EuroLLM-9B-Instruction --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: EuroLLM/EuroLLM-9B-Instruction
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: EuroLLM/EuroLLM-9B-Instruction
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 453, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-6a0ecc51-7a8083dc20a9ca6a5d5d9e4b;ab0f1c8a-147c-4de6-838e-102ccd3b91e4)
+
+Repository Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 511, in cached_files
+    raise OSError(
+OSError: EuroLLM/EuroLLM-9B-Instruction is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+
+--- COMMAND RUN AT 2026-05-21 09:11:46.897963 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model EuroLLM/EuroLLM-9B-Instruction --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs --attn_implementation eager
+
+=== Starting Benchmark ===
+Model: EuroLLM/EuroLLM-9B-Instruction
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: EuroLLM/EuroLLM-9B-Instruction
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 453, in hf_raise_for_status
+    raise _format(RepositoryNotFoundError, message, response) from e
+huggingface_hub.errors.RepositoryNotFoundError: 404 Client Error. (Request ID: Root=1-6a0ecc59-6e7f75dd05f5966e1fbe2f31;075b914a-d568-41da-98ec-95c23d7f5f76)
+
+Repository Not Found for url: https://huggingface.co/EuroLLM/EuroLLM-9B-Instruction/resolve/main/config.json.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 511, in cached_files
+    raise OSError(
+OSError: EuroLLM/EuroLLM-9B-Instruction is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'
+If this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`
+
+
+--- COMMAND RUN AT 2026-05-21 09:23:13.315876 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: Root=1-6a0ecf07-1e65269941352e2f76b39cdf;cc80d2f6-5515-4a78-9841-31646241e996)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/utter-project/EuroLLM-9B-Instruct.
+403 Client Error. (Request ID: Root=1-6a0ecf07-1e65269941352e2f76b39cdf;cc80d2f6-5515-4a78-9841-31646241e996)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+
+--- COMMAND RUN AT 2026-05-21 09:23:20.609014 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: Root=1-6a0ecf0e-196432d9140671d55f5847ce;4088811b-8a79-4d7a-a6bd-912a77638296)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/utter-project/EuroLLM-9B-Instruct.
+403 Client Error. (Request ID: Root=1-6a0ecf0e-196432d9140671d55f5847ce;4088811b-8a79-4d7a-a6bd-912a77638296)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+
+--- COMMAND RUN AT 2026-05-21 09:23:27.857576 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 403, in hf_raise_for_status
+    response.raise_for_status()
+  File "/usr/local/lib/python3.12/dist-packages/requests/models.py", line 1026, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1014, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1121, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1662, in _raise_on_head_call_error
+    raise head_call_error
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1550, in _get_metadata_or_catch_error
+    metadata = get_hf_file_metadata(
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 1467, in get_hf_file_metadata
+    r = _request_wrapper(
+        ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 283, in _request_wrapper
+    response = _request_wrapper(
+               ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/file_download.py", line 307, in _request_wrapper
+    hf_raise_for_status(response)
+  File "/usr/local/lib/python3.12/dist-packages/huggingface_hub/utils/_http.py", line 420, in hf_raise_for_status
+    raise _format(GatedRepoError, message, response) from e
+huggingface_hub.errors.GatedRepoError: 403 Client Error. (Request ID: Root=1-6a0ecf16-7ec0cd1154081b4f20afffa2;5b8651f6-dcd8-4409-a004-afb97c87273b)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 345, in <module>
+    main()
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 198, in main
+    model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/kaggle/working/Model_compression_MT/src/benchmark.py", line 55, in load_quantized_model
+    config = AutoConfig.from_pretrained(model_name, trust_remote_code=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/models/auto/configuration_auto.py", line 1332, in from_pretrained
+    config_dict, unused_kwargs = PretrainedConfig.get_config_dict(pretrained_model_name_or_path, **kwargs)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 662, in get_config_dict
+    config_dict, kwargs = cls._get_config_dict(pretrained_model_name_or_path, **kwargs)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/configuration_utils.py", line 721, in _get_config_dict
+    resolved_config_file = cached_file(
+                           ^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 322, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/transformers/utils/hub.py", line 543, in cached_files
+    raise OSError(
+OSError: You are trying to access a gated repo.
+Make sure to have access to it at https://huggingface.co/utter-project/EuroLLM-9B-Instruct.
+403 Client Error. (Request ID: Root=1-6a0ecf16-7ec0cd1154081b4f20afffa2;5b8651f6-dcd8-4409-a004-afb97c87273b)
+
+Cannot access gated repo for url https://huggingface.co/utter-project/EuroLLM-9B-Instruct/resolve/main/config.json.
+Access to model utter-project/EuroLLM-9B-Instruct is restricted and you are not in the authorized list. Visit https://huggingface.co/utter-project/EuroLLM-9B-Instruct to ask for access.
+
+
+--- COMMAND RUN AT 2026-05-21 09:24:30.967177 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang ces_Latn --tgt_lang deu_Latn --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: ces_Latn -> deu_Latn (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+[*] Architecture detection: Decoder-only (CausalLM)
+2026-05-21 09:24:38.205198: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779355478.228213    1642 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779355478.236072    1642 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779355478.256687    1642 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779355478.256717    1642 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779355478.256720    1642 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779355478.256722    1642 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]
+Fetching 4 files:  25%|██▌       | 1/4 [01:33<04:41, 93.75s/it]
+Fetching 4 files: 100%|██████████| 4/4 [01:33<00:00, 23.44s/it]
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:08<00:24,  8.13s/it]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:31<00:34, 17.04s/it]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:54<00:20, 20.02s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:09<00:00, 17.97s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:09<00:00, 17.45s/it]
+[*] Model loaded in 174.15 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 1/100 sentences (time: 11.85s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 2/100 sentences (time: 14.98s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 3/100 sentences (time: 11.63s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 4/100 sentences (time: 4.20s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 5/100 sentences (time: 6.50s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 6/100 sentences (time: 4.81s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 7/100 sentences (time: 5.56s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 8/100 sentences (time: 11.10s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 9/100 sentences (time: 5.59s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 10/100 sentences (time: 9.22s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 11/100 sentences (time: 14.16s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 12/100 sentences (time: 4.51s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 13/100 sentences (time: 3.39s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 14/100 sentences (time: 6.61s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 15/100 sentences (time: 9.14s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 16/100 sentences (time: 9.57s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 17/100 sentences (time: 9.00s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 18/100 sentences (time: 6.79s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 19/100 sentences (time: 6.63s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 20/100 sentences (time: 7.48s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 21/100 sentences (time: 4.59s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 22/100 sentences (time: 4.63s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 23/100 sentences (time: 6.66s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 24/100 sentences (time: 4.04s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 25/100 sentences (time: 6.05s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 26/100 sentences (time: 5.95s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 27/100 sentences (time: 14.67s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 28/100 sentences (time: 11.33s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 29/100 sentences (time: 7.76s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 30/100 sentences (time: 4.36s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 31/100 sentences (time: 7.04s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 32/100 sentences (time: 11.14s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 33/100 sentences (time: 8.63s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 34/100 sentences (time: 4.93s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 35/100 sentences (time: 6.87s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 36/100 sentences (time: 4.99s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 37/100 sentences (time: 6.19s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 38/100 sentences (time: 10.00s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 39/100 sentences (time: 5.79s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 40/100 sentences (time: 5.66s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 41/100 sentences (time: 12.63s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 42/100 sentences (time: 7.10s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 43/100 sentences (time: 11.10s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 44/100 sentences (time: 8.44s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 45/100 sentences (time: 12.44s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 46/100 sentences (time: 10.14s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 47/100 sentences (time: 7.96s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 48/100 sentences (time: 10.49s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 49/100 sentences (time: 10.87s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 50/100 sentences (time: 12.96s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 51/100 sentences (time: 6.07s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 52/100 sentences (time: 10.49s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 53/100 sentences (time: 9.68s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 54/100 sentences (time: 5.49s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 55/100 sentences (time: 7.92s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 56/100 sentences (time: 6.90s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 57/100 sentences (time: 9.03s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 58/100 sentences (time: 6.40s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 59/100 sentences (time: 14.81s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 60/100 sentences (time: 11.25s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 61/100 sentences (time: 4.97s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 62/100 sentences (time: 6.16s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 63/100 sentences (time: 7.95s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 64/100 sentences (time: 6.73s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 65/100 sentences (time: 8.50s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 66/100 sentences (time: 6.09s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 67/100 sentences (time: 10.89s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 68/100 sentences (time: 10.51s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 69/100 sentences (time: 13.60s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 70/100 sentences (time: 8.44s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 71/100 sentences (time: 9.18s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 72/100 sentences (time: 12.43s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 73/100 sentences (time: 10.25s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 74/100 sentences (time: 15.25s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 75/100 sentences (time: 7.75s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 76/100 sentences (time: 11.73s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 77/100 sentences (time: 11.03s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 78/100 sentences (time: 7.35s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 79/100 sentences (time: 6.20s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 80/100 sentences (time: 6.36s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 81/100 sentences (time: 3.90s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 82/100 sentences (time: 8.04s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 83/100 sentences (time: 6.94s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 84/100 sentences (time: 6.42s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 85/100 sentences (time: 5.60s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 86/100 sentences (time: 4.43s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 87/100 sentences (time: 7.00s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 88/100 sentences (time: 12.46s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 89/100 sentences (time: 3.83s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 90/100 sentences (time: 9.85s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 91/100 sentences (time: 8.78s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 92/100 sentences (time: 7.48s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 93/100 sentences (time: 7.78s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 94/100 sentences (time: 6.55s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 95/100 sentences (time: 4.53s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 96/100 sentences (time: 2.95s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 97/100 sentences (time: 8.04s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 98/100 sentences (time: 8.03s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 99/100 sentences (time: 9.52s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 100/100 sentences (time: 10.20s, speed: 4.4 tok/s)...
+[*] Translations saved to outputs/utter-project_EuroLLM-9B-Instruct_int8_ces_Latn_deu_Latn_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 174.15s | Peak VRAM: 9910.15MB | Avg Speed: 4.41 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 09:43:42.724578 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/utter-project_EuroLLM-9B-Instruct_int8_ces_Latn_deu_Latn_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 09:43:48.928986: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779356628.953020    2207 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779356628.960778    2207 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779356628.986152    2207 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356628.986187    2207 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356628.986197    2207 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356628.986202    2207 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/utter-project_EuroLLM-9B-Instruct_int8_ces_Latn_deu_Latn_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 40880.16it/s]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.56it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.64it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.28it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.64it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.85it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.97it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.00it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.03it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  4.00it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.95it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  3.88it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.82it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.78it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.78it/s]
+[*] COMET System Score: 0.7983
+[*] Updated translation file with individual COMET scores: outputs/utter-project_EuroLLM-9B-Instruct_int8_ces_Latn_deu_Latn_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.7983
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-21 09:44:16.477204 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang zho_Hans --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: eng_Latn -> zho_Hans (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+[*] Architecture detection: Decoder-only (CausalLM)
+2026-05-21 09:44:23.467952: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779356663.492624    2248 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779356663.500664    2248 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779356663.521215    2248 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356663.521267    2248 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356663.521273    2248 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779356663.521277    2248 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:20<01:02, 20.79s/it]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:34<00:33, 16.52s/it]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:54<00:17, 17.97s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:08<00:00, 16.62s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:08<00:00, 17.14s/it]
+[*] Model loaded in 78.71 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 1/100 sentences (time: 14.73s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 2/100 sentences (time: 12.81s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 3/100 sentences (time: 12.90s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 4/100 sentences (time: 3.56s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 5/100 sentences (time: 4.17s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 6/100 sentences (time: 4.85s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 7/100 sentences (time: 6.70s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 8/100 sentences (time: 13.15s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 9/100 sentences (time: 5.71s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 10/100 sentences (time: 7.25s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 11/100 sentences (time: 17.98s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 12/100 sentences (time: 4.43s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 13/100 sentences (time: 4.00s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 14/100 sentences (time: 6.20s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 15/100 sentences (time: 8.79s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 16/100 sentences (time: 9.57s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 17/100 sentences (time: 7.90s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 18/100 sentences (time: 6.84s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 19/100 sentences (time: 7.75s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 20/100 sentences (time: 7.75s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 21/100 sentences (time: 5.34s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 22/100 sentences (time: 5.57s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 23/100 sentences (time: 6.54s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 24/100 sentences (time: 4.81s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 25/100 sentences (time: 9.42s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 26/100 sentences (time: 5.84s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 27/100 sentences (time: 16.60s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 28/100 sentences (time: 10.52s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 29/100 sentences (time: 7.00s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 30/100 sentences (time: 4.14s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 31/100 sentences (time: 7.02s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 32/100 sentences (time: 10.33s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 33/100 sentences (time: 8.03s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 34/100 sentences (time: 5.04s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 35/100 sentences (time: 7.72s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 36/100 sentences (time: 4.35s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 37/100 sentences (time: 5.24s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 38/100 sentences (time: 8.56s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 39/100 sentences (time: 6.68s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 40/100 sentences (time: 5.09s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 41/100 sentences (time: 15.37s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 42/100 sentences (time: 7.80s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 43/100 sentences (time: 12.82s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 44/100 sentences (time: 8.54s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 45/100 sentences (time: 11.90s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 46/100 sentences (time: 13.11s, speed: 4.7 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 47/100 sentences (time: 9.88s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 48/100 sentences (time: 12.41s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 49/100 sentences (time: 9.13s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 50/100 sentences (time: 12.71s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 51/100 sentences (time: 7.83s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 52/100 sentences (time: 12.94s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 53/100 sentences (time: 10.00s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 54/100 sentences (time: 4.45s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 55/100 sentences (time: 10.12s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 56/100 sentences (time: 6.63s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 57/100 sentences (time: 8.29s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 58/100 sentences (time: 6.27s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 59/100 sentences (time: 17.47s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 60/100 sentences (time: 16.43s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 61/100 sentences (time: 9.94s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 62/100 sentences (time: 8.32s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 63/100 sentences (time: 5.28s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 64/100 sentences (time: 7.50s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 65/100 sentences (time: 7.07s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 66/100 sentences (time: 6.85s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 67/100 sentences (time: 9.58s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 68/100 sentences (time: 13.14s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 69/100 sentences (time: 11.81s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 70/100 sentences (time: 9.60s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 71/100 sentences (time: 8.79s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 72/100 sentences (time: 11.86s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 73/100 sentences (time: 9.86s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 74/100 sentences (time: 13.74s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 75/100 sentences (time: 5.89s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 76/100 sentences (time: 10.58s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 77/100 sentences (time: 9.93s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 78/100 sentences (time: 4.82s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 79/100 sentences (time: 8.30s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 80/100 sentences (time: 5.48s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 81/100 sentences (time: 9.52s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 82/100 sentences (time: 6.20s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 83/100 sentences (time: 7.30s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 84/100 sentences (time: 6.41s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 85/100 sentences (time: 5.15s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 86/100 sentences (time: 5.07s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 87/100 sentences (time: 7.46s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 88/100 sentences (time: 14.59s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 89/100 sentences (time: 4.42s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 90/100 sentences (time: 11.81s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 91/100 sentences (time: 8.10s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 92/100 sentences (time: 7.77s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 93/100 sentences (time: 7.29s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 94/100 sentences (time: 4.80s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 95/100 sentences (time: 4.71s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 96/100 sentences (time: 1.83s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 97/100 sentences (time: 9.55s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 98/100 sentences (time: 10.79s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 99/100 sentences (time: 9.05s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 100/100 sentences (time: 8.47s, speed: 4.6 tok/s)...
+[*] Translations saved to outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_zho_Hans_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 78.71s | Peak VRAM: 9843.70MB | Avg Speed: 4.55 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 10:02:21.349984 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_zho_Hans_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 10:02:27.874347: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779357747.899610    2276 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779357747.908142    2276 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779357747.929680    2276 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357747.929704    2276 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357747.929707    2276 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357747.929709    2276 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_zho_Hans_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 47127.01it/s]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:07,  1.50it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.53it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:00<00:03,  3.17it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.49it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.79it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.93it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  4.00it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:01<00:01,  4.06it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:00,  4.07it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  4.04it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  4.00it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.93it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.92it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.92it/s]
+[*] COMET System Score: 0.8771
+[*] Updated translation file with individual COMET scores: outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_zho_Hans_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.8771
+=== COMET Evaluation Complete ===
+
+
+--- COMMAND RUN AT 2026-05-21 10:03:00.558902 ---
+Command: /usr/bin/python3 -u src/benchmark.py --model utter-project/EuroLLM-9B-Instruct --precision int8 --src_lang eng_Latn --tgt_lang arz_Arab --limit 100 --output_dir outputs
+
+=== Starting Benchmark ===
+Model: utter-project/EuroLLM-9B-Instruct
+Precision: int8
+Task: eng_Latn -> arz_Arab (Limit: 100)
+[*] Loading FLORES-200 dataset...
+[*] Reading sentences from local FLORES-200 files (split: dev)...
+[*] Loaded 100 sentences.
+[*] Loading model config for: utter-project/EuroLLM-9B-Instruct
+[*] Architecture detection: Decoder-only (CausalLM)
+2026-05-21 10:03:07.535899: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779357787.558326    2317 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779357787.565932    2317 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779357787.586292    2317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357787.586315    2317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357787.586318    2317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779357787.586320    2317 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:15<00:46, 15.53s/it]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:29<00:28, 14.34s/it]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:48<00:16, 16.78s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:02<00:00, 15.73s/it]
+Loading checkpoint shards: 100%|██████████| 4/4 [01:02<00:00, 15.71s/it]
+[*] Model loaded in 72.92 seconds.
+[*] Performing 5-sentence warm-up...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+[*] Starting translation inference...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 1/100 sentences (time: 16.64s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 2/100 sentences (time: 18.31s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 3/100 sentences (time: 14.18s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 4/100 sentences (time: 4.51s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 5/100 sentences (time: 6.08s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 6/100 sentences (time: 8.50s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 7/100 sentences (time: 5.75s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 8/100 sentences (time: 11.71s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 9/100 sentences (time: 7.35s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 10/100 sentences (time: 11.30s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 11/100 sentences (time: 20.27s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 12/100 sentences (time: 3.43s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 13/100 sentences (time: 4.91s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 14/100 sentences (time: 7.39s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 15/100 sentences (time: 9.49s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 16/100 sentences (time: 12.58s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 17/100 sentences (time: 10.04s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 18/100 sentences (time: 10.21s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 19/100 sentences (time: 8.50s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 20/100 sentences (time: 11.72s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 21/100 sentences (time: 4.74s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 22/100 sentences (time: 6.14s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 23/100 sentences (time: 7.24s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 24/100 sentences (time: 5.40s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 25/100 sentences (time: 8.44s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 26/100 sentences (time: 9.48s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 27/100 sentences (time: 16.53s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 28/100 sentences (time: 9.16s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 29/100 sentences (time: 8.86s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 30/100 sentences (time: 4.70s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 31/100 sentences (time: 6.53s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 32/100 sentences (time: 11.68s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 33/100 sentences (time: 7.78s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 34/100 sentences (time: 6.03s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 35/100 sentences (time: 8.42s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 36/100 sentences (time: 4.97s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 37/100 sentences (time: 7.07s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 38/100 sentences (time: 9.62s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 39/100 sentences (time: 6.82s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 40/100 sentences (time: 6.48s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 41/100 sentences (time: 13.15s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 42/100 sentences (time: 10.51s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 43/100 sentences (time: 13.22s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 44/100 sentences (time: 8.06s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 45/100 sentences (time: 12.32s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 46/100 sentences (time: 11.78s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 47/100 sentences (time: 9.52s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 48/100 sentences (time: 12.90s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 49/100 sentences (time: 10.24s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 50/100 sentences (time: 17.86s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 51/100 sentences (time: 8.61s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 52/100 sentences (time: 13.86s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 53/100 sentences (time: 12.56s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 54/100 sentences (time: 4.99s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 55/100 sentences (time: 13.03s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 56/100 sentences (time: 8.11s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 57/100 sentences (time: 9.08s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 58/100 sentences (time: 9.76s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 59/100 sentences (time: 19.35s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 60/100 sentences (time: 14.80s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 61/100 sentences (time: 8.44s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 62/100 sentences (time: 7.78s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 63/100 sentences (time: 9.69s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 64/100 sentences (time: 10.80s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 65/100 sentences (time: 11.44s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 66/100 sentences (time: 8.00s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 67/100 sentences (time: 13.25s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 68/100 sentences (time: 12.27s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 69/100 sentences (time: 16.38s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 70/100 sentences (time: 10.89s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 71/100 sentences (time: 11.42s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 72/100 sentences (time: 12.52s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 73/100 sentences (time: 11.96s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 74/100 sentences (time: 19.72s, speed: 4.6 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 75/100 sentences (time: 8.83s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 76/100 sentences (time: 13.91s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 77/100 sentences (time: 10.22s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 78/100 sentences (time: 5.70s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 79/100 sentences (time: 6.51s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 80/100 sentences (time: 5.79s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 81/100 sentences (time: 5.09s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 82/100 sentences (time: 7.41s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 83/100 sentences (time: 9.40s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 84/100 sentences (time: 6.09s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 85/100 sentences (time: 6.04s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 86/100 sentences (time: 5.23s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 87/100 sentences (time: 8.82s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 88/100 sentences (time: 13.15s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 89/100 sentences (time: 4.07s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 90/100 sentences (time: 14.76s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 91/100 sentences (time: 10.18s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 92/100 sentences (time: 8.99s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 93/100 sentences (time: 8.16s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 94/100 sentences (time: 8.20s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 95/100 sentences (time: 4.82s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 96/100 sentences (time: 2.31s, speed: 4.3 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 97/100 sentences (time: 11.22s, speed: 4.5 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 98/100 sentences (time: 9.23s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 99/100 sentences (time: 9.74s, speed: 4.4 tok/s)...
+Setting `pad_token_id` to `eos_token_id`:4 for open-end generation.
+    - Processed 100/100 sentences (time: 11.78s, speed: 4.4 tok/s)...
+[*] Translations saved to outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_arz_Arab_translations.json
+[*] Summary appended to outputs/benchmark_summary.csv
+=== Benchmark Complete ===
+Load Time: 72.92s | Peak VRAM: 9843.77MB | Avg Speed: 4.49 tok/s
+
+
+--- COMMAND RUN AT 2026-05-21 10:22:59.038211 ---
+Command: /usr/bin/python3 -u src/evaluate.py --translation_file outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_arz_Arab_translations.json --summary_csv outputs/benchmark_summary.csv
+
+2026-05-21 10:23:05.863303: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:467] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1779358985.886637    2345 cuda_dnn.cc:8579] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1779358985.894443    2345 cuda_blas.cc:1407] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+W0000 00:00:1779358985.915276    2345 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779358985.915299    2345 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779358985.915302    2345 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+W0000 00:00:1779358985.915305    2345 computation_placer.cc:177] computation placer already registered. Please check linkage and avoid linking the same target more than once.
+=== Starting COMET Evaluation ===
+File: outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_arz_Arab_translations.json
+COMET Model: Unbabel/wmt22-comet-da
+[*] Loaded 100 translation sentences.
+[*] Downloading/Loading COMET checkpoint...
+
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]
+Fetching 5 files: 100%|██████████| 5/5 [00:00<00:00, 31583.61it/s]
+[*] Loading model from checkpoint on GPU (CUDA)...
+Lightning automatically upgraded your loaded checkpoint from v1.8.3.post1 to v2.6.1. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../root/.cache/huggingface/hub/models--Unbabel--wmt22-comet-da/snapshots/2760a223ac957f30acfb18c8aa649b01cf1d75f2/checkpoints/model.ckpt`
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/core/saving.py:197: Found keys that are not in the model state dict but in the checkpoint: ['encoder.model.embeddings.position_ids']
+[*] Running COMET predictions...
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+💡 Tip: For seamless cloud logging and experiment tracking, try installing [litlogger](https://pypi.org/project/litlogger/) to enable LitLogger, which logs metrics and artifacts automatically to the Lightning Experiments platform.
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+/usr/local/lib/python3.12/dist-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+
+Predicting: 0it [00:00, ?it/s]
+Predicting: 0it [00:00, ?it/s]
+Predicting DataLoader 0:   0%|          | 0/13 [00:00<?, ?it/s]
+Predicting DataLoader 0:   8%|▊         | 1/13 [00:00<00:08,  1.35it/s]
+Predicting DataLoader 0:  15%|█▌        | 2/13 [00:00<00:04,  2.34it/s]
+Predicting DataLoader 0:  23%|██▎       | 3/13 [00:01<00:03,  2.92it/s]
+Predicting DataLoader 0:  31%|███       | 4/13 [00:01<00:02,  3.25it/s]
+Predicting DataLoader 0:  38%|███▊      | 5/13 [00:01<00:02,  3.51it/s]
+Predicting DataLoader 0:  46%|████▌     | 6/13 [00:01<00:01,  3.65it/s]
+Predicting DataLoader 0:  54%|█████▍    | 7/13 [00:01<00:01,  3.76it/s]
+Predicting DataLoader 0:  62%|██████▏   | 8/13 [00:02<00:01,  3.81it/s]
+Predicting DataLoader 0:  69%|██████▉   | 9/13 [00:02<00:01,  3.82it/s]
+Predicting DataLoader 0:  77%|███████▋  | 10/13 [00:02<00:00,  3.84it/s]
+Predicting DataLoader 0:  85%|████████▍ | 11/13 [00:02<00:00,  3.80it/s]
+Predicting DataLoader 0:  92%|█████████▏| 12/13 [00:03<00:00,  3.76it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.74it/s]
+Predicting DataLoader 0: 100%|██████████| 13/13 [00:03<00:00,  3.74it/s]
+[*] COMET System Score: 0.8291
+[*] Updated translation file with individual COMET scores: outputs/utter-project_EuroLLM-9B-Instruct_int8_eng_Latn_arz_Arab_translations.json
+[*] Updating summary CSV: outputs/benchmark_summary.csv
+[+] Updated matching row in summary CSV with COMET score: 0.8291
+=== COMET Evaluation Complete ===
