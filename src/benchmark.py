@@ -297,6 +297,39 @@ def main():
         
     print(f"[*] Model loaded in {load_time:.2f} seconds.")
     
+    # Determine custom end/stopping tokens for generation to handle instruction-tuned models correctly
+    eos_token_ids = []
+    if isinstance(tokenizer.eos_token_id, list):
+        eos_token_ids.extend(tokenizer.eos_token_id)
+    elif tokenizer.eos_token_id is not None:
+        eos_token_ids.append(tokenizer.eos_token_id)
+        
+    # Standard conversation end/stopping tokens for various instruction models
+    stop_words = ["<end_of_turn>", "<|im_end|>", "<|eot_id|>", "<|END_OF_TURN_TOKEN|>", "<|endoftext|>", "<|end|>"]
+    unk_id = getattr(tokenizer, "unk_token_id", None)
+    for word in stop_words:
+        token_id = tokenizer.convert_tokens_to_ids(word)
+        if token_id is not None and token_id != unk_id:
+            if token_id not in eos_token_ids:
+                eos_token_ids.append(token_id)
+                
+    # Also incorporate model config-specific eos_token_ids if present
+    model_eos = getattr(model.config, "eos_token_id", None)
+    if model_eos is not None:
+        if isinstance(model_eos, list):
+            for eid in model_eos:
+                if eid not in eos_token_ids:
+                    eos_token_ids.append(eid)
+        elif isinstance(model_eos, int):
+            if model_eos not in eos_token_ids:
+                eos_token_ids.append(model_eos)
+                
+    eos_token_ids = [eid for eid in eos_token_ids if eid is not None]
+    if not eos_token_ids:
+        eos_token_ids = None
+    else:
+        print(f"[*] Configured stop/EOS token IDs for generation: {eos_token_ids}")
+    
     # VRAM Tracking Setup
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
@@ -313,7 +346,8 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=args.num_beams
+                num_beams=args.num_beams,
+                eos_token_id=eos_token_ids
             )
         else:
             prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
@@ -322,7 +356,8 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=args.num_beams
+                num_beams=args.num_beams,
+                eos_token_id=eos_token_ids
             )
             
     if torch.cuda.is_available():
@@ -361,7 +396,8 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=args.num_beams
+                num_beams=args.num_beams,
+                eos_token_id=eos_token_ids
             )
         duration = time.time() - t0
         
