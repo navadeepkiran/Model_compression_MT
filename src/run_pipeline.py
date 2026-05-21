@@ -34,8 +34,8 @@ except Exception:
 # Define the models and their target precisions (from the max-feasible table)
 # You can edit the HF model IDs below if you use local paths or specific model versions.
 MODELS = [
-    {"name": "Gemma-2B", "id": "google/gemma-2b-it", "precision": "fp16"},
-    {"name": "Gemma-7B", "id": "google/gemma-7b-it", "precision": "int8"},
+    {"name": "Gemma-3-4B", "id": "google/gemma-3-4b-it", "precision": "fp16"},
+    {"name": "Gemma-3-12B", "id": "google/gemma-3-12b-it", "precision": "int8"},
     {"name": "Aya-Expanse-8B", "id": "CohereForAI/aya-expanse-8b", "precision": "int8"},
     {"name": "Llama-3.1-8B", "id": "meta-llama/Llama-3.1-8B-Instruct", "precision": "int8"},
     {"name": "Qwen-2.5-7B", "id": "Qwen/Qwen2.5-7B-Instruct", "precision": "int8"},
@@ -58,6 +58,7 @@ def parse_args():
     parser.add_argument("--skip_models", type=str, default=None, help="Comma-separated list of model names to skip (e.g. Gemma-2B,Gemma-7B)")
     parser.add_argument("--only_lang", type=str, default=None, help="Run only this lang pair (e.g. ces_Latn-deu_Latn)")
     parser.add_argument("--attn_implementation", type=str, default=None, choices=["eager", "sdpa", "flash_attention_2"], help="Attention implementation to use")
+    parser.add_argument("--num_beams", type=int, default=1, help="Number of beams for generation")
     return parser.parse_args()
 
 def run_command(cmd, log_file=None):
@@ -172,6 +173,7 @@ def main():
             ]
             if args.attn_implementation:
                 benchmark_cmd.extend(["--attn_implementation", args.attn_implementation])
+            benchmark_cmd.extend(["--num_beams", str(args.num_beams)])
             
             bench_ok = run_command(benchmark_cmd, log_file=pipeline_log)
             
