@@ -38,6 +38,98 @@ LANG_MAP = {
 def get_lang_name(code):
     return LANG_MAP.get(code, code.split("_")[0].capitalize())
 
+def clean_translation(translation, src_lang_name, tgt_lang_name):
+    # 1. Clean up any trailing/leading whitespace
+    translation = translation.strip()
+    
+    # 2. Check if the model hallucinated another prompt block of the source language
+    if f"{src_lang_name}:" in translation:
+        translation = translation.split(f"{src_lang_name}:")[0].strip()
+        
+    # Split by newlines to inspect lines
+    lines = [line.strip() for line in translation.split("\n") if line.strip()]
+    if not lines:
+        return ""
+        
+    # Check if lines[0] is an introductory prefix (e.g. "Sure, here's the translation:")
+    def is_intro_line(line):
+        line_lower = line.lower().strip("*_# :.+-")
+        if not line_lower:
+            return True
+            
+        # Common single-word markers
+        if line_lower in ["translation", "translated", "übersetzung", "traduction", "traducción", "raw translation"]:
+            return True
+            
+        # Ends with colon and looks like an intro
+        words = line_lower.split()
+        if len(words) < 15:
+            prefix_keywords = {
+                "sure", "here", "translation", "translate", "translated", "text", 
+                "übersetzung", "deutsch", "arabic", "chinese", "czech", "english", 
+                "german", "laute", "in", "into", "to", "is", "the", "below", "following",
+                "of", "sentence", "phrase", "this", "here's", "hereis", "here!s", "german:"
+            }
+            # If it starts with common phrase markers
+            starts_with_prefix = (
+                line_lower.startswith("sure") or
+                line_lower.startswith("here") or
+                line_lower.startswith("translation") or
+                line_lower.startswith("the translation") or
+                line_lower.startswith("this is") or
+                line_lower.startswith("die übersetzung") or
+                line_lower.startswith("hier ist") or
+                line_lower.startswith("übersetzung")
+            )
+            ends_with_colon = line.strip().endswith(":")
+            
+            if (starts_with_prefix or ends_with_colon) and all(w in prefix_keywords or w.isdigit() or len(w) <= 2 for w in words if w.isalnum()):
+                return True
+                
+            # Additional check for common German, Arabic, Chinese translation prefix markers
+            common_phrases = [
+                "here is the translation", 
+                "here is the translated", 
+                "sure, here's", 
+                "sure! here's", 
+                "sure, here is", 
+                "sure! here is", 
+                "translation into", 
+                "translation to",
+                "übersetzung ins",
+                "übersetzung zum",
+                "die übersetzung lautet",
+                "hier ist die",
+                "here's the translation",
+                "translation of the",
+                "translation of:",
+                "translated text:"
+            ]
+            if any(p in line_lower for p in common_phrases):
+                return True
+                
+        return False
+
+    cleaned_lines = []
+    skipped_intro = False
+    for i, line in enumerate(lines):
+        if i == 0 and is_intro_line(line) and len(lines) > 1:
+            skipped_intro = True
+            continue
+        if i == 1 and skipped_intro and is_intro_line(line) and len(lines) > 2:
+            continue
+        cleaned_lines.append(line)
+        
+    if cleaned_lines:
+        res = " ".join(cleaned_lines).strip()
+    else:
+        res = lines[-1].strip()
+        
+    # Strip quotes or markdown bold/italic markers from the final translation if they wrap the whole text
+    # e.g., "**Translation**" or "**[actual translation]**" or '"[translation]"'
+    res = res.strip("*_`\"'")
+    return res.strip()
+
 def parse_args():
     parser = argparse.ArgumentParser(description="WMT Model Benchmarker")
     parser.add_argument("--model", type=str, required=True, help="HF model name or path")
@@ -48,6 +140,7 @@ def parse_args():
     parser.add_argument("--max_new_tokens", type=int, default=128, help="Max new tokens for generation")
     parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory for results")
     parser.add_argument("--attn_implementation", type=str, default=None, choices=["eager", "sdpa", "flash_attention_2"], help="Forced attention implementation")
+    parser.add_argument("--num_beams", type=int, default=1, help="Number of beams for generation")
     return parser.parse_args()
 
 def load_quantized_model(model_name, precision, attn_implementation=None):
@@ -218,7 +311,7 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=1
+                num_beams=args.num_beams
             )
         else:
             prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
@@ -227,7 +320,7 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=1
+                num_beams=args.num_beams
             )
             
     if torch.cuda.is_available():
@@ -252,7 +345,7 @@ def main():
             # Detect Chat Template
             if tokenizer.chat_template is not None:
                 messages = [
-                    {"role": "user", "content": f"Translate the following text from {src_lang_name} to {tgt_lang_name}:\n\n{src_text}"}
+                    {"role": "user", "content": f"Translate the following text from {src_lang_name} to {tgt_lang_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src_text}"}
                 ]
                 prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
             else:
@@ -266,7 +359,7 @@ def main():
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
-                num_beams=1
+                num_beams=args.num_beams
             )
         duration = time.time() - t0
         
@@ -280,10 +373,8 @@ def main():
             num_generated_tokens = len(generated_ids)
             
         # Clean up causal LM response format if model includes extra context
-        if not is_seq2seq and "\n" in translation:
-            # Check if model hallucinated another prompt block
-            translation = translation.split(f"{src_lang_name}:")[0].strip()
-            translation = translation.split(f"\n\n")[0].strip()
+        if not is_seq2seq:
+            translation = clean_translation(translation, src_lang_name, tgt_lang_name)
             
         tokens_per_sec = num_generated_tokens / duration if duration > 0 else 0
         
