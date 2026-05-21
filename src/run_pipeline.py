@@ -41,7 +41,7 @@ MODELS = [
     {"name": "Qwen-2.5-7B", "id": "Qwen/Qwen2.5-7B-Instruct", "precision": "int8"},
     {"name": "Qwen-2.5-14B", "id": "Qwen/Qwen2.5-14B-Instruct", "precision": "int4"},
     {"name": "Mistral-7B", "id": "mistralai/Mistral-7B-Instruct-v0.3", "precision": "int8"},
-    {"name": "EuroLLM-9B", "id": "EuroLLM/EuroLLM-9B-Instruction", "precision": "int8"},
+    {"name": "EuroLLM-9B", "id": "utter-project/EuroLLM-9B-Instruct", "precision": "int8"},
 ]
 
 # WMT26 Language combinations
