@@ -150,10 +150,10 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     
     print(f"[*] Architecture detection: {'Seq2Seq' if is_seq2seq else 'Decoder-only (CausalLM)'}")
     
-    # For Gemma-3 models, force bfloat16 when fp16 is requested to prevent NaN/overflow 
-    # resulting in pad-only output (gemma-3 was trained strictly on bf16 and is unstable in fp16).
-    if "gemma-3" in model_name.lower() and precision == "fp16":
-        print("[*] Gemma-3 model detected with fp16 precision. Forcing bfloat16 to avoid numerical instability / pad-only output.")
+    # For Gemma/Llama models, force bfloat16 when fp16 is requested to prevent NaN/overflow 
+    # resulting in pad-only output (these models were trained strictly on bf16 and are unstable in fp16).
+    if ("gemma" in model_name.lower() or "llama" in model_name.lower()) and precision == "fp16":
+        print(f"[*] {model_name} detected with fp16 precision. Forcing bfloat16 to avoid numerical instability / pad-only output.")
         precision = "bf16"
         
     # Configure quantization settings
@@ -196,6 +196,9 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     t0 = time.time()
     if bnb_config:
         load_kwargs["quantization_config"] = bnb_config
+        # Force torch_dtype to bfloat16 for Gemma and Llama models to prevent float16 numerical issues in non-quantized layers
+        if "gemma" in model_name.lower() or "llama" in model_name.lower():
+            load_kwargs["torch_dtype"] = torch.bfloat16
         model = model_class.from_pretrained(model_name, **load_kwargs)
     else:
         load_kwargs["torch_dtype"] = torch_dtype

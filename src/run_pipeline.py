@@ -216,13 +216,9 @@ def main():
         # Clean up model cache from disk to prevent disk full errors
         try:
             import shutil
-            hf_home = os.environ.get("HF_HOME")
-            if hf_home:
-                cache_dir = os.path.join(hf_home, "hub")
-            else:
-                cache_dir = os.path.join(os.path.expanduser("~"), ".cache", "huggingface", "hub")
-                
-            model_cache_dir = os.path.join(cache_dir, f"models--{model_id.replace('/', '--')}")
+            from huggingface_hub.constants import HF_HUB_CACHE
+            
+            model_cache_dir = os.path.join(HF_HUB_CACHE, f"models--{model_id.replace('/', '--')}")
             if os.path.exists(model_cache_dir):
                 print(f"[*] Cleaning up disk cache for {model_name} ({model_id}) to free space...")
                 shutil.rmtree(model_cache_dir, ignore_errors=True)
