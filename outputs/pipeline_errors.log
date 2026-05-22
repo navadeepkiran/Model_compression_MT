@@ -29,3 +29,4 @@
 [2026-05-21 09:23:20.608873] Benchmark failed: EuroLLM-9B (int8) for ces_Latn->deu_Latn
 [2026-05-21 09:23:27.857397] Benchmark failed: EuroLLM-9B (int8) for eng_Latn->zho_Hans
 [2026-05-21 09:23:35.160906] Benchmark failed: EuroLLM-9B (int8) for eng_Latn->arz_Arab
+[2026-05-22 00:15:13.993709] Benchmark failed: Gemma-3-4B (fp16) for ces_Latn->deu_Latn
