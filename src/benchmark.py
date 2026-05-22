@@ -405,10 +405,20 @@ def main():
         if is_seq2seq:
             translation = tokenizer.decode(outputs[0], skip_special_tokens=True).strip()
             num_generated_tokens = len(outputs[0])
+            raw_gen = tokenizer.decode(outputs[0], skip_special_tokens=False)
         else:
             generated_ids = outputs[0][inputs.input_ids.shape[1]:]
             translation = tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
             num_generated_tokens = len(generated_ids)
+            raw_gen = tokenizer.decode(generated_ids, skip_special_tokens=False)
+            
+        # Debug print for first sentence to diagnose generation length and stop tokens
+        if idx == 0:
+            print(f"\n[DEBUG] Prompt: {repr(prompt)}")
+            print(f"[DEBUG] Raw Generated Text: {repr(raw_gen)}")
+            print(f"[DEBUG] Cleaned Translation: {repr(translation)}")
+            print(f"[DEBUG] Generated token count: {num_generated_tokens}")
+            print(f"[DEBUG] Tokenizer chat template: {tokenizer.chat_template is not None}\n")
             
         # Clean up causal LM response format if model includes extra context
         if not is_seq2seq:
