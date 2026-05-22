@@ -150,6 +150,12 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     
     print(f"[*] Architecture detection: {'Seq2Seq' if is_seq2seq else 'Decoder-only (CausalLM)'}")
     
+    # For Gemma-3 models, force bfloat16 when fp16 is requested to prevent NaN/overflow 
+    # resulting in pad-only output (gemma-3 was trained strictly on bf16 and is unstable in fp16).
+    if "gemma-3" in model_name.lower() and precision == "fp16":
+        print("[*] Gemma-3 model detected with fp16 precision. Forcing bfloat16 to avoid numerical instability / pad-only output.")
+        precision = "bf16"
+        
     # Configure quantization settings
     bnb_config = None
     torch_dtype = torch.float32
@@ -294,6 +300,9 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
+    # Align model pad token ID with tokenizer pad token ID to prevent warnings/errors
+    if model.config.pad_token_id is None or model.config.pad_token_id != tokenizer.pad_token_id:
+        model.config.pad_token_id = tokenizer.pad_token_id
         
     print(f"[*] Model loaded in {load_time:.2f} seconds.")
     
@@ -375,8 +384,11 @@ def main():
                 prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
                 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
                 
+            # For CausalLM (decoder-only) with batch size 1, pass only input_ids to model.generate
+            # to avoid bugs with attention_mask or token_type_ids in some model/tokenizer versions.
+            gen_inputs = {"input_ids": inputs["input_ids"]}
             _ = model.generate(
-                **inputs,
+                **gen_inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
                 num_beams=args.num_beams,
@@ -431,10 +443,16 @@ def main():
                 prompt = f"Translate the following text from {src_lang_name} to {tgt_lang_name}.\n{src_lang_name}: {src_text}\n{tgt_lang_name}:"
                 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
             
+        # Clean inputs for CausalLM models to avoid attention_mask or token_type_ids bugs
+        if not is_seq2seq:
+            gen_inputs = {"input_ids": inputs["input_ids"]}
+        else:
+            gen_inputs = inputs
+
         t0 = time.time()
         with torch.no_grad():
             outputs = model.generate(
-                **inputs,
+                **gen_inputs,
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
                 num_beams=args.num_beams,
