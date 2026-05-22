@@ -31,18 +31,11 @@ except Exception:
     pass
 
 
-# Define the models and their target precisions (from the max-feasible table)
-# You can edit the HF model IDs below if you use local paths or specific model versions.
 MODELS = [
     {"name": "Gemma-3-4B", "id": "google/gemma-3-4b-it", "precision": "fp16"},
     {"name": "Gemma-3-12B", "id": "google/gemma-3-12b-it", "precision": "int8"},
-    {"name": "Aya-Expanse-8B", "id": "CohereForAI/aya-expanse-8b", "precision": "int8"},
-    {"name": "Llama-3.1-8B", "id": "meta-llama/Llama-3.1-8B-Instruct", "precision": "int8"},
-    {"name": "Qwen-2.5-7B", "id": "Qwen/Qwen2.5-7B-Instruct", "precision": "int8"},
-    {"name": "Qwen-2.5-14B", "id": "Qwen/Qwen2.5-14B-Instruct", "precision": "int4"},
-    {"name": "Mistral-7B", "id": "mistralai/Mistral-7B-Instruct-v0.3", "precision": "int8"},
-    {"name": "EuroLLM-9B", "id": "utter-project/EuroLLM-9B-Instruct", "precision": "int8"},
 ]
+
 
 # WMT26 Language combinations
 LANG_PAIRS = [
