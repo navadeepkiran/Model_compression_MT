@@ -448,7 +448,7 @@ def main():
             num_generated_tokens = len(outputs[0])
             raw_gen = tokenizer.decode(outputs[0], skip_special_tokens=False)
         else:
-            generated_ids = outputs[0][inputs.input_ids.shape[1]:]
+            generated_ids = outputs[0][inputs["input_ids"].shape[1]:]
             translation = tokenizer.decode(generated_ids, skip_special_tokens=True).strip()
             num_generated_tokens = len(generated_ids)
             raw_gen = tokenizer.decode(generated_ids, skip_special_tokens=False)
