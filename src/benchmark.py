@@ -350,8 +350,31 @@ def main():
                 eos_token_id=eos_token_ids
             )
         else:
-            prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
-            inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+            if tokenizer.chat_template is not None:
+                messages = [
+                    {"role": "user", "content": f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n\nText to translate:\n{src_text}"}
+                ]
+                try:
+                    inputs = tokenizer.apply_chat_template(
+                        messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_dict=True,
+                        return_tensors="pt"
+                    )
+                    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+                except TypeError:
+                    input_ids = tokenizer.apply_chat_template(
+                        messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_tensors="pt"
+                    ).to(model.device)
+                    inputs = {"input_ids": input_ids}
+            else:
+                prompt = f"Translate the following text from {get_lang_name(args.src_lang)} to {get_lang_name(args.tgt_lang)}.\n{get_lang_name(args.src_lang)}: {src_text}\n{get_lang_name(args.tgt_lang)}:"
+                inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+                
             _ = model.generate(
                 **inputs,
                 max_new_tokens=args.max_new_tokens,
@@ -384,11 +407,29 @@ def main():
                 messages = [
                     {"role": "user", "content": f"Translate the following text from {src_lang_name} to {tgt_lang_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src_text}"}
                 ]
+                # Ensure special tokens are tokenized correctly as control IDs, not raw text subwords
+                try:
+                    inputs = tokenizer.apply_chat_template(
+                        messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_dict=True,
+                        return_tensors="pt"
+                    )
+                    inputs = {k: v.to(model.device) for k, v in inputs.items()}
+                except TypeError:
+                    input_ids = tokenizer.apply_chat_template(
+                        messages,
+                        tokenize=True,
+                        add_generation_prompt=True,
+                        return_tensors="pt"
+                    ).to(model.device)
+                    inputs = {"input_ids": input_ids}
+                # Keep prompt as a string for debugging and metadata
                 prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
             else:
                 prompt = f"Translate the following text from {src_lang_name} to {tgt_lang_name}.\n{src_lang_name}: {src_text}\n{tgt_lang_name}:"
-            
-            inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+                inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
             
         t0 = time.time()
         with torch.no_grad():
