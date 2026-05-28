@@ -506,16 +506,31 @@ def main():
     # Setup custom data collator to inject token_type_ids (required by Gemma-3 during training)
     base_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True)
     
+    MAX_LEN = args.max_seq_length  # capture in closure
+    
     def gemma3_collator(features):
-        # Filter features to keep only tokenized numeric keys and drop any string metadata columns (like 'text')
+        # Filter features to keep only tokenized numeric keys and drop string metadata (like 'text')
         allowed_keys = {"input_ids", "attention_mask", "labels"}
         cleaned_features = []
         for f in features:
-            cleaned_f = {k: v for k, v in f.items() if k in allowed_keys}
+            cleaned_f = {}
+            for k, v in f.items():
+                if k not in allowed_keys:
+                    continue
+                # Hard-truncate token arrays to MAX_LEN RIGHT HERE.
+                # This is the last line of defense: regardless of chat template system-prompt
+                # overhead, SFTTrainer version, or any upstream issue, sequences can never
+                # exceed MAX_LEN tokens when they reach the model forward pass.
+                if isinstance(v, list):
+                    cleaned_f[k] = v[:MAX_LEN]
+                else:
+                    cleaned_f[k] = v  # tensors handled by DataCollatorForSeq2Seq
             cleaned_features.append(cleaned_f)
-            
+
         batch = base_collator(cleaned_features)
+        # Truncate padded batch tensors too (in case padding pushed beyond MAX_LEN)
         if "input_ids" in batch:
+            batch = {k: v[:, :MAX_LEN] if v.dim() == 2 else v for k, v in batch.items()}
             batch["token_type_ids"] = torch.zeros_like(batch["input_ids"])
         return batch
         
