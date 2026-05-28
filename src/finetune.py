@@ -119,9 +119,12 @@ class CometEvaluationCallback(TrainerCallback):
         if val_dataset:
             try:
                 from comet import download_model, load_from_checkpoint
-                print("[*] Pre-loading COMET model for callback...")
+                print("[*] Pre-loading COMET model for callback (on CPU to preserve GPU VRAM)...")
                 model_path = download_model(comet_model_name)
                 self.comet_model = load_from_checkpoint(model_path)
+                # Force COMET to CPU – it competes with Gemma-3-12B for the 15GB T4 GPU.
+                # COMET runs once per epoch on 100 samples, so CPU inference is fast enough.
+                self.comet_model = self.comet_model.to("cpu")
             except Exception as e:
                 print(f"[!] Error loading COMET model: {e}. Comet scoring will be disabled.")
                 
@@ -131,8 +134,10 @@ class CometEvaluationCallback(TrainerCallback):
             
         print(f"\n[*] Epoch {state.epoch:.1f} ended. Starting COMET evaluation...")
         
-        # Set to eval mode
+        # Set to eval mode and free GPU cache so generation has max headroom
         model.eval()
+        gc.collect()
+        torch.cuda.empty_cache()
         
         predictions = []
         data_to_grade = []
@@ -167,10 +172,9 @@ class CometEvaluationCallback(TrainerCallback):
                 "ref": ref_text
             })
             
-        # Run COMET evaluation
+        # Run COMET evaluation on CPU (model lives on CPU to preserve GPU VRAM for training)
         try:
-            gpus = 1 if torch.cuda.is_available() else 0
-            comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=gpus)
+            comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=0)  # CPU only
             current_score = comet_results.system_score
             
             print(f"\n========================================")
