@@ -446,14 +446,17 @@ def main():
     # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
-    # Config for 8-bit Quantization – completely bypasses buggy 4-bit T4 kernels
-    print("[*] Configuring 8-bit quantization settings (Guaranteed T4 compatibility)...")
+    # Config for 4-bit NF4 QLoRA – frees ~6 GB of headroom compared to INT8
+    print("[*] Configuring 4-bit NF4 quantization settings (Strict Float16 for T4 compatibility)...")
     bnb_config = BitsAndBytesConfig(
-        load_in_8bit=True
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",            
+        bnb_4bit_compute_dtype=torch.float16, 
+        bnb_4bit_use_double_quant=True,       
     )
     
     # Load model
-    print("[*] Loading Gemma-3-12B in 8-bit precision...")
+    print("[*] Loading Gemma-3-12B in 4-bit precision...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
