@@ -530,7 +530,7 @@ def main():
         batch = base_collator(cleaned_features)
         # Truncate padded batch tensors too (in case padding pushed beyond MAX_LEN)
         if "input_ids" in batch:
-            batch = {k: v[:, :MAX_LEN] if v.dim() == 2 else v for k, v in batch.items()}
+            batch = {k: v[:, :MAX_LEN] if v is not None and v.dim() == 2 else v for k, v in batch.items()}
             batch["token_type_ids"] = torch.zeros_like(batch["input_ids"])
         return batch
         
