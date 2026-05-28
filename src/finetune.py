@@ -539,6 +539,7 @@ def main():
         "report_to": "none",
         "num_train_epochs": args.epochs,
         "remove_unused_columns": False,  # Keep all columns including token_type_ids
+        "torch_compile": False,          # Explicitly disable compilation as per advice
     }
 
     # ── SIMPLE COLLATOR ───────────────────────────────────────────────────────
