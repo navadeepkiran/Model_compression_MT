@@ -390,7 +390,7 @@ def main():
         return {"text": text}
         
     print("[*] Formatting prompts using tokenizer chat template...")
-    train_dataset = train_dataset.map(format_prompts)
+    train_dataset = train_dataset.map(format_prompts, remove_columns=["src", "tgt", "src_lang", "tgt_lang"])
     
     # Clear memory cache
     gc.collect()
