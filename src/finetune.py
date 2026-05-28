@@ -505,13 +505,29 @@ def main():
         elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]) and not any(x in name.lower() for x in ["embed", "lm_head"]):
             module.to(torch.float32)
 
-    # Catch-all: If any parameter or buffer STILL has bfloat16, mercilessly cast its data to float32
+    # ── BFLOAT16 ERADICATOR ───────────────────────────────────────────────────
+    # Gemma-3 leaves unregistered BFloat16 tensors (like RoPE inv_freq/caches) 
+    # hidden in module attributes. During forward pass, these silently promote 
+    # the graph to BFloat16, causing the fp16 GradScaler to crash on T4.
+    print("[*] Hunting down and eradicating unregistered BFloat16 tensors...")
+    for name, module in model.named_modules():
+        # 1. Cast hidden unregistered tensors (RoPE caches, etc.)
+        for attr_name in dir(module):
+            try:
+                attr = getattr(module, attr_name)
+                if isinstance(attr, torch.Tensor) and attr.dtype == torch.bfloat16:
+                    setattr(module, attr_name, attr.to(torch.float32))
+            except Exception:
+                pass
+                
+    # 2. Standard parameters and buffers
     for param in model.parameters():
         if param.dtype == torch.bfloat16:
             param.data = param.data.to(torch.float32)
     for buffer in model.buffers():
         if buffer.dtype == torch.bfloat16:
             buffer.data = buffer.data.to(torch.float32)
+    # ──────────────────────────────────────────────────────────────────────────
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
