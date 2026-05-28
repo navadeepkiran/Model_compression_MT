@@ -491,6 +491,10 @@ def main():
     for name, param in model.named_parameters():
         if param.dtype in [torch.bfloat16, torch.float16]:
             param.data = param.data.to(torch.float32)
+    # Also strictly cast buffers (like RoPE cos/sin caches) to eradicate bfloat16
+    for name, buffer in model.named_buffers():
+        if buffer.dtype in [torch.bfloat16, torch.float16]:
+            buffer.data = buffer.data.to(torch.float32)
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
