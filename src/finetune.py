@@ -446,27 +446,24 @@ def main():
     # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
-    # Config for 4-bit NF4 QLoRA – frees ~6 GB of headroom compared to INT8
-    print("[*] Configuring 4-bit NF4 quantization settings (Strict Float32 for T4 compatibility)...")
+    # Config for 8-bit Quantization – completely bypasses buggy 4-bit T4 kernels
+    print("[*] Configuring 8-bit quantization settings (Guaranteed T4 compatibility)...")
     bnb_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.float32, 
-        bnb_4bit_use_double_quant=True,       
+        load_in_8bit=True
     )
     
     # Load model
-    print("[*] Loading Gemma-3-12B in 4-bit precision...")
+    print("[*] Loading Gemma-3-12B in 8-bit precision...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
         device_map={"": 0},  # Force single GPU execution
         trust_remote_code=True,
-        torch_dtype=torch.float32,
+        torch_dtype=torch.float16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
-    model.config.torch_dtype = torch.float32
+    model.config.torch_dtype = torch.float16
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
@@ -486,15 +483,13 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force ALL floating-point parameters to float32.
-    # T4 GPUs do not support bfloat16 natively, and float16 hits a cuBLAS bug for these tensor sizes.
+    # Force ALL floating-point parameters and buffers to float16
     for name, param in model.named_parameters():
-        if param.dtype in [torch.bfloat16, torch.float16]:
-            param.data = param.data.to(torch.float32)
-    # Also strictly cast buffers (like RoPE cos/sin caches) to eradicate bfloat16
+        if param.dtype in [torch.bfloat16, torch.float32]:
+            param.data = param.data.to(torch.float16)
     for name, buffer in model.named_buffers():
-        if buffer.dtype in [torch.bfloat16, torch.float16]:
-            buffer.data = buffer.data.to(torch.float32)
+        if buffer.dtype in [torch.bfloat16, torch.float32]:
+            buffer.data = buffer.data.to(torch.float16)
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
@@ -521,7 +516,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": False,   # Explicitly disable fp16 to train purely in float32
+        "fp16": True,    # Enable standard fp16 training
         "bf16": False,   # Explicitly disable bf16 to prevent BFloat16 crashes on T4
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
