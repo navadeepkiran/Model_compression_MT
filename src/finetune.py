@@ -1,9 +1,9 @@
 import os
 
-# MUST be set before 'import torch' so PyTorch's CUDA caching allocator picks it up at init time.
-# This allows the allocator to merge fragmented reserved blocks with free memory,
-# preventing OOM when a single large contiguous block is needed (e.g. 632 MiB for attention weights).
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+# Set BOTH env var names to cover all PyTorch versions (name changed in 2.x)
+# Must be before 'import torch' so the CUDA caching allocator reads it at init time.
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"  # PyTorch < 2.x
+os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"       # PyTorch >= 2.x
 
 # Redirect HF Cache to /kaggle/tmp or /tmp on Linux environments (Kaggle/Colab) to prevent home directory disk full errors
 if os.name != "nt":
@@ -390,10 +390,25 @@ def main():
     train_dataset = Dataset.from_list(final_subset)
     
     # Helper to apply template
+    # IMPORTANT: Europarl/WMT contains full parliamentary speeches that can be thousands
+    # of tokens long. SFTTrainer's max_length only FILTERS samples, it does NOT truncate them.
+    # A 4000-token sequence produces a [1, 16, 4000, 4000] attention matrix = ~2 GB — instant OOM.
+    # Fix: hard-cap src and tgt BEFORE formatting so the final sequence is always ≤ 256 tokens.
+    #   Template overhead (roles, instruction text, special tokens): ~106 tokens
+    #   src budget: 80 tokens | tgt budget: 70 tokens | total: ≤ 256 tokens ✓
+    SRC_MAX_TOKENS = 80
+    TGT_MAX_TOKENS = 70
+    
     def format_prompts(example):
+        # Truncate at the token level, then decode back to text
+        src_ids = tokenizer.encode(example['src'], add_special_tokens=False)[:SRC_MAX_TOKENS]
+        tgt_ids = tokenizer.encode(example['tgt'], add_special_tokens=False)[:TGT_MAX_TOKENS]
+        src = tokenizer.decode(src_ids, skip_special_tokens=True)
+        tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
+        
         messages = [
-            {"role": "user", "content": f"Translate the following text from {example['src_lang']} to {example['tgt_lang']}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{example['src']}"},
-            {"role": "model", "content": example['tgt']}
+            {"role": "user", "content": f"Translate the following text from {example['src_lang']} to {example['tgt_lang']}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src}"},
+            {"role": "model", "content": tgt}
         ]
         text = tokenizer.apply_chat_template(messages, tokenize=False)
         return {"text": text}
