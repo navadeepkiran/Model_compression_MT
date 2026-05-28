@@ -233,9 +233,9 @@ def main():
     parser.add_argument("--epochs", type=int, default=50, help="Number of epochs to train")
     parser.add_argument("--subset_size", type=int, default=50000, help="Dataset size")
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
-    parser.add_argument("--lora_rank", type=int, default=8, help="LoRA Rank")
+    parser.add_argument("--lora_rank", type=int, default=4, help="LoRA Rank")
     parser.add_argument("--lora_alpha", type=int, default=16, help="LoRA Alpha")
-    parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length (lower = less VRAM; 256 fits on 15GB T4)")
+    parser.add_argument("--max_seq_length", type=int, default=128, help="Max sequence length (lower = less VRAM; 128 perfectly fits 8-bit on 15GB T4)")
     args = parser.parse_args()
     
     os.makedirs(args.output_dir, exist_ok=True)
