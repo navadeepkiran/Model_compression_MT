@@ -1,4 +1,14 @@
 import os
+# Automatically load Kaggle Secrets for HuggingFace token if available
+try:
+    from kaggle_secrets import UserSecretsClient
+    user_secrets = UserSecretsClient()
+    hf_token = user_secrets.get_secret("HF_TOKEN")
+    if hf_token:
+        os.environ["HF_TOKEN"] = hf_token
+except Exception:
+    pass
+
 import gc
 import json
 import torch
@@ -322,7 +332,8 @@ def main():
     
     # 4. Load Tokenizer & Model
     print("[*] Loading Tokenizer...")
-    tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True)
+    hf_token = os.environ.get("HF_TOKEN")
+    tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
@@ -359,7 +370,8 @@ def main():
         quantization_config=bnb_config,
         device_map={"": 0},  # Force single GPU execution to prevent deadlocks and memory dispersion
         trust_remote_code=True,
-        torch_dtype=torch.float16  # Force fp16 computation path for T4 compatibility
+        torch_dtype=torch.float16,  # Force fp16 computation path for T4 compatibility
+        token=hf_token
     )
     model.config.torch_dtype = torch.float16
     
