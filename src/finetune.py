@@ -447,84 +447,71 @@ def main():
     
     # Setup Trainer configs
     print("[*] Configuring Trainer...")
-    try:
-        sft_config = SFTConfig(
-            output_dir=args.output_dir,
-            per_device_train_batch_size=1,
-            gradient_accumulation_steps=16,
-            gradient_checkpointing=True,
-            gradient_checkpointing_kwargs={"use_reentrant": False},
-            optim="paged_adamw_8bit",
-            save_strategy="epoch",
-            save_total_limit=2,
-            logging_steps=20,
-            learning_rate=args.learning_rate,
-            fp16=False,  # Bypass GradScaler BFloat16 issues on T4
-            group_by_length=True,
-            lr_scheduler_type="cosine",
-            push_to_hub=False,
-            report_to="none",
-            dataset_text_field="text",
-            packing=False,
-            max_seq_length=args.max_seq_length,
-            num_train_epochs=args.epochs
-        )
-        trainer_kwargs = {
-            "model": model,
-            "train_dataset": train_dataset,
-            "args": sft_config,
-            "callbacks": [comet_callback]
-        }
-        # Handle processing_class vs tokenizer in SFTTrainer
-        import inspect
-        sig = inspect.signature(SFTTrainer.__init__)
-        if "processing_class" in sig.parameters:
-            trainer_kwargs["processing_class"] = tokenizer
-        else:
-            trainer_kwargs["tokenizer"] = tokenizer
-            
-        trainer = SFTTrainer(**trainer_kwargs)
+    import inspect
+    
+    sft_config_sig = inspect.signature(SFTConfig.__init__).parameters
+    sft_trainer_sig = inspect.signature(SFTTrainer.__init__).parameters
+    
+    # Core TrainingArguments params
+    config_kwargs = {
+        "output_dir": args.output_dir,
+        "per_device_train_batch_size": 1,
+        "gradient_accumulation_steps": 16,
+        "gradient_checkpointing": True,
+        "gradient_checkpointing_kwargs": {"use_reentrant": False},
+        "optim": "paged_adamw_8bit",
+        "save_strategy": "epoch",
+        "save_total_limit": 2,
+        "logging_steps": 20,
+        "learning_rate": args.learning_rate,
+        "fp16": False,  # Bypass GradScaler BFloat16 issues on T4
+        "group_by_length": True,
+        "lr_scheduler_type": "cosine",
+        "push_to_hub": False,
+        "report_to": "none",
+        "num_train_epochs": args.epochs
+    }
+    
+    trainer_kwargs = {
+        "model": model,
+        "train_dataset": train_dataset,
+        "callbacks": [comet_callback]
+    }
+    
+    # Route sequence length parameter (max_seq_length vs max_length)
+    if "max_seq_length" in sft_config_sig:
+        config_kwargs["max_seq_length"] = args.max_seq_length
+    elif "max_length" in sft_config_sig:
+        config_kwargs["max_length"] = args.max_seq_length
+    elif "max_seq_length" in sft_trainer_sig:
+        trainer_kwargs["max_seq_length"] = args.max_seq_length
+    elif "max_length" in sft_trainer_sig:
+        trainer_kwargs["max_length"] = args.max_seq_length
         
-    except TypeError as e:
-        if "max_seq_length" in str(e):
-            print("[*] SFTConfig does not accept max_seq_length in this trl version. Passing it to SFTTrainer instead...")
-            sft_config = SFTConfig(
-                output_dir=args.output_dir,
-                per_device_train_batch_size=1,
-                gradient_accumulation_steps=16,
-                gradient_checkpointing=True,
-                gradient_checkpointing_kwargs={"use_reentrant": False},
-                optim="paged_adamw_8bit",
-                save_strategy="epoch",
-                save_total_limit=2,
-                logging_steps=20,
-                learning_rate=args.learning_rate,
-                fp16=False,  # Bypass GradScaler BFloat16 issues on T4
-                group_by_length=True,
-                lr_scheduler_type="cosine",
-                push_to_hub=False,
-                report_to="none",
-                dataset_text_field="text",
-                packing=False,
-                num_train_epochs=args.epochs
-            )
-            trainer_kwargs = {
-                "model": model,
-                "train_dataset": train_dataset,
-                "args": sft_config,
-                "callbacks": [comet_callback],
-                "max_seq_length": args.max_seq_length
-            }
-            import inspect
-            sig = inspect.signature(SFTTrainer.__init__)
-            if "processing_class" in sig.parameters:
-                trainer_kwargs["processing_class"] = tokenizer
-            else:
-                trainer_kwargs["tokenizer"] = tokenizer
-                
-            trainer = SFTTrainer(**trainer_kwargs)
-        else:
-            raise e
+    # Route dataset_text_field parameter
+    if "dataset_text_field" in sft_config_sig:
+        config_kwargs["dataset_text_field"] = "text"
+    elif "dataset_text_field" in sft_trainer_sig:
+        trainer_kwargs["dataset_text_field"] = "text"
+        
+    # Route packing parameter
+    if "packing" in sft_config_sig:
+        config_kwargs["packing"] = False
+    elif "packing" in sft_trainer_sig:
+        trainer_kwargs["packing"] = False
+        
+    # Route tokenizer / processing_class
+    if "processing_class" in sft_trainer_sig:
+        trainer_kwargs["processing_class"] = tokenizer
+    else:
+        trainer_kwargs["tokenizer"] = tokenizer
+        
+    print(f"[*] Instantiating SFTConfig with arguments: {list(config_kwargs.keys())}")
+    sft_config = SFTConfig(**config_kwargs)
+    
+    trainer_kwargs["args"] = sft_config
+    print(f"[*] Instantiating SFTTrainer with arguments: {list(trainer_kwargs.keys())}")
+    trainer = SFTTrainer(**trainer_kwargs)
     
     # Check for resume checkpoints
     last_checkpoint = None
