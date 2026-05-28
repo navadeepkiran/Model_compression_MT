@@ -486,10 +486,11 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force trainable params to float32 to exactly match the model's dtype 
+    # Force ALL floating-point parameters to float32 to completely eradicate bfloat16 from the model.
+    # T4 GPUs do not support bfloat16 natively, and any rogue bfloat16 tensors will crash cuBLAS.
     for name, param in model.named_parameters():
-        if param.requires_grad:
-            param.data = param.data.to(torch.float32)            
+        if param.dtype in [torch.bfloat16, torch.float16]:
+            param.data = param.data.to(torch.float32)
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
@@ -517,6 +518,7 @@ def main():
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
         "fp16": False,  # Disabled fp16 to train purely in fp32
+        "bf16": False,  # Explicitly disable bf16 as well
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
