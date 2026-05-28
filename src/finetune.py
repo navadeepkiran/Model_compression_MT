@@ -5,6 +5,16 @@ import os
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"  # PyTorch < 2.x
 os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"       # PyTorch >= 2.x
 
+# Force cuBLAS to use a deterministic/alternative workspace to bypass T4 Float16 NOT_SUPPORTED bugs
+os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+
+import torch
+# Disable reduced precision reduction which triggers cuBLAS unsupported kernels on T4
+torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
+# Disable TF32 since T4 doesn't support it anyway, just to be safe
+torch.backends.cuda.matmul.allow_tf32 = False
+torch.backends.cudnn.allow_tf32 = False
+
 # Redirect HF Cache to /kaggle/tmp or /tmp on Linux environments (Kaggle/Colab) to prevent home directory disk full errors
 if os.name != "nt":
     if os.path.exists("/kaggle"):
