@@ -189,7 +189,12 @@ class CometEvaluationCallback(TrainerCallback):
             
         # Run COMET evaluation on GPU
         try:
-            comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=1)
+            import pytorch_lightning as pl
+            if int(pl.__version__.split(".")[0]) >= 2:
+                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, devices=1, accelerator="gpu")
+            else:
+                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=1)
+            
             current_score = comet_results.system_score
             
             print(f"\n========================================")
