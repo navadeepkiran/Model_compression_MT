@@ -451,7 +451,7 @@ def main():
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            # NormalFloat4 – best quality at 4-bit
-        bnb_4bit_compute_dtype=torch.float16, # Compute in fp16 on T4
+        bnb_4bit_compute_dtype=torch.float32, # Compute in fp32 to completely bypass strict fp16 cuBLAS Tensor Core alignment rules
         bnb_4bit_use_double_quant=True,       # Nested quantization: saves ~0.4 GB extra
     )
     
@@ -537,9 +537,9 @@ def main():
         attention_mask = [torch.tensor(f["attention_mask"], dtype=torch.long) for f in features]
         labels         = [torch.tensor(f.get("labels", f["input_ids"]), dtype=torch.long) for f in features]
 
-        # Pad to multiple of 8 to avoid CUBLAS_STATUS_EXECUTION_FAILED with 4-bit float16 Tensor Cores
-        max_len = max(len(x) for x in input_ids)
-        target_len = (max_len + 7) // 8 * 8
+        # Pad strictly to max_seq_length to guarantee perfectly aligned matrix sizes 
+        # (e.g. 256 or 512) for cuBLAS Tensor Cores, avoiding any NOT_SUPPORTED errors.
+        target_len = args.max_seq_length
 
         def pad_tensor(t, pad_val):
             pad_size = target_len - len(t)
