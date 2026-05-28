@@ -447,12 +447,12 @@ def main():
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
     # Config for 4-bit NF4 QLoRA – frees ~6 GB of headroom compared to INT8
-    print("[*] Configuring 4-bit NF4 quantization settings...")
+    print("[*] Configuring 4-bit NF4 quantization settings (Float32 Compute for T4 compatibility)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",            # NormalFloat4 – best quality at 4-bit
-        bnb_4bit_compute_dtype=torch.float16, # Compute in fp16 (reverted from fp32 to fix RoPE illegal memory access)
-        bnb_4bit_use_double_quant=True,       # Nested quantization: saves ~0.4 GB extra
+        bnb_4bit_quant_type="nf4",            
+        bnb_4bit_compute_dtype=torch.float32, 
+        bnb_4bit_use_double_quant=True,       
     )
     
     # Load model
@@ -462,11 +462,11 @@ def main():
         quantization_config=bnb_config,
         device_map={"": 0},  # Force single GPU execution
         trust_remote_code=True,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
-    model.config.torch_dtype = torch.float16
+    model.config.torch_dtype = torch.float32
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
@@ -486,11 +486,10 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force trainable params to float16 to exactly match the model's dtype 
-    # (prevents float32 activations from crashing float16 RoPE caches)
+    # Force trainable params to float32 to exactly match the model's dtype 
     for name, param in model.named_parameters():
         if param.requires_grad:
-            param.data = param.data.to(torch.float16)            
+            param.data = param.data.to(torch.float32)            
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
@@ -517,7 +516,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": True,  # Match 4-bit compute dtype (float16) so Trainer uses fp16 autocast
+        "fp16": False,  # Disabled fp16 to train purely in fp32
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
