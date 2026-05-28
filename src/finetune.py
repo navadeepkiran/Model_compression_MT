@@ -220,10 +220,7 @@ def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=Tru
     for param in model.parameters():
         param.requires_grad = False
         
-    # Cast layernorms/norms to float32 for training stability
-    for name, module in model.named_modules():
-        if any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]) and not any(x in name.lower() for x in ["embed_tokens", "lm_head"]):
-            module.to(torch.float32)
+    # Removed manual float32 casting for layernorms to ensure strict Float16 pipeline
             
     # Enable gradient checkpointing
     if use_gradient_checkpointing:
@@ -498,13 +495,10 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force ALL floating-point parameters and buffers to float16
-    for name, param in model.named_parameters():
-        if param.dtype in [torch.bfloat16, torch.float32]:
-            param.data = param.data.to(torch.float16)
-    for name, buffer in model.named_buffers():
-        if buffer.dtype in [torch.bfloat16, torch.float32]:
-            buffer.data = buffer.data.to(torch.float16)
+    # Force the entire model (including LoRA weights, layernorms, and buffers) to float16 natively.
+    # This prevents autograd from allocating BFloat16 gradients which crash the GradScaler.
+    print("[*] Casting model completely to Float16...")
+    model = model.to(torch.float16)
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
