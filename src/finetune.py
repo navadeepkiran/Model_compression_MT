@@ -447,35 +447,84 @@ def main():
     
     # Setup Trainer configs
     print("[*] Configuring Trainer...")
-    sft_config = SFTConfig(
-        output_dir=args.output_dir,
-        per_device_train_batch_size=1,
-        gradient_accumulation_steps=16,
-        gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={"use_reentrant": False},
-        optim="paged_adamw_8bit",
-        save_strategy="epoch",
-        save_total_limit=2,
-        logging_steps=20,
-        learning_rate=args.learning_rate,
-        fp16=False,  # Bypass GradScaler BFloat16 issues on T4
-        group_by_length=True,
-        lr_scheduler_type="cosine",
-        push_to_hub=False,
-        report_to="none",
-        dataset_text_field="text",
-        packing=False,
-        max_seq_length=args.max_seq_length,
-        num_train_epochs=args.epochs
-    )
-    
-    trainer = SFTTrainer(
-        model=model,
-        train_dataset=train_dataset,
-        processing_class=tokenizer,
-        args=sft_config,
-        callbacks=[comet_callback]
-    )
+    try:
+        sft_config = SFTConfig(
+            output_dir=args.output_dir,
+            per_device_train_batch_size=1,
+            gradient_accumulation_steps=16,
+            gradient_checkpointing=True,
+            gradient_checkpointing_kwargs={"use_reentrant": False},
+            optim="paged_adamw_8bit",
+            save_strategy="epoch",
+            save_total_limit=2,
+            logging_steps=20,
+            learning_rate=args.learning_rate,
+            fp16=False,  # Bypass GradScaler BFloat16 issues on T4
+            group_by_length=True,
+            lr_scheduler_type="cosine",
+            push_to_hub=False,
+            report_to="none",
+            dataset_text_field="text",
+            packing=False,
+            max_seq_length=args.max_seq_length,
+            num_train_epochs=args.epochs
+        )
+        trainer_kwargs = {
+            "model": model,
+            "train_dataset": train_dataset,
+            "args": sft_config,
+            "callbacks": [comet_callback]
+        }
+        # Handle processing_class vs tokenizer in SFTTrainer
+        import inspect
+        sig = inspect.signature(SFTTrainer.__init__)
+        if "processing_class" in sig.parameters:
+            trainer_kwargs["processing_class"] = tokenizer
+        else:
+            trainer_kwargs["tokenizer"] = tokenizer
+            
+        trainer = SFTTrainer(**trainer_kwargs)
+        
+    except TypeError as e:
+        if "max_seq_length" in str(e):
+            print("[*] SFTConfig does not accept max_seq_length in this trl version. Passing it to SFTTrainer instead...")
+            sft_config = SFTConfig(
+                output_dir=args.output_dir,
+                per_device_train_batch_size=1,
+                gradient_accumulation_steps=16,
+                gradient_checkpointing=True,
+                gradient_checkpointing_kwargs={"use_reentrant": False},
+                optim="paged_adamw_8bit",
+                save_strategy="epoch",
+                save_total_limit=2,
+                logging_steps=20,
+                learning_rate=args.learning_rate,
+                fp16=False,  # Bypass GradScaler BFloat16 issues on T4
+                group_by_length=True,
+                lr_scheduler_type="cosine",
+                push_to_hub=False,
+                report_to="none",
+                dataset_text_field="text",
+                packing=False,
+                num_train_epochs=args.epochs
+            )
+            trainer_kwargs = {
+                "model": model,
+                "train_dataset": train_dataset,
+                "args": sft_config,
+                "callbacks": [comet_callback],
+                "max_seq_length": args.max_seq_length
+            }
+            import inspect
+            sig = inspect.signature(SFTTrainer.__init__)
+            if "processing_class" in sig.parameters:
+                trainer_kwargs["processing_class"] = tokenizer
+            else:
+                trainer_kwargs["tokenizer"] = tokenizer
+                
+            trainer = SFTTrainer(**trainer_kwargs)
+        else:
+            raise e
     
     # Check for resume checkpoints
     last_checkpoint = None
