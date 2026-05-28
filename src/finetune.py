@@ -124,12 +124,10 @@ class CometEvaluationCallback(TrainerCallback):
         if val_dataset:
             try:
                 from comet import download_model, load_from_checkpoint
-                print("[*] Pre-loading COMET model for callback (on CPU to preserve GPU VRAM)...")
+                print("[*] Pre-loading COMET model for callback...")
                 model_path = download_model(comet_model_name)
                 self.comet_model = load_from_checkpoint(model_path)
-                # Force COMET to CPU – it competes with Gemma-3-12B for the 15GB T4 GPU.
-                # COMET runs once per epoch on 100 samples, so CPU inference is fast enough.
-                self.comet_model = self.comet_model.to("cpu")
+                # Note: With 4-bit QLoRA, we have enough VRAM to keep COMET on GPU
             except Exception as e:
                 print(f"[!] Error loading COMET model: {e}. Comet scoring will be disabled.")
                 
@@ -177,9 +175,9 @@ class CometEvaluationCallback(TrainerCallback):
                 "ref": ref_text
             })
             
-        # Run COMET evaluation on CPU (model lives on CPU to preserve GPU VRAM for training)
+        # Run COMET evaluation on GPU
         try:
-            comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=0)  # CPU only
+            comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=1)
             current_score = comet_results.system_score
             
             print(f"\n========================================")
@@ -448,14 +446,17 @@ def main():
     # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
-    # Config for INT8 precision
-    print("[*] Configuring INT8 quantization settings...")
+    # Config for 4-bit NF4 QLoRA – frees ~6 GB of headroom compared to INT8
+    print("[*] Configuring 4-bit NF4 quantization settings...")
     bnb_config = BitsAndBytesConfig(
-        load_in_8bit=True
+        load_in_4bit=True,
+        bnb_4bit_quant_type="nf4",            # NormalFloat4 – best quality at 4-bit
+        bnb_4bit_compute_dtype=torch.float16, # Compute in fp16 on T4
+        bnb_4bit_use_double_quant=True,       # Nested quantization: saves ~0.4 GB extra
     )
     
     # Load model
-    print("[*] Loading Gemma-3-12B in INT8 precision...")
+    print("[*] Loading Gemma-3-12B in 4-bit precision...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
@@ -516,7 +517,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": False,  # Keep disabled to avoid GradScaler issues with INT8 on T4
+        "fp16": True,  # Match 4-bit compute dtype (float16) so Trainer uses fp16 autocast
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
