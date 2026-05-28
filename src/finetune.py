@@ -478,7 +478,14 @@ def main():
     base_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True)
     
     def gemma3_collator(features):
-        batch = base_collator(features)
+        # Filter features to keep only tokenized numeric keys and drop any string metadata columns (like 'text')
+        allowed_keys = {"input_ids", "attention_mask", "labels"}
+        cleaned_features = []
+        for f in features:
+            cleaned_f = {k: v for k, v in f.items() if k in allowed_keys}
+            cleaned_features.append(cleaned_f)
+            
+        batch = base_collator(cleaned_features)
         if "input_ids" in batch:
             batch["token_type_ids"] = torch.zeros_like(batch["input_ids"])
         return batch
