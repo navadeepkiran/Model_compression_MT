@@ -191,23 +191,73 @@ def main():
     print(f"Epochs: {args.epochs}")
     print("=" * 60)
     
-    # 1. Load Datasets
-    print("[*] Loading Czech-German dataset (WMT19)...")
-    try:
-        ds_cs_de = load_dataset("wmt19", "cs-de", split="train[:333000]")
-    except Exception as e:
-        print(f"[!] Error loading cs-de from wmt19: {e}. Trying wmt18 fallback.")
-        ds_cs_de = load_dataset("wmt18", "cs-de", split="train[:333000]")
+    # Helper to extract text pair dynamically from various translation dataset schemas (WMT, OPUS, Tatoeba, etc.)
+    def extract_text_pair(item, src_code, tgt_code):
+        if "translation" in item:
+            trans = item["translation"]
+            src_key, tgt_key = None, None
+            for k in trans.keys():
+                if k.lower().startswith(src_code[:2].lower()) or src_code.lower().startswith(k[:2].lower()):
+                    src_key = k
+                if k.lower().startswith(tgt_code[:2].lower()) or tgt_code.lower().startswith(k[:2].lower()):
+                    tgt_key = k
+            if src_key and tgt_key:
+                return trans[src_key], trans[tgt_key]
+                
+        src_key, tgt_key = None, None
+        for k in item.keys():
+            if k.lower().startswith(src_code[:2].lower()) or src_code.lower().startswith(k[:2].lower()):
+                src_key = k
+            if k.lower().startswith(tgt_code[:2].lower()) or tgt_code.lower().startswith(k[:2].lower()):
+                tgt_key = k
+        if src_key and tgt_key:
+            return item[src_key], item[tgt_key]
+            
+        return None
         
-    print("[*] Loading English-Chinese dataset (WMT19)...")
-    ds_zh_en = load_dataset("wmt19", "zh-en", split="train[:333000]")
-    
-    print("[*] Loading English-Arabic dataset (OPUS-100)...")
-    try:
-        ds_ar_en = load_dataset("Helsinki-NLP/opus-100", "ar-en", split="train[:333000]")
-    except Exception as e:
-        print(f"[!] Error loading ar-en: {e}. Trying en-ar configuration...")
-        ds_ar_en = load_dataset("Helsinki-NLP/opus-100", "en-ar", split="train[:333000]")
+    # 1. Load Datasets
+    print("[*] Loading Czech-German dataset...")
+    ds_cs_de = None
+    # Czech-German is WMT News-commentary / Europarl
+    for dataset_name, config in [("Helsinki-NLP/europarl", "cs-de"), ("Helsinki-NLP/news_commentary", "cs-de"), ("Helsinki-NLP/tatoeba_mt", "ces-deu")]:
+        try:
+            print(f" - Attempting: {dataset_name} ({config})...")
+            ds_cs_de = load_dataset(dataset_name, config, split="train[:333000]")
+            print(f"   ✅ Successfully loaded {dataset_name}")
+            break
+        except Exception as e:
+            print(f"   ❌ Failed: {e}")
+            
+    if ds_cs_de is None:
+        raise RuntimeError("[!] Fatal: Could not load Czech-German dataset from any fallback source.")
+        
+    print("[*] Loading English-Chinese dataset...")
+    ds_zh_en = None
+    for dataset_name, config in [("wmt19", "zh-en"), ("Helsinki-NLP/opus-100", "en-zh"), ("Helsinki-NLP/tatoeba_mt", "eng-zho")]:
+        try:
+            print(f" - Attempting: {dataset_name} ({config})...")
+            ds_zh_en = load_dataset(dataset_name, config, split="train[:333000]")
+            print(f"   ✅ Successfully loaded {dataset_name}")
+            break
+        except Exception as e:
+            print(f"   ❌ Failed: {e}")
+            
+    if ds_zh_en is None:
+        raise RuntimeError("[!] Fatal: Could not load English-Chinese dataset from any fallback source.")
+        
+    print("[*] Loading English-Arabic dataset...")
+    ds_ar_en = None
+    for dataset_name, config in [("Helsinki-NLP/opus-100", "ar-en"), ("Helsinki-NLP/opus-100", "en-ar"), ("Helsinki-NLP/tatoeba_mt", "ara-eng")]:
+        try:
+            print(f" - Attempting: {dataset_name} ({config})...")
+            ds_ar_en = load_dataset(dataset_name, config, split="train[:333000]")
+            print(f"   ✅ Successfully loaded {dataset_name}")
+            break
+        except Exception as e:
+            print(f"   ❌ Failed: {e}")
+            
+    if ds_ar_en is None:
+        raise RuntimeError("[!] Fatal: Could not load English-Arabic dataset from any fallback source.")
         
     # 2. Extract and Process Pairs
     combined_data = []
@@ -217,50 +267,44 @@ def main():
     # Extract cs-de
     print(f" - Processing Czech-German ({len(ds_cs_de)} pairs)...")
     for item in ds_cs_de:
-        trans = item["translation"]
-        combined_data.append({
-            "src": trans["cs"],
-            "tgt": trans["de"],
-            "src_lang": "Czech",
-            "tgt_lang": "German"
-        })
+        pair = extract_text_pair(item, "cs", "de")
+        if pair:
+            combined_data.append({
+                "src": pair[0],
+                "tgt": pair[1],
+                "src_lang": "Czech",
+                "tgt_lang": "German"
+            })
         
     # Extract zh-en
     print(f" - Processing English-Chinese ({len(ds_zh_en)} pairs)...")
     for item in ds_zh_en:
-        trans = item["translation"]
-        combined_data.append({
-            "src": trans["en"],
-            "tgt": trans["zh"],
-            "src_lang": "English",
-            "tgt_lang": "Chinese (Simplified)"
-        })
+        pair = extract_text_pair(item, "en", "zh")
+        if pair:
+            combined_data.append({
+                "src": pair[0],
+                "tgt": pair[1],
+                "src_lang": "English",
+                "tgt_lang": "Chinese (Simplified)"
+            })
         
     # Extract ar-en
     print(f" - Processing English-Arabic ({len(ds_ar_en)} pairs)...")
     for item in ds_ar_en:
-        trans = item["translation"]
-        # Handle different potential schemas for OPUS-100 keys
-        src_text = trans.get("en", "")
-        tgt_text = trans.get("ar", "")
-        if not src_text or not tgt_text:
-            # Fallback
-            keys = list(trans.keys())
-            src_text = trans[keys[0]] if keys[0] == "en" else trans[keys[1]]
-            tgt_text = trans[keys[1]] if keys[0] == "en" else trans[keys[0]]
-            
-        combined_data.append({
-            "src": src_text,
-            "tgt": tgt_text,
-            "src_lang": "English",
-            "tgt_lang": "Arabic"
-        })
+        pair = extract_text_pair(item, "en", "ar")
+        if pair:
+            combined_data.append({
+                "src": pair[0],
+                "tgt": pair[1],
+                "src_lang": "English",
+                "tgt_lang": "Arabic"
+            })
         
     # 3. Filter by character length and sort
     print("[*] Filtering sentences based on length (20 < characters < 1500)...")
     filtered_data = [
         item for item in combined_data
-        if 20 < len(item["src"]) < 1500
+        if item["src"] and item["tgt"] and 20 < len(item["src"]) < 1500
     ]
     print(f"[*] Total pairs after filtering: {len(filtered_data)}")
     
