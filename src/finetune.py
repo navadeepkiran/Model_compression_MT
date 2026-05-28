@@ -228,7 +228,7 @@ def main():
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--lora_rank", type=int, default=8, help="LoRA Rank")
     parser.add_argument("--lora_alpha", type=int, default=16, help="LoRA Alpha")
-    parser.add_argument("--max_seq_length", type=int, default=512, help="Max sequence length")
+    parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length (lower = less VRAM; 256 fits on 15GB T4)")
     args = parser.parse_args()
     
     os.makedirs(args.output_dir, exist_ok=True)
@@ -396,6 +396,9 @@ def main():
     gc.collect()
     torch.cuda.empty_cache()
     
+    # Set memory allocator to use expandable segments – reduces fragmentation that causes OOM
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+    
     # Config for INT8 precision
     print("[*] Configuring INT8 quantization settings...")
     bnb_config = BitsAndBytesConfig(
@@ -410,9 +413,13 @@ def main():
         device_map={"": 0},  # Force single GPU execution to prevent deadlocks and memory dispersion
         trust_remote_code=True,
         torch_dtype=torch.float16,  # Force fp16 computation path for T4 compatibility
+        attn_implementation="eager",  # Disable SDPA/flash-attn – eager uses less peak activation memory on T4
         token=hf_token
     )
     model.config.torch_dtype = torch.float16
+    # Ensure model also uses eager attention (overrides any model config default)
+    if hasattr(model.config, "_attn_implementation"):
+        model.config._attn_implementation = "eager"
     
     # Prepare model
     model = prepare_model_for_kbit_training_custom(model)
@@ -457,7 +464,7 @@ def main():
     config_kwargs = {
         "output_dir": args.output_dir,
         "per_device_train_batch_size": 1,
-        "gradient_accumulation_steps": 16,
+        "gradient_accumulation_steps": 8,   # effective batch = 8; lower than before to free step-level memory
         "gradient_checkpointing": True,
         "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "paged_adamw_8bit",
