@@ -11,20 +11,6 @@ os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 import torch
 import torch.nn.functional as F
 
-# --- MONKEY PATCH TO FIX T4 CUBLAS EXECUTION_FAILED BUG ---
-# bitsandbytes 4-bit dequantization passes a transposed non-contiguous weight tensor (.t()) 
-# to F.linear, which causes T4 Float16 Tensor Cores to crash with CUBLAS_STATUS_EXECUTION_FAILED.
-# Forcing the tensor to be contiguous completely bypasses the broken cuBLAS kernel.
-_original_linear = F.linear
-def _patched_linear(input, weight, bias=None):
-    if weight is not None and not weight.is_contiguous():
-        weight = weight.contiguous()
-    if input is not None and not input.is_contiguous():
-        input = input.contiguous()
-    return _original_linear(input, weight, bias)
-F.linear = _patched_linear
-# ----------------------------------------------------------
-
 # Disable reduced precision reduction which triggers cuBLAS unsupported kernels on T4
 torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 # Disable TF32 since T4 doesn't support it anyway, just to be safe
@@ -261,7 +247,7 @@ def main():
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--lora_rank", type=int, default=4, help="LoRA Rank")
     parser.add_argument("--lora_alpha", type=int, default=16, help="LoRA Alpha")
-    parser.add_argument("--max_seq_length", type=int, default=128, help="Max sequence length (lower = less VRAM; 128 perfectly fits 8-bit on 15GB T4)")
+    parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length (lower = less VRAM; 256 perfectly fits 8-bit on 15GB T4)")
     args = parser.parse_args()
     
     os.makedirs(args.output_dir, exist_ok=True)
@@ -486,7 +472,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map={"": 0},  # Force single GPU execution
+        device_map="auto",  # Use 'auto' so accelerate distributes it, preventing Trainer from using DataParallel
         trust_remote_code=True,
         torch_dtype=torch.float16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
