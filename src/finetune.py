@@ -1,5 +1,10 @@
 import os
 
+# MUST be set before 'import torch' so PyTorch's CUDA caching allocator picks it up at init time.
+# This allows the allocator to merge fragmented reserved blocks with free memory,
+# preventing OOM when a single large contiguous block is needed (e.g. 632 MiB for attention weights).
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 # Redirect HF Cache to /kaggle/tmp or /tmp on Linux environments (Kaggle/Colab) to prevent home directory disk full errors
 if os.name != "nt":
     if os.path.exists("/kaggle"):
@@ -399,9 +404,8 @@ def main():
     # Clear memory cache
     gc.collect()
     torch.cuda.empty_cache()
-    
-    # Set memory allocator to use expandable segments – reduces fragmentation that causes OOM
-    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+    # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
+    # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
     # Config for INT8 precision
     print("[*] Configuring INT8 quantization settings...")
@@ -414,21 +418,20 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map={"": 0},  # Force single GPU execution to prevent deadlocks and memory dispersion
+        device_map={"": 0},  # Force single GPU execution
         trust_remote_code=True,
-        torch_dtype=torch.float16,  # Force fp16 computation path for T4 compatibility
-        attn_implementation="eager",  # Disable SDPA/flash-attn – eager uses less peak activation memory on T4
+        torch_dtype=torch.float16,
+        attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
     model.config.torch_dtype = torch.float16
-    # Ensure model also uses eager attention (overrides any model config default)
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
     # Prepare model
     model = prepare_model_for_kbit_training_custom(model)
     
-    # Configure LoRA
+    # Configure LoRA settings targeting all linear blocks
     print("[*] Configuring LoRA settings targeting all linear blocks...")
     lora_config = LoraConfig(
         r=args.lora_rank,
@@ -476,7 +479,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": False,  # Bypass GradScaler BFloat16 issues on T4
+        "fp16": False,  # Keep disabled to avoid GradScaler issues with INT8 on T4
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
