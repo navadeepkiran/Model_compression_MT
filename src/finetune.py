@@ -415,7 +415,33 @@ def main():
         
     print("[*] Formatting prompts using tokenizer chat template...")
     train_dataset = train_dataset.map(format_prompts, remove_columns=["src", "tgt", "src_lang", "tgt_lang"])
-    
+
+    # ── GUARANTEED TRUNCATION ──────────────────────────────────────────────────
+    # Pre-tokenize the entire dataset HERE with truncation=True and max_length capped.
+    # This runs BEFORE SFTTrainer sees the data, so it cannot be bypassed by any
+    # SFTTrainer version, chat template system-prompt, or collator quirk.
+    # The Gemma-3-IT built-in system prompt alone is ~650 tokens; without this step
+    # the sequences reaching the model are 888+ tokens → OOM on MLP gate_proj.
+    print(f"[*] Pre-tokenizing with hard truncation to {args.max_seq_length} tokens...")
+    def pre_tokenize(example):
+        enc = tokenizer(
+            example["text"],
+            truncation=True,
+            max_length=args.max_seq_length,
+            padding=False,
+            return_attention_mask=True,
+        )
+        enc["labels"] = enc["input_ids"].copy()  # causal LM: labels = input_ids
+        return enc
+
+    train_dataset = train_dataset.map(
+        pre_tokenize,
+        remove_columns=["text"],
+        batched=False,
+        desc="Tokenizing + truncating"
+    )
+    # ──────────────────────────────────────────────────────────────────────────
+
     # Clear memory cache
     gc.collect()
     torch.cuda.empty_cache()
@@ -477,16 +503,12 @@ def main():
     
     # Setup Trainer configs
     print("[*] Configuring Trainer...")
-    import inspect
-    
-    sft_config_sig = inspect.signature(SFTConfig.__init__).parameters
-    sft_trainer_sig = inspect.signature(SFTTrainer.__init__).parameters
     
     # Core TrainingArguments params
     config_kwargs = {
         "output_dir": args.output_dir,
         "per_device_train_batch_size": 1,
-        "gradient_accumulation_steps": 8,   # effective batch = 8; lower than before to free step-level memory
+        "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
         "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "paged_adamw_8bit",
@@ -500,81 +522,56 @@ def main():
         "push_to_hub": False,
         "report_to": "none",
         "num_train_epochs": args.epochs,
-        "remove_unused_columns": False  # Crucial: Prevent Trainer from stripping token_type_ids
+        "remove_unused_columns": False,  # Keep all columns including token_type_ids
     }
-    
-    # Setup custom data collator to inject token_type_ids (required by Gemma-3 during training)
-    base_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True)
-    
-    MAX_LEN = args.max_seq_length  # capture in closure
-    
-    def gemma3_collator(features):
-        # Filter features to keep only tokenized numeric keys and drop string metadata (like 'text')
-        allowed_keys = {"input_ids", "attention_mask", "labels"}
-        cleaned_features = []
-        for f in features:
-            cleaned_f = {}
-            for k, v in f.items():
-                if k not in allowed_keys:
-                    continue
-                # Hard-truncate token arrays to MAX_LEN RIGHT HERE.
-                # This is the last line of defense: regardless of chat template system-prompt
-                # overhead, SFTTrainer version, or any upstream issue, sequences can never
-                # exceed MAX_LEN tokens when they reach the model forward pass.
-                if isinstance(v, list):
-                    cleaned_f[k] = v[:MAX_LEN]
-                else:
-                    cleaned_f[k] = v  # tensors handled by DataCollatorForSeq2Seq
-            cleaned_features.append(cleaned_f)
 
-        batch = base_collator(cleaned_features)
-        # Truncate padded batch tensors too (in case padding pushed beyond MAX_LEN)
-        if "input_ids" in batch:
-            batch = {k: v[:, :MAX_LEN] if v is not None and v.dim() == 2 else v for k, v in batch.items()}
-            batch["token_type_ids"] = torch.zeros_like(batch["input_ids"])
-        return batch
-        
+    # ── SIMPLE COLLATOR ───────────────────────────────────────────────────────
+    # Dataset is already tokenized + truncated. This collator only pads to the
+    # longest sequence in the batch and injects token_type_ids for Gemma-3.
+    # Sequences are guaranteed ≤ max_seq_length; no complex truncation needed.
+    pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else 0
+
+    def gemma3_collator(features):
+        input_ids      = [torch.tensor(f["input_ids"],      dtype=torch.long) for f in features]
+        attention_mask = [torch.tensor(f["attention_mask"], dtype=torch.long) for f in features]
+        labels         = [torch.tensor(f.get("labels", f["input_ids"]), dtype=torch.long) for f in features]
+
+        # Pad to longest sequence in this batch
+        input_ids_padded      = torch.nn.utils.rnn.pad_sequence(input_ids,      batch_first=True, padding_value=pad_id)
+        attention_mask_padded = torch.nn.utils.rnn.pad_sequence(attention_mask, batch_first=True, padding_value=0)
+        labels_padded         = torch.nn.utils.rnn.pad_sequence(labels,         batch_first=True, padding_value=-100)
+
+        return {
+            "input_ids":      input_ids_padded,
+            "attention_mask": attention_mask_padded,
+            "labels":         labels_padded,
+            "token_type_ids": torch.zeros_like(input_ids_padded),
+        }
+    # ──────────────────────────────────────────────────────────────────────────
+
     trainer_kwargs = {
         "model": model,
         "train_dataset": train_dataset,
         "callbacks": [comet_callback],
-        "data_collator": gemma3_collator
+        "data_collator": gemma3_collator,
     }
-    
-    # Route sequence length parameter (max_seq_length vs max_length)
-    if "max_seq_length" in sft_config_sig:
-        config_kwargs["max_seq_length"] = args.max_seq_length
-    elif "max_length" in sft_config_sig:
-        config_kwargs["max_length"] = args.max_seq_length
-    elif "max_seq_length" in sft_trainer_sig:
-        trainer_kwargs["max_seq_length"] = args.max_seq_length
-    elif "max_length" in sft_trainer_sig:
-        trainer_kwargs["max_length"] = args.max_seq_length
-        
-    # Route dataset_text_field parameter
-    if "dataset_text_field" in sft_config_sig:
-        config_kwargs["dataset_text_field"] = "text"
-    elif "dataset_text_field" in sft_trainer_sig:
-        trainer_kwargs["dataset_text_field"] = "text"
-        
-    # Route packing parameter
-    if "packing" in sft_config_sig:
-        config_kwargs["packing"] = False
-    elif "packing" in sft_trainer_sig:
-        trainer_kwargs["packing"] = False
-        
-    # Route tokenizer / processing_class
+
+    # Dataset is pre-tokenized → do NOT pass dataset_text_field or packing.
+    # Route tokenizer / processing_class (needed for generation in callbacks)
+    import inspect
+    sft_trainer_sig = inspect.signature(SFTTrainer.__init__).parameters
     if "processing_class" in sft_trainer_sig:
         trainer_kwargs["processing_class"] = tokenizer
     else:
         trainer_kwargs["tokenizer"] = tokenizer
-        
+
     print(f"[*] Instantiating SFTConfig with arguments: {list(config_kwargs.keys())}")
     sft_config = SFTConfig(**config_kwargs)
-    
+
     trainer_kwargs["args"] = sft_config
     print(f"[*] Instantiating SFTTrainer with arguments: {list(trainer_kwargs.keys())}")
     trainer = SFTTrainer(**trainer_kwargs)
+
     
     # Check for resume checkpoints
     last_checkpoint = None
