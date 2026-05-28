@@ -1,4 +1,16 @@
 import os
+
+# Redirect HF Cache to /kaggle/tmp or /tmp on Linux environments (Kaggle/Colab) to prevent home directory disk full errors
+if os.name != "nt":
+    if os.path.exists("/kaggle"):
+        os.environ["HF_HOME"] = "/kaggle/tmp/huggingface_cache"
+        os.environ["HF_DATASETS_CACHE"] = "/kaggle/tmp/huggingface_cache/datasets"
+        os.environ["HF_HUB_CACHE"] = "/kaggle/tmp/huggingface_cache/hub"
+    else:
+        os.environ["HF_HOME"] = "/tmp/huggingface_cache"
+        os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
+        os.environ["HF_HUB_CACHE"] = "/tmp/huggingface_cache/hub"
+
 # Automatically load Kaggle Secrets for HuggingFace token if available
 try:
     from kaggle_secrets import UserSecretsClient
@@ -178,6 +190,32 @@ class CometEvaluationCallback(TrainerCallback):
             
         # Set back to train mode
         model.train()
+
+def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
+    """
+    Custom wrapper to prepare the model for QLoRA training without upcasting the massive 
+    input/output embeddings (embed_tokens and lm_head) to float32. This saves ~4GB+ of VRAM 
+    for Gemma-3 (which has a 256k vocabulary) and avoids CUDA OOM on 16GB GPUs.
+    """
+    for param in model.parameters():
+        param.requires_grad = False
+        
+    # Cast layernorms/norms to float32 for training stability
+    for name, module in model.named_modules():
+        if any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]) and not any(x in name.lower() for x in ["embed_tokens", "lm_head"]):
+            module.to(torch.float32)
+            
+    # Enable gradient checkpointing
+    if use_gradient_checkpointing:
+        model.gradient_checkpointing_enable()
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
+        else:
+            def make_inputs_require_grad(module, input, output):
+                output.requires_grad_(True)
+            model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
+            
+    return model
 
 # --- MAIN ---
 def main():
@@ -376,7 +414,7 @@ def main():
     model.config.torch_dtype = torch.float16
     
     # Prepare model
-    model = prepare_model_for_kbit_training(model)
+    model = prepare_model_for_kbit_training_custom(model)
     
     # Configure LoRA
     print("[*] Configuring LoRA settings targeting all linear blocks...")
