@@ -390,25 +390,25 @@ def main():
     train_dataset = Dataset.from_list(final_subset)
     
     # Helper to apply template
-    # IMPORTANT: Europarl/WMT contains full parliamentary speeches that can be thousands
-    # of tokens long. SFTTrainer's max_length only FILTERS samples, it does NOT truncate them.
-    # A 4000-token sequence produces a [1, 16, 4000, 4000] attention matrix = ~2 GB — instant OOM.
-    # Fix: hard-cap src and tgt BEFORE formatting so the final sequence is always ≤ 256 tokens.
-    #   Template overhead (roles, instruction text, special tokens): ~106 tokens
-    #   src budget: 80 tokens | tgt budget: 70 tokens | total: ≤ 256 tokens ✓
+    # Gemma-3-IT has a ~650-token BUILT-IN system prompt injected automatically by apply_chat_template.
+    # Without overriding it, max_length=256 only captures the system prompt — no translation content.
+    # Fix: pass a short custom system message to override the default.
+    # Budget: ~10 (system) + ~20 (roles/specials) + ~20 (instruction) + 80 (src) + 70 (tgt) = ~200 ✓
     SRC_MAX_TOKENS = 80
     TGT_MAX_TOKENS = 70
-    
+
     def format_prompts(example):
         # Truncate at the token level, then decode back to text
         src_ids = tokenizer.encode(example['src'], add_special_tokens=False)[:SRC_MAX_TOKENS]
         tgt_ids = tokenizer.encode(example['tgt'], add_special_tokens=False)[:TGT_MAX_TOKENS]
         src = tokenizer.decode(src_ids, skip_special_tokens=True)
         tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
-        
+
         messages = [
-            {"role": "user", "content": f"Translate the following text from {example['src_lang']} to {example['tgt_lang']}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src}"},
-            {"role": "model", "content": tgt}
+            # Short system message overrides Gemma-3-IT's ~650-token built-in system prompt
+            {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
+            {"role": "user",   "content": f"Translate from {example['src_lang']} to {example['tgt_lang']}:\n{src}"},
+            {"role": "model",  "content": tgt},
         ]
         text = tokenizer.apply_chat_template(messages, tokenize=False)
         return {"text": text}
