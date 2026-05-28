@@ -451,7 +451,7 @@ def main():
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            # NormalFloat4 – best quality at 4-bit
-        bnb_4bit_compute_dtype=torch.float32, # Compute in fp32 to completely bypass strict fp16 cuBLAS Tensor Core alignment rules
+        bnb_4bit_compute_dtype=torch.float16, # Compute in fp16 (reverted from fp32 to fix RoPE illegal memory access)
         bnb_4bit_use_double_quant=True,       # Nested quantization: saves ~0.4 GB extra
     )
     
@@ -486,11 +486,11 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force trainable params to float32 to prevent bfloat16 casting errors during gradient updates
+    # Force trainable params to float16 to exactly match the model's dtype 
+    # (prevents float32 activations from crashing float16 RoPE caches)
     for name, param in model.named_parameters():
         if param.requires_grad:
-            param.data = param.data.to(torch.float32)
-            
+            param.data = param.data.to(torch.float16)            
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
