@@ -495,10 +495,23 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force the entire model (including LoRA weights, layernorms, and buffers) to float16 natively.
-    # This prevents autograd from allocating BFloat16 gradients which crash the GradScaler.
-    print("[*] Casting model completely to Float16...")
-    model = model.to(torch.float16)
+    # Force trainable parameters (LoRA) and norms to float32 for QLoRA stability
+    # and to completely eradicate BFloat16 which crashes the T4 fp16 GradScaler.
+    # Note: bitsandbytes intercepts model.to() so we MUST cast modules directly!
+    print("[*] Casting LoRA layers and layernorms to float32...")
+    for name, module in model.named_modules():
+        if "lora_" in name.lower():
+            module.to(torch.float32)
+        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]) and not any(x in name.lower() for x in ["embed", "lm_head"]):
+            module.to(torch.float32)
+
+    # Catch-all: If any parameter or buffer STILL has bfloat16, mercilessly cast its data to float32
+    for param in model.parameters():
+        if param.dtype == torch.bfloat16:
+            param.data = param.data.to(torch.float32)
+    for buffer in model.buffers():
+        if buffer.dtype == torch.bfloat16:
+            buffer.data = buffer.data.to(torch.float32)
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
