@@ -554,7 +554,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": True,    # Enable standard fp16 training
+        "fp16": False,   # Disable AMP GradScaler to completely bypass the BFloat16 crash!
         "bf16": False,   # Explicitly disable bf16 to prevent BFloat16 crashes on T4
         "group_by_length": True,
         "lr_scheduler_type": "cosine",
