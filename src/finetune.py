@@ -537,10 +537,17 @@ def main():
         attention_mask = [torch.tensor(f["attention_mask"], dtype=torch.long) for f in features]
         labels         = [torch.tensor(f.get("labels", f["input_ids"]), dtype=torch.long) for f in features]
 
-        # Pad to longest sequence in this batch
-        input_ids_padded      = torch.nn.utils.rnn.pad_sequence(input_ids,      batch_first=True, padding_value=pad_id)
-        attention_mask_padded = torch.nn.utils.rnn.pad_sequence(attention_mask, batch_first=True, padding_value=0)
-        labels_padded         = torch.nn.utils.rnn.pad_sequence(labels,         batch_first=True, padding_value=-100)
+        # Pad to multiple of 8 to avoid CUBLAS_STATUS_EXECUTION_FAILED with 4-bit float16 Tensor Cores
+        max_len = max(len(x) for x in input_ids)
+        target_len = (max_len + 7) // 8 * 8
+
+        def pad_tensor(t, pad_val):
+            pad_size = target_len - len(t)
+            return torch.nn.functional.pad(t, (0, pad_size), value=pad_val) if pad_size > 0 else t
+
+        input_ids_padded      = torch.stack([pad_tensor(x, pad_id) for x in input_ids])
+        attention_mask_padded = torch.stack([pad_tensor(x, 0) for x in attention_mask])
+        labels_padded         = torch.stack([pad_tensor(x, -100) for x in labels])
 
         return {
             "input_ids":      input_ids_padded,
