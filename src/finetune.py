@@ -9,6 +9,22 @@ os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"       # PyTorch >=
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 
 import torch
+import torch.nn.functional as F
+
+# --- MONKEY PATCH TO FIX T4 CUBLAS EXECUTION_FAILED BUG ---
+# bitsandbytes 4-bit dequantization passes a transposed non-contiguous weight tensor (.t()) 
+# to F.linear, which causes T4 Float16 Tensor Cores to crash with CUBLAS_STATUS_EXECUTION_FAILED.
+# Forcing the tensor to be contiguous completely bypasses the broken cuBLAS kernel.
+_original_linear = F.linear
+def _patched_linear(input, weight, bias=None):
+    if weight is not None and not weight.is_contiguous():
+        weight = weight.contiguous()
+    if input is not None and not input.is_contiguous():
+        input = input.contiguous()
+    return _original_linear(input, weight, bias)
+F.linear = _patched_linear
+# ----------------------------------------------------------
+
 # Disable reduced precision reduction which triggers cuBLAS unsupported kernels on T4
 torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 # Disable TF32 since T4 doesn't support it anyway, just to be safe
