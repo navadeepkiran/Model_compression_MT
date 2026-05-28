@@ -32,7 +32,8 @@ from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
     BitsAndBytesConfig,
-    TrainerCallback
+    TrainerCallback,
+    DataCollatorForSeq2Seq
 )
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from trl import SFTConfig, SFTTrainer
@@ -469,13 +470,24 @@ def main():
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
         "report_to": "none",
-        "num_train_epochs": args.epochs
+        "num_train_epochs": args.epochs,
+        "remove_unused_columns": False  # Crucial: Prevent Trainer from stripping token_type_ids
     }
     
+    # Setup custom data collator to inject token_type_ids (required by Gemma-3 during training)
+    base_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, pad_to_multiple_of=8, return_tensors="pt", padding=True)
+    
+    def gemma3_collator(features):
+        batch = base_collator(features)
+        if "input_ids" in batch:
+            batch["token_type_ids"] = torch.zeros_like(batch["input_ids"])
+        return batch
+        
     trainer_kwargs = {
         "model": model,
         "train_dataset": train_dataset,
-        "callbacks": [comet_callback]
+        "callbacks": [comet_callback],
+        "data_collator": gemma3_collator
     }
     
     # Route sequence length parameter (max_seq_length vs max_length)
