@@ -242,12 +242,17 @@ def main():
     parser.add_argument("--model_id", type=str, default="google/gemma-3-12b-it", help="Model HF ID")
     parser.add_argument("--output_dir", type=str, default="outputs/gemma3-12b-wmt-lora", help="Output directory")
     parser.add_argument("--epochs", type=int, default=2, help="Number of epochs to train")
-    parser.add_argument("--subset_size", type=int, default=50000, help="Dataset size")
+    parser.add_argument("--subset_size", type=int, default=4000, help="Dataset size")
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
-    parser.add_argument("--lora_rank", type=int, default=4, help="LoRA Rank")
-    parser.add_argument("--lora_alpha", type=int, default=16, help="LoRA Alpha")
-    parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length (lower = less VRAM; 256 perfectly fits 8-bit on 15GB T4)")
+    parser.add_argument("--lora_rank", type=int, default=16, help="LoRA Rank")
+    parser.add_argument("--lora_alpha", type=int, default=32, help="LoRA Alpha")
+    parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length")
     args = parser.parse_args()
+    
+    # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
+    if os.path.exists("/content/drive/MyDrive"):
+        args.output_dir = "/content/drive/MyDrive/Gemma3_WMT_Outputs"
+        print(f"[*] Google Drive detected! Saving checkpoints securely to {args.output_dir}")
     
     os.makedirs(args.output_dir, exist_ok=True)
     
