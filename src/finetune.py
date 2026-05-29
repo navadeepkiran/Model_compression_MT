@@ -457,30 +457,32 @@ def main():
     # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
-    # Config for 4-bit NF4 QLoRA - using pure float32 compute
-    # Gemma 3's massive MLPs natively overflow float16 (65504 max value) in the forward pass,
-    # instantly causing NaN loss. Since Kaggle T4s cannot handle bfloat16 properly, we must 
-    # use pure float32 for compute to mathematically guarantee no overflows.
-    print("[*] Configuring 4-bit NF4 quantization settings (Strict Float32 for T4 compatibility)...")
+    # Config for 4-bit NF4 QLoRA - using pure BFloat16 compute
+    # Gemma 3 natively overflows Float16 (NaN loss). Float32 causes CUDA OOM.
+    # BFloat16 is the ONLY precision that has the dynamic range to prevent NaN loss
+    # while maintaining the memory efficiency to prevent OOM. 
+    # T4 supports BFloat16 in software natively. We bypass GradScaler crashes
+    # by keeping fp16=False in the SFTTrainer args.
+    print("[*] Configuring 4-bit NF4 quantization settings (Pure BFloat16)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.float32, 
-        bnb_4bit_use_double_quant=False,       
+        bnb_4bit_compute_dtype=torch.bfloat16, 
+        bnb_4bit_use_double_quant=True,       
     )
     
     # Load model
-    print("[*] Loading Gemma-3-12B in 4-bit precision (Float32 base)...")
+    print("[*] Loading Gemma-3-12B in 4-bit precision (BFloat16 base)...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
         device_map="auto",  # Use 'auto' so accelerate distributes it
         trust_remote_code=True,
-        torch_dtype=torch.float32,
+        torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
-    model.config.torch_dtype = torch.float32
+    model.config.torch_dtype = torch.bfloat16
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
