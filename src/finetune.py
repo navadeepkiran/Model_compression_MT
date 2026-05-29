@@ -241,7 +241,7 @@ def main():
     parser = argparse.ArgumentParser(description="Gemma 3 WMT Fine-Tuning Script")
     parser.add_argument("--model_id", type=str, default="google/gemma-3-12b-it", help="Model HF ID")
     parser.add_argument("--output_dir", type=str, default="outputs/gemma3-12b-wmt-lora", help="Output directory")
-    parser.add_argument("--epochs", type=int, default=50, help="Number of epochs to train")
+    parser.add_argument("--epochs", type=int, default=2, help="Number of epochs to train")
     parser.add_argument("--subset_size", type=int, default=50000, help="Dataset size")
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--lora_rank", type=int, default=4, help="LoRA Rank")
