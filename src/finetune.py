@@ -575,6 +575,7 @@ def main():
     print("[*] Configuring Trainer...")
     
     # Core TrainingArguments params
+    # Core TrainingArguments params
     config_kwargs = {
         "output_dir": args.output_dir,
         "per_device_train_batch_size": 1,
@@ -589,7 +590,6 @@ def main():
         "learning_rate": args.learning_rate,
         "fp16": False,   # Disable AMP GradScaler to completely bypass the BFloat16 crash!
         "bf16": False,   # Explicitly disable bf16 to prevent BFloat16 crashes on T4
-        "group_by_length": False,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
         "report_to": "none",
