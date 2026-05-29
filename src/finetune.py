@@ -476,7 +476,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map="auto",  # Use 'auto' so accelerate distributes it
+        device_map={"": "cuda:0"},
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
@@ -537,7 +537,7 @@ def main():
         "learning_rate": args.learning_rate,
         "fp16": False,   # Disable AMP GradScaler to completely bypass the BFloat16 crash!
         "bf16": False,   # Explicitly disable bf16 to prevent BFloat16 crashes on T4
-        "group_by_length": True,
+        "group_by_length": False,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
         "report_to": "none",
