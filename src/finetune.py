@@ -217,14 +217,8 @@ class CometEvaluationCallback(TrainerCallback):
         model.train()
 
 def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
-    """
-    Custom wrapper to prepare the model for QLoRA training without upcasting the massive 
-    input/output embeddings (embed_tokens and lm_head) to float32. This saves ~4GB+ of VRAM 
-    for Gemma-3 (which has a 256k vocabulary) and avoids CUDA OOM on 16GB GPUs.
-    """
     for param in model.parameters():
         param.requires_grad = False
-        
     # Removed manual float32 casting for layernorms to ensure strict Float16 pipeline
             
     # Enable gradient checkpointing
@@ -530,7 +524,7 @@ def main():
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": False},
+        "gradient_checkpointing_kwargs": {"use_reentrant": True},
         "optim": "paged_adamw_8bit",
         "save_strategy": "epoch",
         "save_total_limit": 2,
