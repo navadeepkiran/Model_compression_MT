@@ -216,21 +216,10 @@ class CometEvaluationCallback(TrainerCallback):
         # Set back to train mode
         model.train()
 
-def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
+def prepare_model_for_kbit_training_custom(model):
     for param in model.parameters():
         param.requires_grad = False
-    # Removed manual float32 casting for layernorms to ensure strict Float16 pipeline
-            
-    # Enable gradient checkpointing
-    if use_gradient_checkpointing:
-        model.gradient_checkpointing_enable()
-        if hasattr(model, "enable_input_require_grads"):
-            model.enable_input_require_grads()
-        else:
-            def make_inputs_require_grad(module, input, output):
-                output.requires_grad_(True)
-            model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
-            
+    
     return model
 
 # --- MAIN ---
@@ -523,8 +512,7 @@ def main():
         "output_dir": args.output_dir,
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
-        "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": True},
+        "gradient_checkpointing": False,
         "optim": "paged_adamw_8bit",
         "save_strategy": "epoch",
         "save_total_limit": 2,
