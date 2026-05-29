@@ -476,7 +476,8 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map={"": 0},  # STRICT 1-GPU constraint. Fixes the accelerate memory bloat OOM!
+        device_map="auto",
+        max_memory={0: "11GiB", "cpu": "25GiB"},  # Force accelerate to leave 4GB of VRAM empty for temporary FP16 quantization buffers!
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
