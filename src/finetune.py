@@ -8,13 +8,6 @@ os.environ["PYTORCH_ALLOC_CONF"] = "expandable_segments:True"       # PyTorch >=
 # Force cuBLAS to use a deterministic/alternative workspace to bypass T4 Float16 NOT_SUPPORTED bugs
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 
-# ULTIMATE DEADLOCK FIX: Force PyTorch to only see 1 GPU. 
-# device_map="auto" naive pipeline parallelism across 2 GPUs constantly deadlocks during the backward pass 
-# (AccumulateGrad stream mismatch). Since 12B in 4-bit with BFloat16 fits perfectly on a single 15GB T4,
-# we can train on just 1 GPU. This makes multi-GPU deadlocks mathematically impossible, and is actually 
-# FASTER because there is no PCIe cross-GPU transfer overhead!
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
-
 import torch
 import torch.nn.functional as F
 
