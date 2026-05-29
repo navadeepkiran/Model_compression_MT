@@ -648,9 +648,20 @@ def main():
     print(f"[*] Instantiating SFTConfig with arguments: {list(config_kwargs.keys())}")
     sft_config = SFTConfig(**config_kwargs)
 
+    # ── BUGFIX TRAINER ────────────────────────────────────────────────────────
+    # Unsloth's new Gemma 3 patch returns a custom tensor object for logits where 
+    # `.shape` is accidentally a method instead of a property. This causes the newest
+    # version of `trl` to crash when it tries to calculate entropy. 
+    # We bypass this completely by overriding compute_loss to never touch the logits!
+    class BugfixTrainer(SFTTrainer):
+        def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
+            outputs = model(**inputs)
+            loss = outputs.loss
+            return (loss, outputs) if return_outputs else loss
+
     trainer_kwargs["args"] = sft_config
-    print(f"[*] Instantiating SFTTrainer with arguments: {list(trainer_kwargs.keys())}")
-    trainer = SFTTrainer(**trainer_kwargs)
+    print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
+    trainer = BugfixTrainer(**trainer_kwargs)
 
     
     # Check for resume checkpoints
