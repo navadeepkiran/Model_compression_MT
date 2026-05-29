@@ -482,6 +482,16 @@ def main():
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
+    
+    # CRITICAL FIX: Prevent Trainer from wrapping the model in DataParallel!
+    # Because we put the entire model on cuda:0, Trainer thinks the model isn't parallelized.
+    # Since it sees 2 GPUs on the Kaggle machine, it forcefully wraps it in nn.DataParallel.
+    # DataParallel attempts to copy the 4-bit model to GPU 1, which instantly corrupts the 
+    # bitsandbytes quant_state pointers, causing a CUDA illegal memory access.
+    # Setting these flags completely disables DataParallel.
+    model.is_model_parallel = True
+    model.is_loaded_in_4bit = True
+    
     model.config.torch_dtype = torch.bfloat16
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
