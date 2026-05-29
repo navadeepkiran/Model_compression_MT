@@ -473,11 +473,19 @@ def main():
     
     # Load model
     print("[*] Loading Gemma-3-12B in 4-bit precision (BFloat16 base)...")
+    # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
+    # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
+    # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
+    custom_device_map = {
+        "model.embed_tokens": "cpu",
+        "lm_head": "cpu",
+        "": "cuda:0"
+    }
+
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map="auto",
-        max_memory={0: "11GiB", "cpu": "25GiB"},  # Force accelerate to leave 4GB of VRAM empty for temporary FP16 quantization buffers!
+        device_map=custom_device_map,
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
