@@ -472,54 +472,85 @@ def main():
         llm_int8_enable_fp32_cpu_offload=True  # Required to allow embed_tokens and lm_head on CPU
     )
     
-    # Load model
-    print("[*] Loading Gemma-3-12B in 4-bit precision (BFloat16 base)...")
-    # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
-    # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
-    # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
-    custom_device_map = {
-        "model.embed_tokens": "cpu",
-        "lm_head": "cpu",
-        "": "cuda:0"
-    }
+    # Check if unsloth is available to bypass the HuggingFace threaded loader memory leak
+    try:
+        from unsloth import FastLanguageModel
+        use_unsloth = True
+    except ImportError:
+        use_unsloth = False
 
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model_id,
-        quantization_config=bnb_config,
-        device_map=custom_device_map,
-        trust_remote_code=True,
-        torch_dtype=torch.bfloat16,
-        attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
-        token=hf_token
-    )
+    if use_unsloth:
+        print("[*] Loading Gemma-3-12B using UNSLOTH (Highly Optimized 4-bit)...")
+        model, _ = FastLanguageModel.from_pretrained(
+            model_name=args.model_id,
+            max_seq_length=256,
+            dtype=torch.bfloat16,
+            load_in_4bit=True,
+            token=hf_token,
+        )
+        print("[*] Configuring LoRA settings via Unsloth...")
+        model = FastLanguageModel.get_peft_model(
+            model,
+            r=args.lora_rank,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+            lora_alpha=args.lora_alpha,
+            lora_dropout=0.05,
+            bias="none",
+            use_gradient_checkpointing="unsloth",
+            random_state=3407,
+        )
+        
+        # Disable cache for gradient checkpointing
+        model.config.use_cache = False
+    else:
+        # Fallback to buggy HuggingFace loader
+        print("[*] Loading Gemma-3-12B in 4-bit precision (BFloat16 base)...")
+        # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
+        # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
+        # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
+        custom_device_map = {
+            "model.embed_tokens": "cpu",
+            "lm_head": "cpu",
+            "": "cuda:0"
+        }
     
-    # CRITICAL FIX: Prevent Trainer from wrapping the model in DataParallel!
-    # Because we put the entire model on cuda:0, Trainer thinks the model isn't parallelized.
-    # Since it sees 2 GPUs on the Kaggle machine, it forcefully wraps it in nn.DataParallel.
-    # DataParallel attempts to copy the 4-bit model to GPU 1, which instantly corrupts the 
-    # bitsandbytes quant_state pointers, causing a CUDA illegal memory access.
-    # Setting these flags completely disables DataParallel.
-    model.is_model_parallel = True
-    model.is_loaded_in_4bit = True
-    
-    model.config.torch_dtype = torch.bfloat16
-    if hasattr(model.config, "_attn_implementation"):
-        model.config._attn_implementation = "eager"
-    
-    # Prepare model
-    model = prepare_model_for_kbit_training_custom(model)
-    
-    # Configure LoRA settings targeting all linear blocks
-    print("[*] Configuring LoRA settings targeting all linear blocks...")
-    lora_config = LoraConfig(
-        r=args.lora_rank,
-        lora_alpha=args.lora_alpha,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-        lora_dropout=0.05,
-        bias="none",
-        task_type="CAUSAL_LM"
-    )
-    model = get_peft_model(model, lora_config)
+        model = AutoModelForCausalLM.from_pretrained(
+            args.model_id,
+            quantization_config=bnb_config,
+            device_map=custom_device_map,
+            trust_remote_code=True,
+            torch_dtype=torch.bfloat16,
+            attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
+            token=hf_token
+        )
+        
+        # CRITICAL FIX: Prevent Trainer from wrapping the model in DataParallel!
+        # Because we put the entire model on cuda:0, Trainer thinks the model isn't parallelized.
+        # Since it sees 2 GPUs on the Kaggle machine, it forcefully wraps it in nn.DataParallel.
+        # DataParallel attempts to copy the 4-bit model to GPU 1, which instantly corrupts the 
+        # bitsandbytes quant_state pointers, causing a CUDA illegal memory access.
+        # Setting these flags completely disables DataParallel.
+        model.is_model_parallel = True
+        model.is_loaded_in_4bit = True
+        
+        model.config.torch_dtype = torch.bfloat16
+        if hasattr(model.config, "_attn_implementation"):
+            model.config._attn_implementation = "eager"
+        
+        # Prepare model
+        model = prepare_model_for_kbit_training_custom(model)
+        
+        # Configure LoRA settings targeting all linear blocks
+        print("[*] Configuring LoRA settings targeting all linear blocks...")
+        lora_config = LoraConfig(
+            r=args.lora_rank,
+            lora_alpha=args.lora_alpha,
+            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+            lora_dropout=0.05,
+            bias="none",
+            task_type="CAUSAL_LM"
+        )
+        model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
     # Force trainable parameters (LoRA) and norms to float32 natively
