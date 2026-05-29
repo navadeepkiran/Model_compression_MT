@@ -533,6 +533,22 @@ def main():
         if buffer.dtype == torch.bfloat16:
             buffer.data = buffer.data.to(torch.float32)
     # ──────────────────────────────────────────────────────────────────────────
+
+    # ── LOGITS FLOAT32 UPCAST ─────────────────────────────────────────────────
+    # Since we disabled fp16 autocast to avoid the BFloat16 GradScaler crash,
+    # the lm_head naturally outputs float16 logits. Gemma 3 has a massive 256,000
+    # token vocabulary, so the exp(logits) in CrossEntropyLoss WILL overflow float16,
+    # resulting in NaN loss and NaN gradients. We MUST upcast logits to float32!
+    print("[*] Registering float32 upcast hook on lm_head to prevent NaN loss...")
+    def cast_logits_to_fp32(module, input, output):
+        return output.to(torch.float32)
+        
+    output_layer = model.get_output_embeddings()
+    if output_layer is not None:
+        output_layer.register_forward_hook(cast_logits_to_fp32)
+    elif hasattr(model, "lm_head"):
+        model.lm_head.register_forward_hook(cast_logits_to_fp32)
+    # ──────────────────────────────────────────────────────────────────────────
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
