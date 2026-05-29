@@ -460,27 +460,30 @@ def main():
     # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
-    # Config for 4-bit NF4 QLoRA – frees ~6 GB of headroom compared to INT8
-    print("[*] Configuring 4-bit NF4 quantization settings (Strict Float16 for T4 compatibility)...")
+    # Config for 4-bit NF4 QLoRA - using pure float32 compute
+    # Gemma 3's massive MLPs natively overflow float16 (65504 max value) in the forward pass,
+    # instantly causing NaN loss. Since Kaggle T4s cannot handle bfloat16 properly, we must 
+    # use pure float32 for compute to mathematically guarantee no overflows.
+    print("[*] Configuring 4-bit NF4 quantization settings (Strict Float32 for T4 compatibility)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.float16, 
-        bnb_4bit_use_double_quant=True,       
+        bnb_4bit_compute_dtype=torch.float32, 
+        bnb_4bit_use_double_quant=False,       
     )
     
     # Load model
-    print("[*] Loading Gemma-3-12B in 4-bit precision...")
+    print("[*] Loading Gemma-3-12B in 4-bit precision (Float32 base)...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map="auto",  # Use 'auto' so accelerate distributes it, preventing Trainer from using DataParallel
+        device_map="auto",  # Use 'auto' so accelerate distributes it
         trust_remote_code=True,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.float32,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
-    model.config.torch_dtype = torch.float16
+    model.config.torch_dtype = torch.float32
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
@@ -500,55 +503,13 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # Force trainable parameters (LoRA) and norms to float32 for QLoRA stability
-    # and to completely eradicate BFloat16 which crashes the T4 fp16 GradScaler.
-    # Note: bitsandbytes intercepts model.to() so we MUST cast modules directly!
-    print("[*] Casting LoRA layers and layernorms to float32...")
+    # Force trainable parameters (LoRA) and norms to float32 natively
+    print("[*] Ensuring LoRA layers and layernorms are natively float32...")
     for name, module in model.named_modules():
         if "lora_" in name.lower():
             module.to(torch.float32)
-        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]) and not any(x in name.lower() for x in ["embed", "lm_head"]):
+        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
             module.to(torch.float32)
-
-    # ── BFLOAT16 ERADICATOR ───────────────────────────────────────────────────
-    # Gemma-3 leaves unregistered BFloat16 tensors (like RoPE inv_freq/caches) 
-    # hidden in module attributes. During forward pass, these silently promote 
-    # the graph to BFloat16, causing the fp16 GradScaler to crash on T4.
-    print("[*] Hunting down and eradicating unregistered BFloat16 tensors...")
-    for name, module in model.named_modules():
-        # 1. Cast hidden unregistered tensors (RoPE caches, etc.)
-        for attr_name in dir(module):
-            try:
-                attr = getattr(module, attr_name)
-                if isinstance(attr, torch.Tensor) and attr.dtype == torch.bfloat16:
-                    setattr(module, attr_name, attr.to(torch.float32))
-            except Exception:
-                pass
-                
-    # 2. Standard parameters and buffers
-    for param in model.parameters():
-        if param.dtype == torch.bfloat16:
-            param.data = param.data.to(torch.float32)
-    for buffer in model.buffers():
-        if buffer.dtype == torch.bfloat16:
-            buffer.data = buffer.data.to(torch.float32)
-    # ──────────────────────────────────────────────────────────────────────────
-
-    # ── LOGITS FLOAT32 UPCAST ─────────────────────────────────────────────────
-    # Since we disabled fp16 autocast to avoid the BFloat16 GradScaler crash,
-    # the lm_head naturally outputs float16 logits. Gemma 3 has a massive 256,000
-    # token vocabulary, so the exp(logits) in CrossEntropyLoss WILL overflow float16,
-    # resulting in NaN loss and NaN gradients. We MUST upcast logits to float32!
-    print("[*] Registering float32 upcast hook on lm_head to prevent NaN loss...")
-    def cast_logits_to_fp32(module, input, output):
-        return output.to(torch.float32)
-        
-    output_layer = model.get_output_embeddings()
-    if output_layer is not None:
-        output_layer.register_forward_hook(cast_logits_to_fp32)
-    elif hasattr(model, "lm_head"):
-        model.lm_head.register_forward_hook(cast_logits_to_fp32)
-    # ──────────────────────────────────────────────────────────────────────────
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
