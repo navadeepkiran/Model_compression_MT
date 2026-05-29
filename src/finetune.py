@@ -476,7 +476,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map={"": "cuda:0"},
+        device_map="auto",  # Reverted to auto to fix the accelerate FP16 buffer caching bug during loading
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
