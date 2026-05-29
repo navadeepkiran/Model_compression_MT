@@ -216,10 +216,24 @@ class CometEvaluationCallback(TrainerCallback):
         # Set back to train mode
         model.train()
 
-def prepare_model_for_kbit_training_custom(model):
+def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
     for param in model.parameters():
         param.requires_grad = False
     
+    if use_gradient_checkpointing:
+        # CRITICAL: Inputs MUST require grad when using device_map="auto" + gradient checkpointing.
+        # If inputs don't require grad, the autograd graph disconnects across GPU boundaries,
+        # causing the infamous AccumulateGrad stream deadlock!
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
+        else:
+            def make_inputs_require_grad(module, input, output):
+                output.requires_grad_(True)
+            model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
+            
+        # Initialize checkpointing on the model
+        model.gradient_checkpointing_enable({"use_reentrant": True})
+        
     return model
 
 # --- MAIN ---
@@ -512,7 +526,8 @@ def main():
         "output_dir": args.output_dir,
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
-        "gradient_checkpointing": False,
+        "gradient_checkpointing": True,
+        "gradient_checkpointing_kwargs": {"use_reentrant": True},
         "optim": "paged_adamw_8bit",
         "save_strategy": "epoch",
         "save_total_limit": 2,
