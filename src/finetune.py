@@ -217,6 +217,7 @@ def main():
     parser.add_argument("--lora_rank", type=int, default=16, help="LoRA Rank")
     parser.add_argument("--lora_alpha", type=int, default=32, help="LoRA Alpha")
     parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length")
+    parser.add_argument("--max_steps", type=int, default=-1, help="If > 0: set total number of training steps to perform. Overrides num_train_epochs.")
     args = parser.parse_args()
     
     # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
@@ -516,6 +517,7 @@ def main():
         "push_to_hub": False,
         "report_to": "none",
         "num_train_epochs": args.epochs,
+        "max_steps": args.max_steps,
         "remove_unused_columns": False,  # Keep all columns including token_type_ids
         "torch_compile": False,          # Explicitly disable compilation as per advice
     }
