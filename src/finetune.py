@@ -113,11 +113,11 @@ class CometEvaluationCallback(TrainerCallback):
             except Exception as e:
                 print(f"[!] Error loading COMET model: {e}. Comet scoring will be disabled.")
                 
-    def on_epoch_end(self, args, state, control, model=None, **kwargs):
+    def on_train_end(self, args, state, control, model=None, **kwargs):
         if model is None or self.val_dataset is None or self.comet_model is None:
             return
             
-        print(f"\n[*] Epoch {state.epoch:.1f} ended. Starting COMET evaluation...")
+        print(f"\n[*] Training ended. Starting final COMET evaluation...")
         
         # Set to eval mode and free GPU cache so generation has max headroom
         model.eval()
