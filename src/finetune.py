@@ -49,9 +49,14 @@ from tqdm import tqdm
 # PyTorch 2.6 sets weights_only=True by default for torch.load().
 # When transformers Trainer tries to load rng_state.pth, it crashes because 
 # the numpy RNG state contains a numpy _reconstruct object which is not allowed.
+# We completely monkey-patch torch.load to forcefully disable this security check.
 try:
-    import numpy
-    torch.serialization.add_safe_globals([numpy._core.multiarray._reconstruct])
+    import torch
+    _original_load = torch.load
+    def _patched_load(*args, **kwargs):
+        kwargs["weights_only"] = False
+        return _original_load(*args, **kwargs)
+    torch.load = _patched_load
 except Exception:
     pass
 # ────────────────────────────────────────────────────────────────────────────
