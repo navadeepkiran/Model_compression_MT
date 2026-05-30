@@ -76,23 +76,7 @@ def load_flores_validation(base_dir="flores200_dataset", num_samples=100):
         return None
         
     print(f"[*] Found validation dataset at: {actual_path}")
-    
-    # Load Czech-German
-    cs_path = os.path.join(actual_path, "dev", "ces_Latn.dev")
-    de_path = os.path.join(actual_path, "dev", "deu_Latn.dev")
-    if os.path.exists(cs_path) and os.path.exists(de_path):
-        with open(cs_path, "r", encoding="utf-8") as f_src, open(de_path, "r", encoding="utf-8") as f_ref:
-            src_lines = [line.strip() for line in f_src][:num_samples]
-            ref_lines = [line.strip() for line in f_ref][:num_samples]
-            for src, ref in zip(src_lines, ref_lines):
-                val_data.append({
-                    "src": src,
-                    "ref": ref,
-                    "src_lang": "Czech",
-                    "tgt_lang": "German"
-                })
-                
-    # Load English-Chinese
+    # Load English-Chinese exclusively
     en_path = os.path.join(actual_path, "dev", "eng_Latn.dev")
     zh_path = os.path.join(actual_path, "dev", "zho_Hans.dev")
     if os.path.exists(en_path) and os.path.exists(zh_path):
@@ -105,20 +89,6 @@ def load_flores_validation(base_dir="flores200_dataset", num_samples=100):
                     "ref": ref,
                     "src_lang": "English",
                     "tgt_lang": "Chinese (Simplified)"
-                })
-                
-    # Load English-Arabic
-    ar_path = os.path.join(actual_path, "dev", "arz_Arab.dev")
-    if os.path.exists(en_path) and os.path.exists(ar_path):
-        with open(en_path, "r", encoding="utf-8") as f_src, open(ar_path, "r", encoding="utf-8") as f_ref:
-            src_lines = [line.strip() for line in f_src][:num_samples]
-            ref_lines = [line.strip() for line in f_ref][:num_samples]
-            for src, ref in zip(src_lines, ref_lines):
-                val_data.append({
-                    "src": src,
-                    "ref": ref,
-                    "src_lang": "English",
-                    "tgt_lang": "Arabic"
                 })
                 
     return val_data
@@ -288,21 +258,6 @@ def main():
         return None
         
     # 1. Load Datasets
-    print("[*] Loading Czech-German dataset...")
-    ds_cs_de = None
-    # Czech-German is WMT News-commentary / Europarl
-    for dataset_name, config in [("Helsinki-NLP/europarl", "cs-de"), ("Helsinki-NLP/news_commentary", "cs-de"), ("Helsinki-NLP/tatoeba_mt", "ces-deu")]:
-        try:
-            print(f" - Attempting: {dataset_name} ({config})...")
-            ds_cs_de = load_dataset(dataset_name, config, split="train[:333000]")
-            print(f"   ✅ Successfully loaded {dataset_name}")
-            break
-        except Exception as e:
-            print(f"   ❌ Failed: {e}")
-            
-    if ds_cs_de is None:
-        raise RuntimeError("[!] Fatal: Could not load Czech-German dataset from any fallback source.")
-        
     print("[*] Loading English-Chinese dataset...")
     ds_zh_en = None
     for dataset_name, config in [("wmt19", "zh-en"), ("Helsinki-NLP/opus-100", "en-zh"), ("Helsinki-NLP/tatoeba_mt", "eng-zho")]:
@@ -317,36 +272,10 @@ def main():
     if ds_zh_en is None:
         raise RuntimeError("[!] Fatal: Could not load English-Chinese dataset from any fallback source.")
         
-    print("[*] Loading English-Arabic dataset...")
-    ds_ar_en = None
-    for dataset_name, config in [("Helsinki-NLP/opus-100", "ar-en"), ("Helsinki-NLP/opus-100", "en-ar"), ("Helsinki-NLP/tatoeba_mt", "ara-eng")]:
-        try:
-            print(f" - Attempting: {dataset_name} ({config})...")
-            ds_ar_en = load_dataset(dataset_name, config, split="train[:333000]")
-            print(f"   ✅ Successfully loaded {dataset_name}")
-            break
-        except Exception as e:
-            print(f"   ❌ Failed: {e}")
-            
-    if ds_ar_en is None:
-        raise RuntimeError("[!] Fatal: Could not load English-Arabic dataset from any fallback source.")
-        
     # 2. Extract and Process Pairs
     combined_data = []
     
     print("[*] Extracting translation pairs...")
-    
-    # Extract cs-de
-    print(f" - Processing Czech-German ({len(ds_cs_de)} pairs)...")
-    for item in ds_cs_de:
-        pair = extract_text_pair(item, "cs", "de")
-        if pair:
-            combined_data.append({
-                "src": pair[0],
-                "tgt": pair[1],
-                "src_lang": "Czech",
-                "tgt_lang": "German"
-            })
         
     # Extract zh-en
     print(f" - Processing English-Chinese ({len(ds_zh_en)} pairs)...")
@@ -358,18 +287,6 @@ def main():
                 "tgt": pair[1],
                 "src_lang": "English",
                 "tgt_lang": "Chinese (Simplified)"
-            })
-        
-    # Extract ar-en
-    print(f" - Processing English-Arabic ({len(ds_ar_en)} pairs)...")
-    for item in ds_ar_en:
-        pair = extract_text_pair(item, "en", "ar")
-        if pair:
-            combined_data.append({
-                "src": pair[0],
-                "tgt": pair[1],
-                "src_lang": "English",
-                "tgt_lang": "Arabic"
             })
         
     # 3. Filter by character length and sort
