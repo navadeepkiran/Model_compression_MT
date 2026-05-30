@@ -44,6 +44,18 @@ import torch
 import argparse
 import random
 from tqdm import tqdm
+
+# ── BUGFIX FOR PYTORCH 2.6 ──────────────────────────────────────────────────
+# PyTorch 2.6 sets weights_only=True by default for torch.load().
+# When transformers Trainer tries to load rng_state.pth, it crashes because 
+# the numpy RNG state contains a numpy _reconstruct object which is not allowed.
+try:
+    import numpy
+    torch.serialization.add_safe_globals([numpy._core.multiarray._reconstruct])
+except Exception:
+    pass
+# ────────────────────────────────────────────────────────────────────────────
+
 from datasets import load_dataset, Dataset
 from transformers import (
     AutoTokenizer,
