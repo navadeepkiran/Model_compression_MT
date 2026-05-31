@@ -373,6 +373,7 @@ def main():
     # the sequences reaching the model are 888+ tokens → OOM on MLP gate_proj.
     print(f"[*] Pre-tokenizing with hard truncation to {args.max_seq_length} tokens...")
     def pre_tokenize(example):
+        # We manually tokenize to find the exact boundary of the model's response
         enc = tokenizer(
             example["text"],
             truncation=True,
@@ -380,7 +381,25 @@ def main():
             padding=False,
             return_attention_mask=True,
         )
-        enc["labels"] = enc["input_ids"].copy()  # causal LM: labels = input_ids
+        
+        # Causal LM: labels = input_ids
+        labels = enc["input_ids"].copy()
+        
+        # Mask everything before the translation so the model doesn't try to predict the random English inputs
+        # Gemma 3 chat template adds <start_of_turn>model\n right before the target translation.
+        # Find where this occurs in the tokenized sequence.
+        # Gemma special token IDs: <start_of_turn> = 106, model = 2516, \n = 108 (approx, varies by vocab)
+        # Instead of guessing tokens, we use string matching to find the boundary.
+        model_turn_str = "<start_of_turn>model\n"
+        idx = example["text"].find(model_turn_str)
+        if idx != -1:
+            # Tokenize just the prompt to find its length
+            prompt_enc = tokenizer(example["text"][:idx + len(model_turn_str)])
+            prompt_len = len(prompt_enc["input_ids"])
+            # Mask the prompt tokens
+            labels[:prompt_len] = [-100] * prompt_len
+            
+        enc["labels"] = labels
         return enc
 
     train_dataset = train_dataset.map(
@@ -598,6 +617,12 @@ def main():
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
             outputs = model(**inputs)
             loss = outputs.loss
+            
+            # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
+            # if num_items_in_batch is passed. If we skip this, gradients become 8x too large!
+            if num_items_in_batch is not None and hasattr(self, "_compute_loss_scaling_factor"):
+                loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
+                
             return (loss, outputs) if return_outputs else loss
 
     trainer_kwargs["args"] = sft_config
