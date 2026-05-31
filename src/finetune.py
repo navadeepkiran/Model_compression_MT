@@ -178,7 +178,7 @@ class CometEvaluationCallback(TrainerCallback):
         try:
             import pytorch_lightning as pl
             if int(pl.__version__.split(".")[0]) >= 2:
-                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, devices=1, accelerator="gpu")
+                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, devices=[0], accelerator="gpu")
             else:
                 comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=1)
             
