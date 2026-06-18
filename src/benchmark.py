@@ -300,7 +300,12 @@ def main():
     
     # Load Model and Tokenizer
     model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
-    tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
+    except AttributeError:
+        print("[!] Tokenizer failed to load from local directory due to a transformers bug. Falling back to Hugging Face...")
+        hf_token_for_tokenizer = os.environ.get("HF_TOKEN")
+        tokenizer = AutoTokenizer.from_pretrained("nani-nav/gemma-3-12b-40L-wmt", token=hf_token_for_tokenizer, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     # Align model pad token ID with tokenizer pad token ID to prevent warnings/errors
