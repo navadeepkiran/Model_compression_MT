@@ -8,9 +8,11 @@ import shutil
 
 print("=== WMT26 Gemma 3 12B Hierarchical Slicing (Step 3: Neurons) ===")
 
-model_id = "/kaggle/working/outputs/gemma3-12b-40L"
+model_id = "nani-nav/gemma-3-12b-40L-wmt"
 fisher_dir = "/kaggle/working/outputs/fisher_scores"
 output_dir = "/kaggle/working/outputs/gemma3-12b-final"
+
+hf_token = os.environ.get("HF_TOKEN")
 
 FFN_KEEP_RATIO = 0.7  
 
@@ -19,7 +21,6 @@ with open(os.path.join(fisher_dir, "neuron_fisher.json"), "r") as f:
     neuron_scores = np.array(json.load(f))
     
 print(f"[*] Loading 40-layer model to CPU RAM in BFloat16 (~20GB)...")
-hf_token = os.environ.get("HF_TOKEN")
 tokenizer = AutoTokenizer.from_pretrained(model_id, token=hf_token)
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -82,11 +83,6 @@ text_config.intermediate_size = new_intermediate_size
 print(f"[*] Slicing complete! New architecture:")
 print(f"    Layers: {text_config.num_hidden_layers}")
 print(f"    FFN Size: {text_config.intermediate_size}")
-
-# DISK SPACE FIX: We loaded the 19GB model into RAM. 
-# We must delete it from the Kaggle disk before saving the new one so we don't hit the 20GB limit!
-print(f"[*] Deleting old 40L model from disk to prevent Kaggle Disk Quota Exceeded error...")
-shutil.rmtree(model_id, ignore_errors=True)
 
 print(f"[*] Saving final shrunken model to {output_dir}...")
 os.makedirs(output_dir, exist_ok=True)
