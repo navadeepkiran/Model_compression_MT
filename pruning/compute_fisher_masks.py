@@ -15,7 +15,7 @@ MODE = "layers"  # Options: "layers", "heads", "neurons"
 # ==========================================
 
 model_id = "google/gemma-3-12b-it"
-num_calibration_samples = 1000 
+num_calibration_samples = 400 
 max_length = 256
 output_dir = "/kaggle/working/outputs/fisher_scores"
 os.makedirs(output_dir, exist_ok=True)
