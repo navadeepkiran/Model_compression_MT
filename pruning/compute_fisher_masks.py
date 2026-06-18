@@ -112,6 +112,9 @@ for i in tqdm(range(0, len(dataset))):
     prompt = f"Translate English to Chinese.\nEnglish: {item['en']}\nChinese: {item['zh']}"
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=max_length).to(model.device)
     
+    # Gemma 3 is a multimodal model and requires token_type_ids during training
+    inputs["token_type_ids"] = torch.zeros_like(inputs["input_ids"])
+    
     outputs = model(**inputs, labels=inputs["input_ids"])
     loss = outputs.loss
     
