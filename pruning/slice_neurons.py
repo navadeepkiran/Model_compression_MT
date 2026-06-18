@@ -1,0 +1,96 @@
+import os
+import torch
+import json
+import numpy as np
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch.nn as nn
+import shutil
+
+print("=== WMT26 Gemma 3 12B Hierarchical Slicing (Step 3: Neurons) ===")
+
+model_id = "/kaggle/working/outputs/gemma3-12b-40L"
+fisher_dir = "/kaggle/working/outputs/fisher_scores"
+output_dir = "/kaggle/working/outputs/gemma3-12b-final"
+
+FFN_KEEP_RATIO = 0.7  
+
+print("[*] Loading Neuron Fisher Scores...")
+with open(os.path.join(fisher_dir, "neuron_fisher.json"), "r") as f:
+    neuron_scores = np.array(json.load(f))
+    
+print(f"[*] Loading 40-layer model to CPU RAM in BFloat16 (~20GB)...")
+hf_token = os.environ.get("HF_TOKEN")
+tokenizer = AutoTokenizer.from_pretrained(model_id, token=hf_token)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_id, 
+    device_map="cpu", 
+    torch_dtype=torch.bfloat16, 
+    low_cpu_mem_usage=True,
+    token=hf_token
+)
+
+text_config = model.config.text_config if hasattr(model.config, "text_config") else model.config
+old_intermediate_size = text_config.intermediate_size
+new_intermediate_size = int(old_intermediate_size * FFN_KEEP_RATIO)
+
+print(f"[*] Target FFN size: {new_intermediate_size}/{old_intermediate_size}")
+
+# Find the layers
+num_layers = text_config.num_hidden_layers
+target_layers = None
+
+for name, module in model.named_modules():
+    if isinstance(module, nn.ModuleList) and len(module) == num_layers:
+        target_layers = module
+        break
+
+if target_layers is None:
+    raise ValueError("Could not find the transformer layers inside the model!")
+
+print("[*] Slicing FFN Neurons for all layers...")
+for layer_idx in range(num_layers):
+    layer = target_layers[layer_idx]
+    
+    # Get scores for this specific layer
+    layer_neuron_scores = neuron_scores[layer_idx]
+    
+    # Find the indices of the highest scoring neurons to KEEP
+    kept_neurons = np.argsort(layer_neuron_scores)[-new_intermediate_size:]
+    kept_neurons = sorted(kept_neurons) 
+    
+    mlp = layer.mlp
+    
+    # Slice the Linear layers
+    new_gate = nn.Linear(text_config.hidden_size, new_intermediate_size, bias=False, dtype=torch.bfloat16)
+    new_gate.weight.data = mlp.gate_proj.weight.data[kept_neurons, :].clone()
+    
+    new_up = nn.Linear(text_config.hidden_size, new_intermediate_size, bias=False, dtype=torch.bfloat16)
+    new_up.weight.data = mlp.up_proj.weight.data[kept_neurons, :].clone()
+    
+    new_down = nn.Linear(new_intermediate_size, text_config.hidden_size, bias=False, dtype=torch.bfloat16)
+    new_down.weight.data = mlp.down_proj.weight.data[:, kept_neurons].clone()
+    
+    # Replace old massive FFN with shrunken FFN
+    layer.mlp.gate_proj = new_gate
+    layer.mlp.up_proj = new_up
+    layer.mlp.down_proj = new_down
+
+# Update Config
+text_config.intermediate_size = new_intermediate_size
+
+print(f"[*] Slicing complete! New architecture:")
+print(f"    Layers: {text_config.num_hidden_layers}")
+print(f"    FFN Size: {text_config.intermediate_size}")
+
+# DISK SPACE FIX: We loaded the 19GB model into RAM. 
+# We must delete it from the Kaggle disk before saving the new one so we don't hit the 20GB limit!
+print(f"[*] Deleting old 40L model from disk to prevent Kaggle Disk Quota Exceeded error...")
+shutil.rmtree(model_id, ignore_errors=True)
+
+print(f"[*] Saving final shrunken model to {output_dir}...")
+os.makedirs(output_dir, exist_ok=True)
+model.save_pretrained(output_dir)
+tokenizer.save_pretrained(output_dir)
+
+print("[*] Model saved successfully! It is now permanently smaller and ready for QLoRA!")
