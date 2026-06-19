@@ -547,16 +547,9 @@ def main():
             module.to(torch.float32)
         elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
             module.to(torch.float32)
-    # Load FLORES validation set
-    print("[*] Loading FLORES-200 validation subsets...")
-    val_dataset = load_flores_validation(num_samples=100)
-    
-    # Setup custom evaluation callback
-    comet_callback = CometEvaluationCallback(
-        val_dataset=val_dataset,
-        tokenizer=tokenizer,
-        output_dir=args.output_dir
-    )
+    print("[*] (COMET and FLORES validation skipped per user request)")
+    # val_dataset = load_flores_validation(num_samples=100)
+    # comet_callback = CometEvaluationCallback( ... )
     
     # Setup Trainer configs
     print("[*] Configuring Trainer...")
@@ -620,7 +613,6 @@ def main():
     trainer_kwargs = {
         "model": model,
         "train_dataset": train_dataset,
-        "callbacks": [comet_callback],
         "data_collator": gemma3_collator,
     }
 
