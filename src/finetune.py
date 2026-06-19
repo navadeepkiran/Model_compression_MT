@@ -429,12 +429,9 @@ def main():
         llm_int8_enable_fp32_cpu_offload=True  # Required to allow embed_tokens and lm_head on CPU
     )
     
-    # Check if unsloth is available to bypass the HuggingFace threaded loader memory leak
-    try:
-        from unsloth import FastLanguageModel
-        use_unsloth = True
-    except ImportError:
-        use_unsloth = False
+    # Unsloth's Gemma 3 kernels are experimentally proven to overflow on T4 GPUs,
+    # outputting NaN logits during the forward pass. We MUST force pure HuggingFace.
+    use_unsloth = False
 
     if use_unsloth:
         print("[*] Loading Gemma-3-12B using UNSLOTH (Highly Optimized 4-bit)...")
