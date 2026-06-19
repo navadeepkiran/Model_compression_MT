@@ -339,22 +339,27 @@ def main():
     train_dataset = Dataset.from_list(final_subset)
     
     # Helper to apply template
-    # Gemma-3-IT has a ~650-token BUILT-IN system prompt injected automatically by apply_chat_template.
-    # Without overriding it, max_length=256 only captures the system prompt — no translation content.
-    # Fix: pass a short custom system message to override the default.
-    # Budget: ~10 (system) + ~20 (roles/specials) + ~20 (instruction) + 80 (src) + 70 (tgt) = ~200 ✓
-    SRC_MAX_TOKENS = 80
-    TGT_MAX_TOKENS = 70
-
     def format_prompts(example):
-        # Truncate at the token level, then decode back to text
-        src_ids = tokenizer.encode(example['src'], add_special_tokens=False)[:SRC_MAX_TOKENS]
-        tgt_ids = tokenizer.encode(example['tgt'], add_special_tokens=False)[:TGT_MAX_TOKENS]
-        src = tokenizer.decode(src_ids, skip_special_tokens=True)
-        tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
+        src = example["src"]
+        tgt = example["tgt"]
+        
+        # Budget: ~10 (system) + ~20 (roles/specials) + ~20 (instruction) + 80 (src) + 70 (tgt) = ~200
+        SRC_MAX_TOKENS = 80
+        TGT_MAX_TOKENS = 70
+        
+        # We must truncate via tokens, not characters! Character slicing allows the target 
+        # to be pushed past the 256 max_seq_length, causing 100% label masking and NaN loss.
+        try:
+            src_ids = tokenizer.encode(src, add_special_tokens=False)[:SRC_MAX_TOKENS]
+            tgt_ids = tokenizer.encode(tgt, add_special_tokens=False)[:TGT_MAX_TOKENS]
+            src = tokenizer.decode(src_ids, skip_special_tokens=True)
+            tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
+        except Exception:
+            # Fallback if tokenizer isn't available in this scope
+            if len(src) > SRC_MAX_TOKENS * 3: src = src[:SRC_MAX_TOKENS * 3]
+            if len(tgt) > TGT_MAX_TOKENS * 3: tgt = tgt[:TGT_MAX_TOKENS * 3]
 
         messages = [
-            # Short system message overrides Gemma-3-IT's ~650-token built-in system prompt
             {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
             {"role": "user",   "content": f"Translate from {example['src_lang']} to {example['tgt_lang']}:\n{src}"},
             {"role": "model",  "content": tgt},
@@ -366,14 +371,8 @@ def main():
     train_dataset = train_dataset.map(format_prompts, remove_columns=["src", "tgt", "src_lang", "tgt_lang"])
 
     # ── GUARANTEED TRUNCATION ──────────────────────────────────────────────────
-    # Pre-tokenize the entire dataset HERE with truncation=True and max_length capped.
-    # This runs BEFORE SFTTrainer sees the data, so it cannot be bypassed by any
-    # SFTTrainer version, chat template system-prompt, or collator quirk.
-    # The Gemma-3-IT built-in system prompt alone is ~650 tokens; without this step
-    # the sequences reaching the model are 888+ tokens → OOM on MLP gate_proj.
     print(f"[*] Pre-tokenizing with hard truncation to {args.max_seq_length} tokens...")
     def pre_tokenize(example):
-        # We manually tokenize to find the exact boundary of the model's response
         enc = tokenizer(
             example["text"],
             truncation=True,
@@ -382,21 +381,20 @@ def main():
             return_attention_mask=True,
         )
         
-        # Causal LM: labels = input_ids
         labels = enc["input_ids"].copy()
         
-        # Mask everything before the translation so the model doesn't try to predict the random English inputs
-        # Gemma 3 chat template adds <start_of_turn>model\n right before the target translation.
-        # Find where this occurs in the tokenized sequence.
-        # Gemma special token IDs: <start_of_turn> = 106, model = 2516, \n = 108 (approx, varies by vocab)
-        # Instead of guessing tokens, we use string matching to find the boundary.
+        # Find boundary of model turn to mask prompt
         model_turn_str = "<start_of_turn>model\n"
         idx = example["text"].find(model_turn_str)
         if idx != -1:
-            # Tokenize just the prompt to find its length
             prompt_enc = tokenizer(example["text"][:idx + len(model_turn_str)])
             prompt_len = len(prompt_enc["input_ids"])
-            # Mask the prompt tokens
+            # CRITICAL FIX: Ensure we never mask 100% of the tokens! If prompt pushes target out of window, 
+            # PyTorch CrossEntropyLoss returns NaN.
+            if prompt_len >= len(labels):
+                prompt_len = len(labels) - 1
+                
+            # Mask out the prompt part in labels
             labels[:prompt_len] = [-100] * prompt_len
             
         enc["labels"] = labels
