@@ -73,7 +73,21 @@ def main():
     comet_model = load_from_checkpoint(model_path)
     
     print("[*] Running COMET predictions...")
-    predictions = comet_model.predict(data, batch_size=args.batch_size, gpus=gpus)
+    
+    # Safely handle different unbabel-comet / pytorch-lightning version signatures
+    import inspect
+    sig = inspect.signature(comet_model.predict)
+    predict_kwargs = {"batch_size": args.batch_size}
+    
+    if torch.cuda.is_available():
+        if "gpus" in sig.parameters:
+            predict_kwargs["gpus"] = 1
+        if "accelerator" in sig.parameters:
+            predict_kwargs["accelerator"] = "gpu"
+        if "devices" in sig.parameters:
+            predict_kwargs["devices"] = 1
+            
+    predictions = comet_model.predict(data, **predict_kwargs)
     
     system_score = predictions.system_score
     scores = predictions.scores
