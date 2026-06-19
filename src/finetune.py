@@ -276,33 +276,33 @@ def main():
         return None
         
     # 1. Load Datasets
-    import glob
-    print("[*] Searching for polished Parquet dataset...")
-    parquet_files = glob.glob('/kaggle/input/**/*.parquet', recursive=True)
-    if not parquet_files:
-        # Fallback to local data folder if running locally
-        parquet_files = glob.glob('data/*.parquet')
-        
-    if not parquet_files:
-        raise RuntimeError("[!] Fatal: Could not find any .parquet dataset file in /kaggle/input/ or local data/ folder.")
-        
-    target_parquet = parquet_files[0]
-    for p in parquet_files:
-        if "wmt" in p.lower() or "stage" in p.lower() or "36k" in p.lower():
-            target_parquet = p
+    print("[*] Loading English-Chinese dataset...")
+    ds_zh_en = None
+    for dataset_name, config in [("wmt19", "zh-en"), ("Helsinki-NLP/opus-100", "en-zh"), ("Helsinki-NLP/tatoeba_mt", "eng-zho")]:
+        try:
+            print(f" - Attempting: {dataset_name} ({config})...")
+            ds_zh_en = load_dataset(dataset_name, config, split="train[:333000]")
+            print(f"   ✅ Successfully loaded {dataset_name}")
             break
+        except Exception as e:
+            print(f"   ❌ Failed: {e}")
             
-    print(f"[*] Loading dataset from {target_parquet}...")
-    ds_zh_en = load_dataset('parquet', data_files=target_parquet, split='train')
-    
+    if ds_zh_en is None:
+        raise RuntimeError("[!] Fatal: Could not load English-Chinese dataset from any fallback source.")
+        
     # 2. Extract and Process Pairs
     combined_data = []
-    print(f"[*] Processing {len(ds_zh_en)} pairs...")
+    
+    print("[*] Extracting translation pairs...")
+        
+    # Extract zh-en
+    print(f" - Processing English-Chinese ({len(ds_zh_en)} pairs)...")
     for item in ds_zh_en:
-        if "source" in item and "target" in item:
+        pair = extract_text_pair(item, "en", "zh")
+        if pair:
             combined_data.append({
-                "src": item["source"],
-                "tgt": item["target"],
+                "src": pair[0],
+                "tgt": pair[1],
                 "src_lang": "English",
                 "tgt_lang": "Chinese (Simplified)"
             })
@@ -339,27 +339,22 @@ def main():
     train_dataset = Dataset.from_list(final_subset)
     
     # Helper to apply template
+    # Gemma-3-IT has a ~650-token BUILT-IN system prompt injected automatically by apply_chat_template.
+    # Without overriding it, max_length=256 only captures the system prompt — no translation content.
+    # Fix: pass a short custom system message to override the default.
+    # Budget: ~10 (system) + ~20 (roles/specials) + ~20 (instruction) + 80 (src) + 70 (tgt) = ~200 ✓
+    SRC_MAX_TOKENS = 80
+    TGT_MAX_TOKENS = 70
+
     def format_prompts(example):
-        src = example["src"]
-        tgt = example["tgt"]
-        
-        # Budget: ~10 (system) + ~20 (roles/specials) + ~20 (instruction) + 80 (src) + 70 (tgt) = ~200
-        SRC_MAX_TOKENS = 80
-        TGT_MAX_TOKENS = 70
-        
-        # We must truncate via tokens, not characters! Character slicing allows the target 
-        # to be pushed past the 256 max_seq_length, causing 100% label masking and NaN loss.
-        try:
-            src_ids = tokenizer.encode(src, add_special_tokens=False)[:SRC_MAX_TOKENS]
-            tgt_ids = tokenizer.encode(tgt, add_special_tokens=False)[:TGT_MAX_TOKENS]
-            src = tokenizer.decode(src_ids, skip_special_tokens=True)
-            tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
-        except Exception:
-            # Fallback if tokenizer isn't available in this scope
-            if len(src) > SRC_MAX_TOKENS * 3: src = src[:SRC_MAX_TOKENS * 3]
-            if len(tgt) > TGT_MAX_TOKENS * 3: tgt = tgt[:TGT_MAX_TOKENS * 3]
+        # Truncate at the token level, then decode back to text
+        src_ids = tokenizer.encode(example['src'], add_special_tokens=False)[:SRC_MAX_TOKENS]
+        tgt_ids = tokenizer.encode(example['tgt'], add_special_tokens=False)[:TGT_MAX_TOKENS]
+        src = tokenizer.decode(src_ids, skip_special_tokens=True)
+        tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
 
         messages = [
+            # Short system message overrides Gemma-3-IT's ~650-token built-in system prompt
             {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
             {"role": "user",   "content": f"Translate from {example['src_lang']} to {example['tgt_lang']}:\n{src}"},
             {"role": "model",  "content": tgt},
@@ -371,8 +366,14 @@ def main():
     train_dataset = train_dataset.map(format_prompts, remove_columns=["src", "tgt", "src_lang", "tgt_lang"])
 
     # ── GUARANTEED TRUNCATION ──────────────────────────────────────────────────
+    # Pre-tokenize the entire dataset HERE with truncation=True and max_length capped.
+    # This runs BEFORE SFTTrainer sees the data, so it cannot be bypassed by any
+    # SFTTrainer version, chat template system-prompt, or collator quirk.
+    # The Gemma-3-IT built-in system prompt alone is ~650 tokens; without this step
+    # the sequences reaching the model are 888+ tokens → OOM on MLP gate_proj.
     print(f"[*] Pre-tokenizing with hard truncation to {args.max_seq_length} tokens...")
     def pre_tokenize(example):
+        # We manually tokenize to find the exact boundary of the model's response
         enc = tokenizer(
             example["text"],
             truncation=True,
@@ -381,20 +382,21 @@ def main():
             return_attention_mask=True,
         )
         
+        # Causal LM: labels = input_ids
         labels = enc["input_ids"].copy()
         
-        # Find boundary of model turn to mask prompt
+        # Mask everything before the translation so the model doesn't try to predict the random English inputs
+        # Gemma 3 chat template adds <start_of_turn>model\n right before the target translation.
+        # Find where this occurs in the tokenized sequence.
+        # Gemma special token IDs: <start_of_turn> = 106, model = 2516, \n = 108 (approx, varies by vocab)
+        # Instead of guessing tokens, we use string matching to find the boundary.
         model_turn_str = "<start_of_turn>model\n"
         idx = example["text"].find(model_turn_str)
         if idx != -1:
+            # Tokenize just the prompt to find its length
             prompt_enc = tokenizer(example["text"][:idx + len(model_turn_str)])
             prompt_len = len(prompt_enc["input_ids"])
-            # CRITICAL FIX: Ensure we never mask 100% of the tokens! If prompt pushes target out of window, 
-            # PyTorch CrossEntropyLoss returns NaN.
-            if prompt_len >= len(labels):
-                prompt_len = len(labels) - 1
-                
-            # Mask out the prompt part in labels
+            # Mask the prompt tokens
             labels[:prompt_len] = [-100] * prompt_len
             
         enc["labels"] = labels
@@ -529,22 +531,6 @@ def main():
     )
     
     # Setup Trainer configs
-    # ── LOGITS FLOAT32 UPCAST ─────────────────────────────────────────────────
-    # Since we disabled fp16 autocast to avoid the BFloat16 GradScaler crash,
-    # the lm_head naturally outputs float16/bfloat16 logits. Gemma 3 has a massive 256,000
-    # token vocabulary, so the exp(logits) in CrossEntropyLoss WILL overflow,
-    # resulting in NaN loss and NaN gradients. We MUST upcast logits to float32!
-    print("[*] Registering float32 upcast hook on lm_head to prevent NaN loss...")
-    def cast_logits_to_fp32(module, input, output):
-        return output.to(torch.float32)
-        
-    output_layer = model.get_output_embeddings()
-    if output_layer is not None:
-        output_layer.register_forward_hook(cast_logits_to_fp32)
-    elif hasattr(model, "lm_head"):
-        model.lm_head.register_forward_hook(cast_logits_to_fp32)
-    # ──────────────────────────────────────────────────────────────────────────
-
     print("[*] Configuring Trainer...")
     
     # Core TrainingArguments params
@@ -606,6 +592,7 @@ def main():
     trainer_kwargs = {
         "model": model,
         "train_dataset": train_dataset,
+        "callbacks": [comet_callback],
         "data_collator": gemma3_collator,
     }
 
@@ -622,27 +609,14 @@ def main():
     sft_config = SFTConfig(**config_kwargs)
 
     # ── BUGFIX TRAINER ────────────────────────────────────────────────────────
-    # Unsloth's fused CrossEntropyLoss kernel natively computes in float16 on T4 GPUs
-    # and completely bypasses our PyTorch forward hooks. This causes Gemma 3's massive 
-    # 256k vocabulary to silently overflow to NaN, which Unsloth catches and masks as "0" 
-    # loss, but leaves gradients as NaN. We MUST bypass Unsloth's kernel by popping labels!
+    # Unsloth's new Gemma 3 patch returns a custom tensor object for logits where 
+    # `.shape` is accidentally a method instead of a property. This causes the newest
+    # version of `trl` to crash when it tries to calculate entropy. 
+    # We bypass this completely by overriding compute_loss to never touch the logits!
     class BugfixTrainer(SFTTrainer):
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
-            # 1) Pop labels so Unsloth skips its internal fused loss kernel
-            labels = inputs.pop("labels", None)
             outputs = model(**inputs)
-            
-            if labels is not None:
-                # 2) Get logits and explicitly upcast to float32 BEFORE loss calculation
-                logits = outputs.logits.to(torch.float32)
-                # 3) Shift tokens for causal LM objective
-                shift_logits = logits[..., :-1, :].contiguous()
-                shift_labels = labels[..., 1:].contiguous()
-                # 4) Compute native PyTorch CrossEntropyLoss safely in float32
-                loss_fct = torch.nn.CrossEntropyLoss()
-                loss = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
-            else:
-                loss = outputs.loss
+            loss = outputs.loss
             
             # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
             # if num_items_in_batch is passed. If we skip this, gradients become 8x too large!
