@@ -624,14 +624,27 @@ def main():
     sft_config = SFTConfig(**config_kwargs)
 
     # ── BUGFIX TRAINER ────────────────────────────────────────────────────────
-    # Unsloth's new Gemma 3 patch returns a custom tensor object for logits where 
-    # `.shape` is accidentally a method instead of a property. This causes the newest
-    # version of `trl` to crash when it tries to calculate entropy. 
-    # We bypass this completely by overriding compute_loss to never touch the logits!
+    # Unsloth's fused CrossEntropyLoss kernel natively computes in float16 on T4 GPUs
+    # and completely bypasses our PyTorch forward hooks. This causes Gemma 3's massive 
+    # 256k vocabulary to silently overflow to NaN, which Unsloth catches and masks as "0" 
+    # loss, but leaves gradients as NaN. We MUST bypass Unsloth's kernel by popping labels!
     class BugfixTrainer(SFTTrainer):
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
+            # 1) Pop labels so Unsloth skips its internal fused loss kernel
+            labels = inputs.pop("labels", None)
             outputs = model(**inputs)
-            loss = outputs.loss
+            
+            if labels is not None:
+                # 2) Get logits and explicitly upcast to float32 BEFORE loss calculation
+                logits = outputs.logits.to(torch.float32)
+                # 3) Shift tokens for causal LM objective
+                shift_logits = logits[..., :-1, :].contiguous()
+                shift_labels = labels[..., 1:].contiguous()
+                # 4) Compute native PyTorch CrossEntropyLoss safely in float32
+                loss_fct = torch.nn.CrossEntropyLoss()
+                loss = loss_fct(shift_logits.view(-1, shift_logits.size(-1)), shift_labels.view(-1))
+            else:
+                loss = outputs.loss
             
             # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
             # if num_items_in_batch is passed. If we skip this, gradients become 8x too large!
