@@ -228,7 +228,7 @@ def main():
     parser = argparse.ArgumentParser(description="Gemma 3 WMT Fine-Tuning Script")
     parser.add_argument("--model_id", type=str, default="nani-nav/gemma-3-12b-final-wmt", help="Model HF ID")
     parser.add_argument("--output_dir", type=str, default="outputs/gemma3-12b-wmt-lora", help="Output directory")
-    parser.add_argument("--epochs", type=int, default=2, help="Number of epochs to train")
+    parser.add_argument("--epochs", type=int, default=1, help="Number of epochs to train")
     parser.add_argument("--subset_size", type=int, default=4000, help="Dataset size")
     parser.add_argument("--learning_rate", type=float, default=2e-4, help="Learning rate")
     parser.add_argument("--lora_rank", type=int, default=16, help="LoRA Rank")
@@ -310,11 +310,19 @@ def main():
     # Extract zh-en
     print(f" - Processing English-Chinese ({len(ds_zh_en)} pairs)...")
     for item in ds_zh_en:
-        pair = extract_text_pair(item, "en", "zh")
-        if pair:
+        # Check for 'source' and 'target' columns first (our custom schema)
+        if "source" in item and "target" in item:
             combined_data.append({
-                "src": pair[0],
-                "tgt": pair[1],
+                "src": item["source"],
+                "tgt": item["target"],
+                "src_lang": "English",
+                "tgt_lang": "Chinese (Simplified)"
+            })
+        # Fallback to translation dict schema just in case
+        elif "translation" in item and "en" in item["translation"] and "zh" in item["translation"]:
+            combined_data.append({
+                "src": item["translation"]["en"],
+                "tgt": item["translation"]["zh"],
                 "src_lang": "English",
                 "tgt_lang": "Chinese (Simplified)"
             })
