@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 # Set BOTH env var names to cover all PyTorch versions (name changed in 2.x)
 # Must be before 'import torch' so the CUDA caching allocator reads it at init time.
@@ -219,7 +220,7 @@ def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=Tru
             model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
             
         # Initialize checkpointing on the model
-        model.gradient_checkpointing_enable({"use_reentrant": True})
+        model.gradient_checkpointing_enable({"use_reentrant": False})
         
     return model
 
@@ -561,7 +562,7 @@ def main():
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": True},
+        "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "paged_adamw_8bit",
         "save_strategy": "steps",
         "save_steps": 200,
