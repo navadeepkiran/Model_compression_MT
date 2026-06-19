@@ -226,7 +226,7 @@ def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=Tru
 # --- MAIN ---
 def main():
     parser = argparse.ArgumentParser(description="Gemma 3 WMT Fine-Tuning Script")
-    parser.add_argument("--model_id", type=str, default="google/gemma-3-12b-it", help="Model HF ID")
+    parser.add_argument("--model_id", type=str, default="nani-nav/gemma-3-12b-final-wmt", help="Model HF ID")
     parser.add_argument("--output_dir", type=str, default="outputs/gemma3-12b-wmt-lora", help="Output directory")
     parser.add_argument("--epochs", type=int, default=2, help="Number of epochs to train")
     parser.add_argument("--subset_size", type=int, default=4000, help="Dataset size")
@@ -235,6 +235,7 @@ def main():
     parser.add_argument("--lora_alpha", type=int, default=32, help="LoRA Alpha")
     parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length")
     parser.add_argument("--max_steps", type=int, default=-1, help="If > 0: set total number of training steps to perform. Overrides num_train_epochs.")
+    parser.add_argument("--hf_token", type=str, default=None, help="HuggingFace API Token (needed for private repos)")
     args = parser.parse_args()
     
     # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
@@ -276,10 +277,28 @@ def main():
         return None
         
     # 1. Load Datasets
-    print("[*] Loading English-Chinese dataset...")
+    print("[*] Searching for Parquet dataset...")
+    import glob
+    parquet_files = glob.glob('/kaggle/input/**/*.parquet', recursive=True)
+    if not parquet_files:
+        parquet_files = glob.glob('data/*.parquet') # Fallback to local
+        
+    target_parquet = None
+    for p in parquet_files:
+        if "wmt" in p.lower() or "36k" in p.lower() or "stage6" in p.lower():
+            target_parquet = p
+            break
+            
+    if not target_parquet and parquet_files:
+        target_parquet = parquet_files[0]
+        
+    if not target_parquet:
+        raise RuntimeError("[!] Fatal: Could not find any .parquet dataset file in /kaggle/input/ or local data/ folder.")
+        
+    print(f"[*] Loading dataset from: {target_parquet}")
     try:
-        ds_zh_en = load_dataset("parquet", data_files="data/wmt_stage6_final_36k_en_zh.parquet", split="train")
-        print("   ✅ Successfully loaded wmt_stage6_final_36k_en_zh.parquet")
+        ds_zh_en = load_dataset("parquet", data_files=target_parquet, split="train")
+        print("   ✅ Successfully loaded dataset.")
     except Exception as e:
         raise RuntimeError(f"[!] Fatal: Could not load parquet dataset: {e}")
         
@@ -322,7 +341,10 @@ def main():
     
     # 4. Load Tokenizer & Model
     print("[*] Loading Tokenizer...")
-    hf_token = os.environ.get("HF_TOKEN")
+    hf_token = args.hf_token or os.environ.get("HF_TOKEN")
+    if not hf_token:
+        print("[!] WARNING: No HuggingFace token provided! Since your repo is private, it will fail to download unless you pass --hf_token")
+    
     tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
