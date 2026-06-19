@@ -458,8 +458,11 @@ def main():
     
     # Check if unsloth is available to bypass the HuggingFace threaded loader memory leak
     try:
-        from unsloth import FastLanguageModel
-        use_unsloth = True
+        # We explicitly disable Unsloth for this run because Unsloth forcefully loads the tokenizer
+        # from the same repo as the model, which will crash due to the corrupted tokenizer_config.json.
+        # Our custom HuggingFace loader below correctly loads the weights from the pruned repo
+        # and the tokenizer from the base Google repo.
+        use_unsloth = False
     except ImportError:
         use_unsloth = False
 
