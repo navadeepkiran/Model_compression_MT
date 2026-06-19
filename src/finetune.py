@@ -345,7 +345,9 @@ def main():
     if not hf_token:
         print("[!] WARNING: No HuggingFace token provided! Since your repo is private, it will fail to download unless you pass --hf_token")
     
-    tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
+    # We load the tokenizer from the base Google repo, NOT the pruned repo.
+    # This prevents the 'list object has no attribute keys' bug caused by corrupted tokenizer_config.json
+    tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-12b-it", trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
