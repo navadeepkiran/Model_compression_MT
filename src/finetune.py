@@ -277,18 +277,11 @@ def main():
         
     # 1. Load Datasets
     print("[*] Loading English-Chinese dataset...")
-    ds_zh_en = None
-    for dataset_name, config in [("wmt19", "zh-en"), ("Helsinki-NLP/opus-100", "en-zh"), ("Helsinki-NLP/tatoeba_mt", "eng-zho")]:
-        try:
-            print(f" - Attempting: {dataset_name} ({config})...")
-            ds_zh_en = load_dataset(dataset_name, config, split="train[:333000]")
-            print(f"   ✅ Successfully loaded {dataset_name}")
-            break
-        except Exception as e:
-            print(f"   ❌ Failed: {e}")
-            
-    if ds_zh_en is None:
-        raise RuntimeError("[!] Fatal: Could not load English-Chinese dataset from any fallback source.")
+    try:
+        ds_zh_en = load_dataset("parquet", data_files="data/wmt_stage6_final_36k_en_zh.parquet", split="train")
+        print("   ✅ Successfully loaded wmt_stage6_final_36k_en_zh.parquet")
+    except Exception as e:
+        raise RuntimeError(f"[!] Fatal: Could not load parquet dataset: {e}")
         
     # 2. Extract and Process Pairs
     combined_data = []
