@@ -225,7 +225,7 @@ def main():
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.bfloat16, 
+        bnb_4bit_compute_dtype=torch.float32, 
         bnb_4bit_use_double_quant=True,
         llm_int8_enable_fp32_cpu_offload=True  
     )
@@ -241,7 +241,7 @@ def main():
         model, _ = FastLanguageModel.from_pretrained(
             model_name=args.model_id,
             max_seq_length=256,
-            dtype=torch.bfloat16,
+            dtype=torch.float32,
             load_in_4bit=True,
             token=hf_token,
         )
@@ -258,7 +258,7 @@ def main():
         )
         model.config.use_cache = False
     else:
-        print("[*] Loading model in 4-bit precision (BFloat16 base)...")
+        print("[*] Loading model in 4-bit precision (Float32 base)...")
         custom_device_map = {
             "model.embed_tokens": "cpu",
             "lm_head": "cpu",
@@ -270,14 +270,14 @@ def main():
             quantization_config=bnb_config,
             device_map=custom_device_map,
             trust_remote_code=True,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=torch.float32,
             attn_implementation="eager",
             token=hf_token
         )
         
         model.is_model_parallel = True
         model.is_loaded_in_4bit = True
-        model.config.torch_dtype = torch.bfloat16
+        model.config.torch_dtype = torch.float32
         if hasattr(model.config, "_attn_implementation"):
             model.config._attn_implementation = "eager"
         
