@@ -531,6 +531,22 @@ def main():
     )
     
     # Setup Trainer configs
+    # ── LOGITS FLOAT32 UPCAST ─────────────────────────────────────────────────
+    # Since we disabled fp16 autocast to avoid the BFloat16 GradScaler crash,
+    # the lm_head naturally outputs float16/bfloat16 logits. Gemma 3 has a massive 256,000
+    # token vocabulary, so the exp(logits) in CrossEntropyLoss WILL overflow,
+    # resulting in NaN loss and NaN gradients. We MUST upcast logits to float32!
+    print("[*] Registering float32 upcast hook on lm_head to prevent NaN loss...")
+    def cast_logits_to_fp32(module, input, output):
+        return output.to(torch.float32)
+        
+    output_layer = model.get_output_embeddings()
+    if output_layer is not None:
+        output_layer.register_forward_hook(cast_logits_to_fp32)
+    elif hasattr(model, "lm_head"):
+        model.lm_head.register_forward_hook(cast_logits_to_fp32)
+    # ──────────────────────────────────────────────────────────────────────────
+
     print("[*] Configuring Trainer...")
     
     # Core TrainingArguments params
