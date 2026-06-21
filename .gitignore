@@ -9,7 +9,7 @@ Task/
 hf_cache/
 models/
 datasets/
-
+scratch/
 # Local Data / Metrics
 data/
 outputs/
