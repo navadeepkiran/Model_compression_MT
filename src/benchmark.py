@@ -25,6 +25,7 @@ from transformers import (
     AutoModelForSeq2SeqLM,
     BitsAndBytesConfig
 )
+from peft import PeftModel
 
 # Language code to human-readable name mapping for WMT26 Model Compression
 LANG_MAP = {
@@ -141,6 +142,7 @@ def parse_args():
     parser.add_argument("--output_dir", type=str, default="outputs", help="Output directory for results")
     parser.add_argument("--attn_implementation", type=str, default=None, choices=["eager", "sdpa", "flash_attention_2"], help="Forced attention implementation")
     parser.add_argument("--num_beams", type=int, default=1, help="Number of beams for generation")
+    parser.add_argument("--lora_path", type=str, default=None, help="Path to PEFT LoRA adapter to apply on top of the base model")
     return parser.parse_args()
 
 def load_quantized_model(model_name, precision, attn_implementation=None):
@@ -203,6 +205,10 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     else:
         load_kwargs["torch_dtype"] = torch_dtype
         model = model_class.from_pretrained(model_name, **load_kwargs)
+        
+    # Apply LoRA adapter if specified (Wait until args are parsed, so pass lora_path through main)
+    # Actually, we will apply it in main() since load_quantized_model doesn't take lora_path directly yet.
+    # Let's add it to the signature!
     load_time = time.time() - t0
     
     return model, is_seq2seq, load_time
@@ -300,12 +306,19 @@ def main():
     
     # Load Model and Tokenizer
     model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
+    
+    if args.lora_path:
+        print(f"[*] Loading PEFT LoRA adapter from: {args.lora_path}")
+        t1 = time.time()
+        model = PeftModel.from_pretrained(model, args.lora_path)
+        load_time += (time.time() - t1)
+        
     try:
         tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
     except AttributeError:
         print("[!] Tokenizer failed to load from local directory due to a transformers bug. Falling back to Hugging Face...")
         hf_token_for_tokenizer = os.environ.get("HF_TOKEN")
-        tokenizer = AutoTokenizer.from_pretrained("nani-nav/gemma-3-12b-40L-wmt", token=hf_token_for_tokenizer, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-12b-it", token=hf_token_for_tokenizer, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     # Align model pad token ID with tokenizer pad token ID to prevent warnings/errors
