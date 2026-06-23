@@ -146,6 +146,7 @@ def main():
     parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length")
     parser.add_argument("--max_steps", type=int, default=-1, help="If > 0: set total number of training steps to perform. Overrides num_train_epochs.")
     parser.add_argument("--hf_token", type=str, default=None, help="HuggingFace API Token (needed for private repos)")
+    parser.add_argument("--load_lora", type=str, default=None, help="Path to an existing LoRA checkpoint to start training from (e.g., for Annealing)")
     args = parser.parse_args()
     
     # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
@@ -434,21 +435,27 @@ def main():
         if hasattr(model.config, "_attn_implementation"):
             model.config._attn_implementation = "eager"
         
-        # Prepare model
+        # Prepare model for PEFT/LoRA
         model = prepare_model_for_kbit_training_custom(model)
         
-        # Configure LoRA settings targeting all linear blocks
-        print("[*] Configuring LoRA settings targeting all linear blocks...")
-        lora_config = LoraConfig(
-            r=args.lora_rank,
-            lora_alpha=args.lora_alpha,
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-            lora_dropout=0.05,
-            bias="none",
-            task_type="CAUSAL_LM"
-        )
-        model = get_peft_model(model, lora_config)
-    model.print_trainable_parameters()
+        if args.load_lora:
+            from peft import PeftModel
+            print(f"[*] Loading EXISTING LoRA weights from {args.load_lora} to continue training (Annealing)...")
+            model = PeftModel.from_pretrained(model, args.load_lora, is_trainable=True)
+        else:
+            # Configure new LoRA settings targeting all linear blocks
+            print("[*] Configuring NEW LoRA settings targeting all linear blocks...")
+            lora_config = LoraConfig(
+                r=args.lora_rank,
+                lora_alpha=args.lora_alpha,
+                target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+                lora_dropout=0.05,
+                bias="none",
+                task_type="CAUSAL_LM"
+            )
+            model = get_peft_model(model, lora_config)
+            
+        model.print_trainable_parameters()
     
     # Force trainable parameters (LoRA) and norms to float32 natively
     print("[*] Ensuring LoRA layers and layernorms are natively float32...")
