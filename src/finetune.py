@@ -243,10 +243,10 @@ def main():
             })
         
     # 3. Filter by character length and sort
-    print("[*] Filtering sentences based on length (20 < characters < 1500)...")
+    print("[*] Filtering empty sentences...")
     filtered_data = [
         item for item in combined_data
-        if item["src"] and item["tgt"] and 20 < len(item["src"]) < 1500
+        if item["src"] and item["tgt"] and len(item["src"]) > 0
     ]
     print(f"[*] Total pairs after filtering: {len(filtered_data)}")
     
