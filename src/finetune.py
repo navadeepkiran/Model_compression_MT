@@ -147,6 +147,7 @@ def main():
     parser.add_argument("--max_steps", type=int, default=-1, help="If > 0: set total number of training steps to perform. Overrides num_train_epochs.")
     parser.add_argument("--hf_token", type=str, default=None, help="HuggingFace API Token (needed for private repos)")
     parser.add_argument("--load_lora", type=str, default=None, help="Path to an existing LoRA checkpoint to start training from (e.g., for Annealing)")
+    parser.add_argument("--dataset_path", type=str, default=None, help="Direct path to the parquet dataset file")
     args = parser.parse_args()
     
     # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
@@ -189,22 +190,25 @@ def main():
         
     # 1. Load Datasets
     print("[*] Searching for Parquet dataset...")
-    import glob
-    parquet_files = glob.glob('/kaggle/input/**/*.parquet', recursive=True)
-    if not parquet_files:
-        parquet_files = glob.glob('data/*.parquet') # Fallback to local
-        
-    target_parquet = None
-    for p in parquet_files:
-        if "wmt" in p.lower() or "36k" in p.lower() or "stage6" in p.lower():
-            target_parquet = p
-            break
-            
-    if not target_parquet and parquet_files:
-        target_parquet = parquet_files[0]
-        
+    
+    target_parquet = args.dataset_path
+    
     if not target_parquet:
-        raise RuntimeError("[!] Fatal: Could not find any .parquet dataset file in /kaggle/input/ or local data/ folder.")
+        import glob
+        parquet_files = glob.glob('/kaggle/input/**/*.parquet', recursive=True)
+        if not parquet_files:
+            parquet_files = glob.glob('data/*.parquet') # Fallback to local
+            
+        for p in parquet_files:
+            if "wmt" in p.lower() or "36k" in p.lower() or "stage6" in p.lower():
+                target_parquet = p
+                break
+                
+        if not target_parquet and parquet_files:
+            target_parquet = parquet_files[0]
+            
+    if not target_parquet:
+        raise RuntimeError("[!] Fatal: Could not find any .parquet dataset file in /kaggle/input/ or local data/ folder, and --dataset_path was not provided.")
         
     print(f"[*] Loading dataset from: {target_parquet}")
     try:
