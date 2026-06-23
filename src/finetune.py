@@ -111,98 +111,7 @@ def load_flores_validation(base_dir="flores200_dataset", num_samples=100):
                 
     return val_data
 
-# --- CUSTOM EVALUATION CALLBACK FOR CHECKPOINTING ---
-class CometEvaluationCallback(TrainerCallback):
-    def __init__(self, val_dataset, tokenizer, output_dir, comet_model_name="Unbabel/wmt22-comet-da"):
-        self.val_dataset = val_dataset
-        self.tokenizer = tokenizer
-        self.output_dir = output_dir
-        self.best_comet_score = -9999.0
-        self.best_model_dir = os.path.join(output_dir, "best_model")
-        self.comet_model = None
-        
-        if val_dataset:
-            try:
-                from comet import download_model, load_from_checkpoint
-                print("[*] Pre-loading COMET model for callback...")
-                model_path = download_model(comet_model_name)
-                self.comet_model = load_from_checkpoint(model_path)
-                # Note: With 4-bit QLoRA, we have enough VRAM to keep COMET on GPU
-            except Exception as e:
-                print(f"[!] Error loading COMET model: {e}. Comet scoring will be disabled.")
-                
-    def on_train_end(self, args, state, control, model=None, **kwargs):
-        if model is None or self.val_dataset is None or self.comet_model is None:
-            return
-            
-        print(f"\n[*] Training ended. Starting final COMET evaluation...")
-        
-        # Set to eval mode and free GPU cache so generation has max headroom
-        model.eval()
-        gc.collect()
-        torch.cuda.empty_cache()
-        
-        predictions = []
-        data_to_grade = []
-        
-        for item in tqdm(self.val_dataset, desc="Generating validation translations"):
-            src_text = item["src"]
-            ref_text = item["ref"]
-            src_lang = item["src_lang"]
-            tgt_lang = item["tgt_lang"]
-            
-            # Format using prompt template
-            messages = [
-                {"role": "user", "content": f"Translate the following text from {src_lang} to {tgt_lang}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src_text}"}
-            ]
-            prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-            
-            inputs = self.tokenizer(prompt, return_tensors="pt").to(model.device)
-            with torch.no_grad():
-                outputs = model.generate(
-                    **inputs,
-                    max_new_tokens=150,
-                    pad_token_id=self.tokenizer.eos_token_id,
-                    do_sample=False
-                )
-            num_gen = outputs.shape[1] - inputs.input_ids.shape[1]
-            pred = self.tokenizer.decode(outputs[0][-num_gen:], skip_special_tokens=True).strip().replace('\n', ' ')
-            
-            predictions.append(pred)
-            data_to_grade.append({
-                "src": src_text,
-                "mt": pred,
-                "ref": ref_text
-            })
-            
-        # Run COMET evaluation on GPU
-        try:
-            import pytorch_lightning as pl
-            if int(pl.__version__.split(".")[0]) >= 2:
-                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, devices=[0], accelerator="gpu")
-            else:
-                comet_results = self.comet_model.predict(data_to_grade, batch_size=8, gpus=1)
-            
-            current_score = comet_results.system_score
-            
-            print(f"\n========================================")
-            print(f"Epoch {state.epoch:.1f} COMET Score: {current_score:.4f} (Previous Best: {self.best_comet_score:.4f})")
-            print(f"========================================")
-            
-            if current_score > self.best_comet_score:
-                print(f"[+] New best model found! Saving weights to {self.best_model_dir}...")
-                self.best_comet_score = current_score
-                model.save_pretrained(self.best_model_dir)
-                self.tokenizer.save_pretrained(self.best_model_dir)
-                
-                # Save the score metadata
-                with open(os.path.join(self.best_model_dir, "best_comet_score.json"), "w") as f:
-                    json.dump({"epoch": state.epoch, "comet_score": current_score}, f)
-        except Exception as e:
-            print(f"[!] Error during COMET evaluation: {e}")
-            
-        # Set back to train mode
-        model.train()
+
 
 def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
     for param in model.parameters():
@@ -549,10 +458,7 @@ def main():
         elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
             module.to(torch.float32)
     print("[*] (COMET and FLORES validation skipped per user request)")
-    # val_dataset = load_flores_validation(num_samples=100)
-    # comet_callback = CometEvaluationCallback( ... )
     
-    # Setup Trainer configs
     print("[*] Configuring Trainer...")
     
     # Core TrainingArguments params
