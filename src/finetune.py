@@ -294,10 +294,8 @@ def main():
         tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
 
         messages = [
-            # Short system message overrides Gemma-3-IT's ~650-token built-in system prompt
-            {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
-            {"role": "user",   "content": f"Translate from {example['src_lang']} to {example['tgt_lang']}:\n{src}"},
-            {"role": "model",  "content": tgt},
+            {"role": "user", "content": f"Translate the following text from {example['src_lang']} to {example['tgt_lang']}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src}"},
+            {"role": "model", "content": tgt}
         ]
         text = tokenizer.apply_chat_template(messages, tokenize=False)
         return {"text": text}
