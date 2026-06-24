@@ -438,6 +438,7 @@ def main():
             # Detect Chat Template
             if tokenizer.chat_template is not None:
                 messages = [
+                    {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
                     {"role": "user", "content": f"Translate the following text from {src_lang_name} to {tgt_lang_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src_text}"}
                 ]
                 # Ensure special tokens are tokenized correctly as control IDs, not raw text subwords

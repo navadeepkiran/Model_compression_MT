@@ -294,6 +294,7 @@ def main():
         tgt = tokenizer.decode(tgt_ids, skip_special_tokens=True)
 
         messages = [
+            {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
             {"role": "user", "content": f"Translate the following text from {example['src_lang']} to {example['tgt_lang']}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{src}"},
             {"role": "model", "content": tgt}
         ]
