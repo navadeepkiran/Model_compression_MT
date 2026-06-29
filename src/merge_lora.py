@@ -49,7 +49,7 @@ def main():
     merged_model = model.merge_and_unload()
     
     print(f"[*] Saving unified model locally to {args.output_dir}...")
-    merged_model.save_pretrained(args.output_dir)
+    merged_model.save_pretrained(args.output_dir, max_shard_size="2GB", safe_serialization=True)
     tokenizer.save_pretrained(args.output_dir)
     print(f"[+] Merged model saved successfully!")
     
