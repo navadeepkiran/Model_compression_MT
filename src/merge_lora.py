@@ -55,8 +55,14 @@ def main():
     
     if args.push_to_hub:
         print(f"[*] Pushing unified model to HuggingFace Hub: {args.push_to_hub}...")
-        merged_model.push_to_hub(args.push_to_hub, token=hf_token)
-        tokenizer.push_to_hub(args.push_to_hub, token=hf_token)
+        from huggingface_hub import HfApi
+        api = HfApi()
+        api.upload_folder(
+            folder_path=args.output_dir,
+            repo_id=args.push_to_hub,
+            token=hf_token,
+            repo_type="model"
+        )
         print(f"[+] Successfully pushed to Hub! Your model is now a standalone checkpoint.")
 
 if __name__ == "__main__":
