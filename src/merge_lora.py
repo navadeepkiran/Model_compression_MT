@@ -33,7 +33,7 @@ def main():
     # We load onto the CPU to completely prevent GPU OOM crashes during the massive matrix additions.
     base_model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        dtype=torch.bfloat16,
+        torch_dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
         token=hf_token
     )
