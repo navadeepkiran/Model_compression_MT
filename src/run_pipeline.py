@@ -34,6 +34,7 @@ except Exception:
 MODELS = [
     {"name": "Gemma-3-4B", "id": "google/gemma-3-4b-it", "precision": "fp16"},
     {"name": "Gemma-3-12B", "id": "google/gemma-3-12b-it", "precision": "int4"},
+    {"name": "Gemma-3-12B-Merged", "id": "nani-nav/gemma-3-12b-final-wmt-4488", "precision": "int4"},
     {"name": "Gemma-3-12B-Merged-INT8", "id": "nani-nav/gemma-3-12b-final-wmt-4488", "precision": "int8"},
 ]
 
