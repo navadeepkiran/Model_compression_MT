@@ -73,7 +73,13 @@ def main():
     )
     
     hf_token = os.environ.get("HF_TOKEN")
-    tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, token=hf_token)
+    
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, token=hf_token)
+    except AttributeError:
+        log("[!] Tokenizer failed to load from local directory due to a transformers bug. Falling back to base Hugging Face tokenizer...")
+        tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-12b-it", trust_remote_code=True, token=hf_token)
+        
     tokenizer.padding_side = "left"
     
     model = AutoModelForCausalLM.from_pretrained(
