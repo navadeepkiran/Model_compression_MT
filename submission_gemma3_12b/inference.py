@@ -96,6 +96,9 @@ def main():
         
     tokenizer.padding_side = "left"
     
+    if tokenizer.pad_token is None:
+        tokenizer.pad_token = tokenizer.eos_token
+        
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         quantization_config=bnb_config,
@@ -104,6 +107,10 @@ def main():
         token=hf_token
     )
     model.eval()
+    
+    # Align pad token ID
+    if model.config.pad_token_id is None or model.config.pad_token_id != tokenizer.pad_token_id:
+        model.config.pad_token_id = tokenizer.pad_token_id
     
     out_f = None
     if not args.use_stdin and args.output_file:
@@ -114,21 +121,38 @@ def main():
     for i in range(0, len(lines), args.batch_size):
         batch = lines[i:i + args.batch_size]
         
-        prompts = []
+        batch_input_ids = []
         for text in batch:
             messages = [
                 {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
                 {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{text}"}
             ]
             
-            prompt = tokenizer.apply_chat_template(
-                messages,
-                tokenize=False,
-                add_generation_prompt=True
-            )
-            prompts.append(prompt)
+            # Use tokenize=True to preserve Gemma-3 control tokens, then strip the batch dimension
+            try:
+                out = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_dict=True, return_tensors="pt")
+                ids = out["input_ids"][0]
+            except TypeError:
+                ids = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_tensors="pt")[0]
+                
+            batch_input_ids.append(ids)
             
-        inputs = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True).to(model.device)
+        # Manually left-pad the batch
+        max_len = max(len(ids) for ids in batch_input_ids)
+        padded_ids = []
+        attn_masks = []
+        
+        for ids in batch_input_ids:
+            pad_len = max_len - len(ids)
+            padded = torch.cat([torch.full((pad_len,), tokenizer.pad_token_id, dtype=torch.long), ids])
+            mask = torch.cat([torch.zeros(pad_len, dtype=torch.long), torch.ones(len(ids), dtype=torch.long)])
+            padded_ids.append(padded)
+            attn_masks.append(mask)
+            
+        inputs = {
+            "input_ids": torch.stack(padded_ids).to(model.device),
+            "attention_mask": torch.stack(attn_masks).to(model.device)
+        }
         
         with torch.no_grad():
             outputs = model.generate(
@@ -136,6 +160,7 @@ def main():
                 max_new_tokens=256,
                 do_sample=False,
                 num_beams=1,
+                pad_token_id=tokenizer.pad_token_id,
             )
             
         # Decode
