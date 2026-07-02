@@ -116,6 +116,7 @@ def main():
         quantization_config=bnb_config,
         device_map="auto" if torch.cuda.is_available() else "cpu",
         trust_remote_code=True,
+        torch_dtype=torch.bfloat16,
         token=hf_token
     )
     model.eval()
