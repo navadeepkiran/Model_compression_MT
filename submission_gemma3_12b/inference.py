@@ -163,11 +163,6 @@ def main():
             generated_tokens = out_tokens[prompt_length:]
             translation = tokenizer.decode(generated_tokens, skip_special_tokens=True)
             
-            # --- DIAGNOSTIC LOGGING ---
-            print(f"\\n[DIAGNOSTIC] Raw Generated Tokens: {generated_tokens.tolist()}", file=sys.stderr)
-            print(f"[DIAGNOSTIC] Raw Decoded String: {repr(translation)}", file=sys.stderr)
-            # --------------------------
-            
             # Clean up the output exactly as required
             translation = clean_translation(translation, src_name, tgt_name)
             translation = translation.replace('\n', ' ').replace('\r', ' ').strip()

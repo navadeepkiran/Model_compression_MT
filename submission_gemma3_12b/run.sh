@@ -5,6 +5,13 @@
 # Determine the directory where this script is located
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+# Activate the virtual environment
+if [ -f "$DIR/.venv/bin/activate" ]; then
+    source "$DIR/.venv/bin/activate"
+else
+    echo "Warning: .venv not found. Did you run setup.sh?" >&2
+fi
+
 # Explicit form
 if [ "$1" == "--lang-pair" ]; then
     LANG_PAIR=$2
