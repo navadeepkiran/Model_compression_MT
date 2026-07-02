@@ -8,6 +8,16 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import warnings
 warnings.filterwarnings("ignore")
 
+# Automatically load Kaggle Secrets for HuggingFace token if testing locally on Kaggle
+try:
+    from kaggle_secrets import UserSecretsClient
+    user_secrets = UserSecretsClient()
+    hf_token = user_secrets.get_secret("HF_TOKEN")
+    if hf_token:
+        os.environ["HF_TOKEN"] = hf_token
+except Exception:
+    pass
+
 LANG_MAP = {
     "eng": "English",
     "zho_Hans": "Chinese (Simplified)",
