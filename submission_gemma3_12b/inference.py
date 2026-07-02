@@ -118,61 +118,60 @@ def main():
     )
     model.eval()
     
-    # Align pad token ID
-    if model.config.pad_token_id is None or model.config.pad_token_id != tokenizer.pad_token_id:
-        model.config.pad_token_id = tokenizer.pad_token_id
-    
     out_f = None
     if not args.use_stdin and args.output_file:
         out_f = open(args.output_file, "w", encoding="utf-8")
         
-    log(f"[*] Processing {len(lines)} sentences with batch size {args.batch_size}...")
+    log(f"[*] Processing {len(lines)} sentences (Sequential Mode for maximum stability)...")
         
-    for i in range(0, len(lines), args.batch_size):
-        batch = lines[i:i + args.batch_size]
+    for i, text in enumerate(lines):
+        messages = [
+            {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
+            {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{text}"}
+        ]
         
-        batch_inputs = []
-        for text in batch:
-            messages = [
-                {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
-                {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{text}"}
-            ]
+        try:
+            inputs = tokenizer.apply_chat_template(
+                messages, 
+                tokenize=True, 
+                add_generation_prompt=True, 
+                return_dict=True, 
+                return_tensors="pt"
+            )
+            input_ids = inputs["input_ids"].to(model.device)
+        except TypeError:
+            input_ids = tokenizer.apply_chat_template(
+                messages, 
+                tokenize=True, 
+                add_generation_prompt=True, 
+                return_tensors="pt"
+            ).to(model.device)
             
-            try:
-                encoded = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_dict=True)
-            except TypeError:
-                ids = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True)
-                encoded = {"input_ids": ids, "attention_mask": [1] * len(ids)}
-                
-            batch_inputs.append(encoded)
-            
-        # Use HuggingFace's native pad function to correctly handle left-padding and attention masks
-        inputs = tokenizer.pad(batch_inputs, padding=True, return_tensors="pt").to(model.device)
+        gen_inputs = {"input_ids": input_ids}
         
         with torch.no_grad():
             outputs = model.generate(
-                **inputs,
+                **gen_inputs,
                 max_new_tokens=256,
                 do_sample=False,
                 num_beams=1,
                 pad_token_id=tokenizer.pad_token_id,
             )
             
-        # Decode
-        input_len = inputs["input_ids"].shape[1]
-        generated_tokens = outputs[:, input_len:]
-        decoded = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+        # Decode only the newly generated tokens
+        input_len = input_ids.shape[1]
+        generated_tokens = outputs[0, input_len:]
+        decoded = tokenizer.decode(generated_tokens, skip_special_tokens=True)
         
-        for tr in decoded:
-            clean_tr = clean_translation(tr, src_name, tgt_name)
-            # Ensure it's strictly one line
-            clean_tr = clean_tr.replace('\n', ' ').replace('\r', '')
-            if out_f:
-                out_f.write(clean_tr + "\n")
-                out_f.flush()
-            else:
-                sys.stdout.write(clean_tr + "\n")
-                sys.stdout.flush()
+        clean_tr = clean_translation(decoded, src_name, tgt_name)
+        out_str = clean_tr.replace("\n", " ").replace("\r", " ").strip()
+        
+        if out_f:
+            out_f.write(out_str + "\n")
+            out_f.flush()
+        else:
+            sys.stdout.write(out_str + "\n")
+            sys.stdout.flush()
                 
     if out_f:
         out_f.close()
