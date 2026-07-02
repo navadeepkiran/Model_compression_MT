@@ -40,12 +40,22 @@ def parse_args():
     return parser.parse_args()
 
 def clean_translation(translation, src_lang, tgt_lang):
-    # Quick cleanup of model outputs
-    translation = translation.strip("*_`\"'")
+    # Split into lines and strip whitespace
     lines = [line.strip() for line in translation.split("\n") if line.strip()]
-    if lines:
-        return lines[-1].strip()
-    return translation.strip()
+    
+    # Filter out markdown formatting and conversational fluff
+    valid_lines = []
+    for line in lines:
+        if line.startswith("```"): continue
+        if line.lower().startswith("here is the translation"): continue
+        if line.lower().startswith("translation:"): continue
+        if line.lower().startswith("the translated text"): continue
+        if line.lower() == "text to translate:": continue
+        valid_lines.append(line)
+        
+    if valid_lines:
+        return valid_lines[-1].strip("*_`\"'")
+    return translation.strip("*_`\"'")
 
 def main():
     args = parse_args()
