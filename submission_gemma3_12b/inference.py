@@ -124,13 +124,24 @@ def main():
     if not args.use_stdin and args.output_file:
         out_f = open(args.output_file, "w", encoding="utf-8")
         
-    log(f"[*] Processing {len(lines)} sentences using batched raw string prompts...")
+    log(f"[*] Processing {len(lines)} sentences using exact training prompt format...")
         
     for i in range(0, len(lines), args.batch_size):
         batch_lines = lines[i:i+args.batch_size]
         
-        # We must use the exact raw prompt format the model was fine-tuned on!
-        prompts = [f"Translate from English to Simplified Chinese:\nen: {src}\nzh:" for src in batch_lines]
+        # We MUST use the exact prompt structure the model saw during training!
+        # According to finetune_old_working.py, the exact structure is:
+        # system: "You are a machine translation assistant. Output only the translation."
+        # user: "Translate from {src_name} to {tgt_name}:\n{src}"
+        
+        prompts = []
+        for src in batch_lines:
+            messages = [
+                {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
+                {"role": "user", "content": f"Translate from {src_name} to {tgt_name}:\n{src}"}
+            ]
+            prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            prompts.append(prompt)
         
         inputs = tokenizer(prompts, return_tensors='pt', padding=True, truncation=True).to(model.device)
         
@@ -148,8 +159,9 @@ def main():
             generated_tokens = out_tokens[prompt_length:]
             translation = tokenizer.decode(generated_tokens, skip_special_tokens=True)
             
-            # Remove any stray newlines so it stays exactly one output line per input line
-            translation = translation.strip().replace('\n', ' ').replace('\r', ' ')
+            # Clean up the output exactly as required
+            translation = clean_translation(translation, src_name, tgt_name)
+            translation = translation.replace('\n', ' ').replace('\r', ' ').strip()
             
             if out_f:
                 out_f.write(translation + '\n')
