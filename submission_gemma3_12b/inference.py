@@ -126,8 +126,7 @@ def main():
         
     for i, text in enumerate(lines):
         messages = [
-            {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
-            {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}. Output ONLY the raw translation, without any introductory text, explanation, markdown formatting, or surrounding conversation. The output must contain only the translated text.\n\nText to translate:\n{text}"}
+            {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}.\n\nText to translate:\n{text}"}
         ]
         
         try:
