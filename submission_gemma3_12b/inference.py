@@ -124,26 +124,29 @@ def main():
     if not args.use_stdin and args.output_file:
         out_f = open(args.output_file, "w", encoding="utf-8")
         
-    log(f"[*] Processing {len(lines)} sentences using exact training prompt format...")
+    log(f"[*] Processing {len(lines)} sentences using exact training prompt AND correct tokenization...")
         
     for i in range(0, len(lines), args.batch_size):
         batch_lines = lines[i:i+args.batch_size]
         
-        # We MUST use the exact prompt structure the model saw during training!
-        # According to finetune_old_working.py, the exact structure is:
-        # system: "You are a machine translation assistant. Output only the translation."
-        # user: "Translate from {src_name} to {tgt_name}:\n{src}"
-        
-        prompts = []
+        batch_inputs = []
         for src in batch_lines:
             messages = [
                 {"role": "system", "content": "You are a machine translation assistant. Output only the translation."},
                 {"role": "user", "content": f"Translate from {src_name} to {tgt_name}:\n{src}"}
             ]
-            prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-            prompts.append(prompt)
-        
-        inputs = tokenizer(prompts, return_tensors='pt', padding=True, truncation=True).to(model.device)
+            
+            # We MUST use tokenize=True to ensure Gemma's <start_of_turn> control tokens are mapped 
+            # to their special integer IDs. If we use tokenize=False and pass the string to tokenizer(), 
+            # it will shred the control tokens into literal character pieces, causing the model to output EOS.
+            try:
+                encoded = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True, return_dict=True)
+            except TypeError:
+                ids = tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True)
+                encoded = {"input_ids": ids, "attention_mask": [1] * len(ids)}
+            batch_inputs.append(encoded)
+            
+        inputs = tokenizer.pad(batch_inputs, padding=True, return_tensors="pt").to(model.device)
         
         with torch.no_grad():
             outputs = model.generate(
