@@ -1,4 +1,8 @@
 import os
+# Force transformers to ignore TensorFlow and JAX to avoid Kaggle's broken protobuf environment
+os.environ["USE_TF"] = "0"
+os.environ["USE_JAX"] = "0"
+
 import sys
 import argparse
 import torch
