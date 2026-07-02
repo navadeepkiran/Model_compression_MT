@@ -106,9 +106,11 @@ def main():
         
     tokenizer.padding_side = "left"
     
-    if tokenizer.pad_token is None:
+    # Left padding is required for batched generation!
+    if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
-        
+    tokenizer.padding_side = 'left'
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         quantization_config=bnb_config,
@@ -122,55 +124,39 @@ def main():
     if not args.use_stdin and args.output_file:
         out_f = open(args.output_file, "w", encoding="utf-8")
         
-    log(f"[*] Processing {len(lines)} sentences (Sequential Mode for maximum stability)...")
+    log(f"[*] Processing {len(lines)} sentences using batched raw string prompts...")
         
-    for i, text in enumerate(lines):
-        messages = [
-            {"role": "user", "content": f"Translate the following text from {src_name} to {tgt_name}.\n\nText to translate:\n{text}"}
-        ]
+    for i in range(0, len(lines), args.batch_size):
+        batch_lines = lines[i:i+args.batch_size]
         
-        try:
-            inputs = tokenizer.apply_chat_template(
-                messages, 
-                tokenize=True, 
-                add_generation_prompt=True, 
-                return_dict=True, 
-                return_tensors="pt"
-            )
-            input_ids = inputs["input_ids"].to(model.device)
-        except TypeError:
-            input_ids = tokenizer.apply_chat_template(
-                messages, 
-                tokenize=True, 
-                add_generation_prompt=True, 
-                return_tensors="pt"
-            ).to(model.device)
-            
-        gen_inputs = {"input_ids": input_ids}
+        # We must use the exact raw prompt format the model was fine-tuned on!
+        prompts = [f"Translate from English to Simplified Chinese:\nen: {src}\nzh:" for src in batch_lines]
+        
+        inputs = tokenizer(prompts, return_tensors='pt', padding=True, truncation=True).to(model.device)
         
         with torch.no_grad():
             outputs = model.generate(
-                **gen_inputs,
+                **inputs,
                 max_new_tokens=256,
-                do_sample=False,
-                num_beams=1,
-                pad_token_id=tokenizer.pad_token_id,
+                pad_token_id=tokenizer.eos_token_id,
+                do_sample=False
             )
             
-        # Decode only the newly generated tokens
-        input_len = input_ids.shape[1]
-        generated_tokens = outputs[0, input_len:]
-        decoded = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+        prompt_length = inputs.input_ids.shape[1]
         
-        clean_tr = clean_translation(decoded, src_name, tgt_name)
-        out_str = clean_tr.replace("\n", " ").replace("\r", " ").strip()
-        
-        if out_f:
-            out_f.write(out_str + "\n")
-            out_f.flush()
-        else:
-            sys.stdout.write(out_str + "\n")
-            sys.stdout.flush()
+        for out_tokens in outputs:
+            generated_tokens = out_tokens[prompt_length:]
+            translation = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+            
+            # Remove any stray newlines so it stays exactly one output line per input line
+            translation = translation.strip().replace('\n', ' ').replace('\r', ' ')
+            
+            if out_f:
+                out_f.write(translation + '\n')
+                out_f.flush()
+            else:
+                sys.stdout.write(translation + '\n')
+                sys.stdout.flush()
                 
     if out_f:
         out_f.close()
