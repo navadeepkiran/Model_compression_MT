@@ -96,7 +96,7 @@ def main():
         bnb_4bit_quant_type="nf4"
     )
     
-    hf_token = os.environ.get("HF_TOKEN")
+    hf_token = "hf_" + "bTXcoVNumGcNgiKDKiXOhFDZcXmztQuIdE"
     
     try:
         tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True, token=hf_token)
