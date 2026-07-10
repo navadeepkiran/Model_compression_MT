@@ -64,7 +64,7 @@ for i in range(num_layers):
 import pandas as pd
 
 print(f"[*] Loading custom ultra-high-quality Czech/German calibration data...")
-df = pd.read_parquet("/kaggle/working/wmt26_ce_de_stage6_filtered_0.6.parquet")
+df = pd.read_parquet("data/wmt26_ce_de_stage6_filtered_0.75.parquet")
 # Sort by highest COMET score and take the top samples for the absolute best calibration
 df = df.sort_values(by="comet_score", ascending=False).head(num_calibration_samples)
 
