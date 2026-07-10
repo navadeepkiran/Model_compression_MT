@@ -70,9 +70,8 @@ if hasattr(text_config, "layer_types"):
 
 print(f"[*] Slicing complete! New architecture has {text_config.num_hidden_layers} Layers.")
 
-repo_id = "navadeepkiran/gemma3-12b-40L-csde"
-print(f"[*] Pushing 40-layer model directly to Hugging Face ({repo_id}) to save Kaggle Disk Space...")
-model.push_to_hub(repo_id, token=hf_token, private=True)
-tokenizer.push_to_hub(repo_id, token=hf_token, private=True)
+print(f"[*] Saving 40-layer model to {output_dir}...")
+model.save_pretrained(output_dir)
+tokenizer.save_pretrained(output_dir)
 
-print("[*] Done! The 8 lowest layers are gone and model is safe on Hugging Face. You can now use this model for Step 4!")
+print("[*] Done! The 8 lowest layers are gone. You can now use this model for Step 4!")
