@@ -61,9 +61,12 @@ for i in range(num_layers):
         return hook
     target_layers[i].register_forward_hook(make_layer_hook(i))
         
-print(f"[*] Loading WMT19 Czech/German calibration data...")
-# Load Czech (cs) and German (de) from open WMT19 dataset
-dataset = load_dataset("wmt19", "cs-de", split=f"train[:{num_calibration_samples}]")
+import pandas as pd
+
+print(f"[*] Loading custom ultra-high-quality Czech/German calibration data...")
+df = pd.read_parquet("/kaggle/working/wmt26_ce_de_stage6_filtered_0.6.parquet")
+# Sort by highest COMET score and take the top samples for the absolute best calibration
+df = df.sort_values(by="comet_score", ascending=False).head(num_calibration_samples)
 
 fisher_scores = torch.zeros_like(masks)
 
@@ -73,8 +76,8 @@ model.train()
 optimizer = torch.optim.SGD([masks], lr=0.0) 
 
 print(f"[*] Computing Fisher Information for {MODE}...")
-for i in tqdm(range(0, len(dataset))):
-    item = dataset[i]["translation"]
+for i in tqdm(range(len(df))):
+    item = df.iloc[i]
     prompt = f"Translate Czech to German.\nCzech: {item['cs']}\nGerman: {item['de']}"
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=max_length).to(model.device)
     
