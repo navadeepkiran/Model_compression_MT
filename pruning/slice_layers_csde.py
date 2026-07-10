@@ -69,12 +69,9 @@ if hasattr(text_config, "layer_types"):
     text_config.layer_types = [text_config.layer_types[i] for i in kept_layer_indices]
 
 print(f"[*] Slicing complete! New architecture has {text_config.num_hidden_layers} Layers.")
-print(f"[*] Saving 40-layer model to {output_dir}...")
-model.save_pretrained(output_dir)
-tokenizer.save_pretrained(output_dir)
 
 repo_id = "navadeepkiran/gemma3-12b-40L-csde"
-print(f"[*] Pushing 40-layer model to Hugging Face ({repo_id})...")
+print(f"[*] Pushing 40-layer model directly to Hugging Face ({repo_id}) to save Kaggle Disk Space...")
 model.push_to_hub(repo_id, token=hf_token, private=True)
 tokenizer.push_to_hub(repo_id, token=hf_token, private=True)
 
