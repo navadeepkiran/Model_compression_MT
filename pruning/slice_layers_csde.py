@@ -8,14 +8,14 @@ import torch.nn as nn
 print("=== WMT26 Gemma 3 12B Hierarchical Slicing (Step 3: Layers CS-DE) ===")
 
 model_id = "google/gemma-3-12b-it"
-fisher_dir = "/kaggle/working/outputs/fisher_scores_csde"
+fisher_dir = "pruning"
 output_dir = "/kaggle/working/outputs/gemma3-12b-40L-csde"
 os.makedirs(output_dir, exist_ok=True)
 
 LAYERS_TO_DROP = 8  
 
 print("[*] Loading Layer Fisher Scores...")
-with open(os.path.join(fisher_dir, "layer_fisher.json"), "r") as f:
+with open(os.path.join(fisher_dir, "layer_fisher_csde.json"), "r") as f:
     layer_scores = np.array(json.load(f))
     
 num_layers = len(layer_scores)
