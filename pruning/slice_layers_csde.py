@@ -73,4 +73,9 @@ print(f"[*] Saving 40-layer model to {output_dir}...")
 model.save_pretrained(output_dir)
 tokenizer.save_pretrained(output_dir)
 
-print("[*] Done! The 8 lowest layers are gone. You can now use this model for Step 4!")
+repo_id = "navadeepkiran/gemma3-12b-40L-csde"
+print(f"[*] Pushing 40-layer model to Hugging Face ({repo_id})...")
+model.push_to_hub(repo_id, token=hf_token, private=True)
+tokenizer.push_to_hub(repo_id, token=hf_token, private=True)
+
+print("[*] Done! The 8 lowest layers are gone and model is safe on Hugging Face. You can now use this model for Step 4!")
