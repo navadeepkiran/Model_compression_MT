@@ -10,10 +10,10 @@ from tqdm import tqdm
 print("=== WMT26 Gemma 3 12B Fisher Mask Computation (Czech -> German) ===")
 
 # ==========================================
-MODE = "layers"  # Step 1: Compute layer scores first
+MODE = "neurons"  # Step 4: Compute neuron scores
 # ==========================================
 
-model_id = "google/gemma-3-12b-it"
+model_id = "nani-nav/gemma-3-12b-40L-csde"
 num_calibration_samples = 500 
 max_length = 256
 output_dir = "/kaggle/working/outputs/fisher_scores_csde"
@@ -36,6 +36,7 @@ model.requires_grad_(False)
 
 text_config = model.config.text_config if hasattr(model.config, "text_config") else model.config
 num_layers = text_config.num_hidden_layers
+intermediate_size = text_config.intermediate_size
 
 target_layers = None
 for name, module in model.named_modules():
@@ -44,22 +45,38 @@ for name, module in model.named_modules():
         break
 
 print(f"[*] Initializing ONLY {MODE} masks to save VRAM...")
-masks = nn.Parameter(torch.ones(num_layers, device=model.device))
+if MODE == "layers":
+    masks = nn.Parameter(torch.ones(num_layers, device=model.device))
+elif MODE == "neurons":
+    masks = nn.Parameter(torch.ones(num_layers, intermediate_size, device=model.device))
 
 # Inject ONLY the requested Mask
 for i in range(num_layers):
-    def make_layer_hook(idx):
-        def hook(module, args, output):
-            if isinstance(output, tuple):
-                hidden_states = output[0]
-                mask = masks[idx].to(device=hidden_states.device, dtype=hidden_states.dtype)
-                return (hidden_states * mask,) + output[1:]
-            else:
-                hidden_states = output
-                mask = masks[idx].to(device=hidden_states.device, dtype=hidden_states.dtype)
-                return hidden_states * mask
-        return hook
-    target_layers[i].register_forward_hook(make_layer_hook(i))
+    if MODE == "layers":
+        def make_layer_hook(idx):
+            def hook(module, args, output):
+                if isinstance(output, tuple):
+                    hidden_states = output[0]
+                    mask = masks[idx].to(device=hidden_states.device, dtype=hidden_states.dtype)
+                    return (hidden_states * mask,) + output[1:]
+                else:
+                    hidden_states = output
+                    mask = masks[idx].to(device=hidden_states.device, dtype=hidden_states.dtype)
+                    return hidden_states * mask
+            return hook
+        target_layers[i].register_forward_hook(make_layer_hook(i))
+    elif MODE == "neurons":
+        mlp = target_layers[i].mlp
+        mlp._orig_forward = mlp.forward
+        def make_mlp_forward(mlp_module, idx):
+            def new_forward(x):
+                gate = mlp_module.gate_proj(x)
+                up = mlp_module.up_proj(x)
+                act = mlp_module.act_fn(gate) * up
+                mask = masks[idx].to(device=act.device, dtype=act.dtype).view(1, 1, -1)
+                return mlp_module.down_proj(act * mask)
+            return new_forward
+        mlp.forward = make_mlp_forward(mlp, i)
         
 import pandas as pd
 
