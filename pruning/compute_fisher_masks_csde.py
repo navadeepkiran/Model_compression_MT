@@ -97,7 +97,7 @@ for i in tqdm(range(len(df))):
     masks.grad = None
     torch.cuda.empty_cache()
     
-fisher_scores /= len(dataset)
+fisher_scores /= len(df)
 
 with open(os.path.join(output_dir, f"{MODE[:-1]}_fisher.json"), "w") as f:
     json.dump(fisher_scores.cpu().numpy().tolist(), f)
