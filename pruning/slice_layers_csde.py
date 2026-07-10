@@ -70,7 +70,7 @@ if hasattr(text_config, "layer_types"):
 
 print(f"[*] Slicing complete! New architecture has {text_config.num_hidden_layers} Layers.")
 
-repo_id = "navadeepkiran/gemma3-12b-40L-csde"
+repo_id = "nani-nav/gemma-3-12b-40L-csde"
 print(f"[*] Pushing 40-layer model directly to Hugging Face ({repo_id}) to save Kaggle Disk Space...")
 model.push_to_hub(repo_id, token=hf_token, private=True)
 tokenizer.push_to_hub(repo_id, token=hf_token, private=True)
