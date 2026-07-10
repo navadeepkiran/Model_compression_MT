@@ -7,7 +7,7 @@ import numpy as np
 import json
 from tqdm import tqdm
 
-print("=== WMT26 Gemma 3 12B Fisher Mask Computation (Egyptian Arabic) ===")
+print("=== WMT26 Gemma 3 12B Fisher Mask Computation (Czech -> German) ===")
 
 # ==========================================
 MODE = "layers"  # Step 1: Compute layer scores first
@@ -16,7 +16,7 @@ MODE = "layers"  # Step 1: Compute layer scores first
 model_id = "google/gemma-3-12b-it"
 num_calibration_samples = 500 
 max_length = 256
-output_dir = "/kaggle/working/outputs/fisher_scores_ar"
+output_dir = "/kaggle/working/outputs/fisher_scores_csde"
 os.makedirs(output_dir, exist_ok=True)
 
 print(f"[*] Loading {model_id} in INT4... (Cached)")
@@ -61,9 +61,9 @@ for i in range(num_layers):
         return hook
     target_layers[i].register_forward_hook(make_layer_hook(i))
         
-print(f"[*] Loading FLORES-200 Egyptian Arabic calibration data...")
-# Load Egyptian Arabic (arz_Arab) and English (eng_Latn) from FLORES
-dataset = load_dataset("facebook/flores", "eng_Latn-arz_Arab", split=f"dev[:{num_calibration_samples}]")
+print(f"[*] Loading WMT19 Czech/German calibration data...")
+# Load Czech (cs) and German (de) from open WMT19 dataset
+dataset = load_dataset("wmt19", "cs-de", split=f"train[:{num_calibration_samples}]")
 
 fisher_scores = torch.zeros_like(masks)
 
@@ -74,8 +74,8 @@ optimizer = torch.optim.SGD([masks], lr=0.0)
 
 print(f"[*] Computing Fisher Information for {MODE}...")
 for i in tqdm(range(0, len(dataset))):
-    item = dataset[i]
-    prompt = f"Translate English to Egyptian Arabic.\nEnglish: {item['sentence_eng_Latn']}\nArabic: {item['sentence_arz_Arab']}"
+    item = dataset[i]["translation"]
+    prompt = f"Translate Czech to German.\nCzech: {item['cs']}\nGerman: {item['de']}"
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True, max_length=max_length).to(model.device)
     
     # Gemma 3 is a multimodal model and requires token_type_ids during training
