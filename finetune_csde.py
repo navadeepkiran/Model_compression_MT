@@ -414,7 +414,6 @@ def main():
         
         print("[*] Sharding complete! Nuking temp model from RAM to free 16.5GB...")
         del temp_model
-        import gc
         gc.collect()
         torch.cuda.empty_cache()
         print("[*] RAM safely cleared!")
