@@ -355,79 +355,30 @@ def main():
     )
     # ─────────────────────────────────────────────────────────────────────────────
 
-    # Clear memory cache
-    gc.collect()
-    print("[*] Configuring 4-bit NF4 quantization settings (Pure Float32)...")
-    bnb_config = BitsAndBytesConfig(
+    print("[*] Loading Gemma-3-12B pruned model using UNSLOTH (Highly Optimized 4-bit)...")
+    from unsloth import FastLanguageModel
+    model, _ = FastLanguageModel.from_pretrained(
+        model_name=args.model_id,
+        max_seq_length=1500,
+        dtype=torch.float32,
         load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.float32, 
-        bnb_4bit_use_double_quant=True
+        token=hf_token,
     )
     
-    # We save the sharded model to /tmp/ (RAM Disk) to completely bypass Kaggle's 20GB output disk limit!
-    # 16.5GB in RAM + 2GB active load chunk perfectly fits inside Kaggle's 30GB CPU RAM!
-    local_sharded_dir = "/tmp/sharded_model"
-    if not os.path.exists(local_sharded_dir):
-        print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
-        print(f"[*] When bitsandbytes tries to quantize a single massive file, it copies it in RAM and causes a 30GB+ OOM freeze.")
-        print(f"[*] Downloading into CPU RAM in pure float32 to safely shard it into 2GB chunks first...")
-        
-        # Load without device_map so it just sits in CPU RAM safely without quantization overhead
-        temp_model = AutoModelForCausalLM.from_pretrained(
-            args.model_id,
-            torch_dtype=torch.float32,
-            low_cpu_mem_usage=True,
-            trust_remote_code=True,
-            token=hf_token
-        )
-        print(f"[*] Model loaded into CPU RAM. Sharding to {local_sharded_dir}...")
-        temp_model.save_pretrained(local_sharded_dir, max_shard_size="2GB")
-        tokenizer.save_pretrained(local_sharded_dir)
-        
-        print("[*] Sharding complete! Nuking temp model from RAM to free 16.5GB...")
-        del temp_model
-        gc.collect()
-        torch.cuda.empty_cache()
-        print("[*] RAM safely cleared!")
-        
-    # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
-    args.model_id = local_sharded_dir
-    
-    print("[*] Loading pruned sharded model in 4-bit precision ENTIRELY on GPU 0...")
-    model = AutoModelForCausalLM.from_pretrained(
-        args.model_id,
-        quantization_config=bnb_config,
-        device_map={"": "cuda:0"},
-        trust_remote_code=True,
-        torch_dtype=torch.float32,
-        attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
-        token=hf_token
-    )
-    
-    # CRITICAL FIX: Prevent Trainer from wrapping the model in DataParallel!
-    model.is_model_parallel = True
-    model.is_loaded_in_4bit = True
-        
-    model.config.torch_dtype = torch.bfloat16
-    if hasattr(model.config, "_attn_implementation"):
-        model.config._attn_implementation = "eager"
-    
-    # Prepare model using official PEFT function
-    from peft import prepare_model_for_kbit_training
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
-    
-    # Configure LoRA settings targeting all linear blocks
-    print("[*] Configuring LoRA settings targeting all linear blocks...")
-    lora_config = LoraConfig(
+    print("[*] Configuring LoRA settings via Unsloth...")
+    model = FastLanguageModel.get_peft_model(
+        model,
         r=args.lora_rank,
-        lora_alpha=args.lora_alpha,
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_alpha=args.lora_alpha,
         lora_dropout=0.05,
         bias="none",
-        task_type="CAUSAL_LM"
+        use_gradient_checkpointing="unsloth",
+        random_state=3407,
     )
-    model = get_peft_model(model, lora_config)
+    
+    # Disable cache for gradient checkpointing
+    model.config.use_cache = False
     model.print_trainable_parameters()
     
     # Force trainable parameters (LoRA) and norms to float32 natively
