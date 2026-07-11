@@ -49,8 +49,12 @@ for name, module in model.named_modules():
 if target_layers is None:
     raise ValueError("Could not find the transformer layers inside the model!")
 
-print("[*] Slicing FFN Neurons for all layers...")
+print("[*] Slicing FFN Neurons for all layers...", flush=True)
+
+import gc
+
 for layer_idx in range(num_layers):
+    print(f"  -> Slicing Layer {layer_idx}/{num_layers}", flush=True)
     layer = target_layers[layer_idx]
     
     # Get scores for this specific layer
@@ -71,6 +75,12 @@ for layer_idx in range(num_layers):
     
     new_down = nn.Linear(new_intermediate_size, text_config.hidden_size, bias=False, dtype=torch.bfloat16)
     new_down.weight.data = mlp.down_proj.weight.data[:, kept_neurons].clone()
+    
+    # AGGRESSIVE RAM SAVING: Delete the old massive tensors from RAM immediately!
+    del mlp.gate_proj
+    del mlp.up_proj
+    del mlp.down_proj
+    gc.collect()
     
     # Replace old massive FFN with shrunken FFN
     layer.mlp.gate_proj = new_gate
