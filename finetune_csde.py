@@ -381,18 +381,14 @@ def main():
     # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
     
     # Config for 4-bit NF4 QLoRA - using pure BFloat16 compute
-    # Gemma 3 natively overflows Float16 (NaN loss). Float32 causes CUDA OOM.
-    # BFloat16 is the ONLY precision that has the dynamic range to prevent NaN loss
-    # while maintaining the memory efficiency to prevent OOM. 
-    # T4 supports BFloat16 in software natively. We bypass GradScaler crashes
-    # by keeping fp16=False in the SFTTrainer args.
+    # Since the pruned model is only 16.5GB, in 4-bit it easily fits in a single 15GB T4 GPU!
+    # We NO LONGER need CPU offloading, which was causing the 46s/it slowdown and breaking the autograd graph (grad_norm: 0.0).
     print("[*] Configuring 4-bit NF4 quantization settings (Pure BFloat16)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
         bnb_4bit_compute_dtype=torch.bfloat16, 
-        bnb_4bit_use_double_quant=True,
-        llm_int8_enable_fp32_cpu_offload=True  # Required to allow embed_tokens and lm_head on CPU
+        bnb_4bit_use_double_quant=True
     )
     
     local_sharded_dir = "/kaggle/working/sharded_model"
@@ -422,20 +418,11 @@ def main():
     # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
     args.model_id = local_sharded_dir
     
-    print("[*] Loading pruned sharded model in 4-bit precision (BFloat16 base)...")
-    # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
-    # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
-    # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
-    custom_device_map = {
-        "model.embed_tokens": "cpu",
-        "lm_head": "cpu",
-        "": "cuda:0"
-    }
-
+    print("[*] Loading pruned sharded model in 4-bit precision ENTIRELY on GPU 0...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map=custom_device_map,
+        device_map={"": "cuda:0"},
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
