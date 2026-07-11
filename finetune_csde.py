@@ -427,6 +427,17 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
+    # CRITICAL FIX for PyTorch AMP GradScaler:
+    # When fp16=True, PyTorch's GradScaler requires trainable parameters to be in float32 
+    # to perform inf/NaN checks. Since we loaded the base model in float16, we must explicitly
+    # upcast the LoRA layers and norms back to float32, otherwise GradScaler throws an AssertionError!
+    print("[*] Ensuring LoRA layers and layernorms are natively float32 for AMP GradScaler...")
+    for name, module in model.named_modules():
+        if "lora_" in name.lower():
+            module.to(torch.float32)
+        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
+            module.to(torch.float32)
+    
 
             
     # Load FLORES validation set
