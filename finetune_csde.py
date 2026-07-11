@@ -461,7 +461,7 @@ def main():
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
         "gradient_checkpointing_kwargs": {"use_reentrant": True},
-        "optim": "paged_adamw_8bit",
+        "optim": "adamw_torch", # 8-bit optimizer crashes PyTorch fp16 GradScaler! Standard AdamW is only 300MB extra for LoRA.
         "save_strategy": "steps",
         "save_steps": 200,
         "save_total_limit": 2,
