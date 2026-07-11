@@ -394,7 +394,9 @@ def main():
     # Check if unsloth is available to bypass the HuggingFace threaded loader memory leak
     try:
         from unsloth import FastLanguageModel
-        use_unsloth = True
+        # FORCE DISABLE UNSLOTH: Unsloth crashes on custom pruned architectures because its Triton kernels 
+        # and internal tokenizers expect standard hidden sizes. We must use the robust HF fallback!
+        use_unsloth = False
     except ImportError:
         use_unsloth = False
 
