@@ -20,12 +20,13 @@ torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 torch.backends.cuda.matmul.allow_tf32 = False
 torch.backends.cudnn.allow_tf32 = False
 
-# Redirect HF Cache to /kaggle/working on Kaggle to use the 73GB disk instead of the tiny /kaggle/tmp RAM disk!
+# Redirect HF Cache to /root/.cache/huggingface on Kaggle to use the Root disk (20GB) 
+# instead of /kaggle/working which strictly limits output to 20GB!
 if os.name != "nt":
     if os.path.exists("/kaggle"):
-        os.environ["HF_HOME"] = "/kaggle/working/huggingface_cache"
-        os.environ["HF_DATASETS_CACHE"] = "/kaggle/working/huggingface_cache/datasets"
-        os.environ["HF_HUB_CACHE"] = "/kaggle/working/huggingface_cache/hub"
+        os.environ["HF_HOME"] = "/root/.cache/huggingface"
+        os.environ["HF_DATASETS_CACHE"] = "/root/.cache/huggingface/datasets"
+        os.environ["HF_HUB_CACHE"] = "/root/.cache/huggingface/hub"
     else:
         os.environ["HF_HOME"] = "/tmp/huggingface_cache"
         os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
@@ -600,6 +601,11 @@ def main():
     # Save final model
     trainer.model.save_pretrained(args.output_dir)
     print(f"\n[🎉] Training complete! Model saved to: {args.output_dir}")
+    
+    # Nuke the temporary sharded model so Kaggle doesn't try to zip it into the output!
+    import shutil
+    shutil.rmtree("/kaggle/working/sharded_model", ignore_errors=True)
+    print("[*] Cleaned up temporary sharded files.")
 
 if __name__ == "__main__":
     main()
