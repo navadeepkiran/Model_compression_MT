@@ -421,24 +421,24 @@ def main():
     model.is_model_parallel = True
     model.is_loaded_in_4bit = True
         
-        model.config.torch_dtype = torch.bfloat16
-        if hasattr(model.config, "_attn_implementation"):
-            model.config._attn_implementation = "eager"
-        
-        # Prepare model
-        model = prepare_model_for_kbit_training_custom(model)
-        
-        # Configure LoRA settings targeting all linear blocks
-        print("[*] Configuring LoRA settings targeting all linear blocks...")
-        lora_config = LoraConfig(
-            r=args.lora_rank,
-            lora_alpha=args.lora_alpha,
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-            lora_dropout=0.05,
-            bias="none",
-            task_type="CAUSAL_LM"
-        )
-        model = get_peft_model(model, lora_config)
+    model.config.torch_dtype = torch.bfloat16
+    if hasattr(model.config, "_attn_implementation"):
+        model.config._attn_implementation = "eager"
+    
+    # Prepare model
+    model = prepare_model_for_kbit_training_custom(model)
+    
+    # Configure LoRA settings targeting all linear blocks
+    print("[*] Configuring LoRA settings targeting all linear blocks...")
+    lora_config = LoraConfig(
+        r=args.lora_rank,
+        lora_alpha=args.lora_alpha,
+        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+        lora_dropout=0.05,
+        bias="none",
+        task_type="CAUSAL_LM"
+    )
+    model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
     # Force trainable parameters (LoRA) and norms to float32 natively
