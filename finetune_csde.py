@@ -206,25 +206,7 @@ class CometEvaluationCallback(TrainerCallback):
         # Set back to train mode
         model.train()
 
-def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
-    for param in model.parameters():
-        param.requires_grad = False
-    
-    if use_gradient_checkpointing:
-        # CRITICAL: Inputs MUST require grad when using device_map="auto" + gradient checkpointing.
-        # If inputs don't require grad, the autograd graph disconnects across GPU boundaries,
-        # causing the infamous AccumulateGrad stream deadlock!
-        if hasattr(model, "enable_input_require_grads"):
-            model.enable_input_require_grads()
-        else:
-            def make_inputs_require_grad(module, input, output):
-                output.requires_grad_(True)
-            model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
-            
-        # Initialize checkpointing on the model
-        model.gradient_checkpointing_enable({"use_reentrant": True})
-        
-    return model
+
 
 # --- MAIN ---
 def main():
@@ -375,18 +357,11 @@ def main():
 
     # Clear memory cache
     gc.collect()
-    torch.cuda.empty_cache()
-    # Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True is set at module top (before import torch)
-    # so the CUDA caching allocator can merge fragmented blocks to satisfy large contiguous requests.
-    
-    # Config for 4-bit NF4 QLoRA - using pure BFloat16 compute
-    # Since the pruned model is only 16.5GB, in 4-bit it easily fits in a single 15GB T4 GPU!
-    # We NO LONGER need CPU offloading, which was causing the 46s/it slowdown and breaking the autograd graph (grad_norm: 0.0).
-    print("[*] Configuring 4-bit NF4 quantization settings (Pure BFloat16)...")
+    print("[*] Configuring 4-bit NF4 quantization settings (Pure Float32)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.bfloat16, 
+        bnb_4bit_compute_dtype=torch.float32, 
         bnb_4bit_use_double_quant=True
     )
     
@@ -396,12 +371,12 @@ def main():
     if not os.path.exists(local_sharded_dir):
         print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
         print(f"[*] When bitsandbytes tries to quantize a single massive file, it copies it in RAM and causes a 30GB+ OOM freeze.")
-        print(f"[*] Downloading into CPU RAM in pure bfloat16 to safely shard it into 2GB chunks first...")
+        print(f"[*] Downloading into CPU RAM in pure float32 to safely shard it into 2GB chunks first...")
         
         # Load without device_map so it just sits in CPU RAM safely without quantization overhead
         temp_model = AutoModelForCausalLM.from_pretrained(
             args.model_id,
-            torch_dtype=torch.bfloat16,
+            torch_dtype=torch.float32,
             low_cpu_mem_usage=True,
             trust_remote_code=True,
             token=hf_token
@@ -425,7 +400,7 @@ def main():
         quantization_config=bnb_config,
         device_map={"": "cuda:0"},
         trust_remote_code=True,
-        torch_dtype=torch.bfloat16,
+        torch_dtype=torch.float32,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
@@ -438,8 +413,9 @@ def main():
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
-    # Prepare model
-    model = prepare_model_for_kbit_training_custom(model)
+    # Prepare model using official PEFT function
+    from peft import prepare_model_for_kbit_training
+    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
     
     # Configure LoRA settings targeting all linear blocks
     print("[*] Configuring LoRA settings targeting all linear blocks...")
