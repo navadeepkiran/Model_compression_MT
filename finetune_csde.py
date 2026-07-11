@@ -357,7 +357,6 @@ def main():
 
     # Force clear the Hugging Face cache for this specific model so it detects the newly uploaded Vision Config files!
     import shutil
-    import os
     if os.name != "nt":
         bad_cache = "/kaggle/working/huggingface_cache/models--nani-nav--gemma-3-12b-final-csde"
         if os.path.exists(bad_cache):
