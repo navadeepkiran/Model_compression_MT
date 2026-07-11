@@ -427,19 +427,6 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
-    # CRITICAL FIX for PyTorch AMP GradScaler:
-    # When fp16=True, PyTorch's GradScaler requires trainable parameters to be in float32 
-    # to perform inf/NaN checks. Since we loaded the base model in float16, we must explicitly
-    # upcast the LoRA layers and norms back to float32, otherwise GradScaler throws an AssertionError!
-    print("[*] Ensuring LoRA layers and layernorms are natively float32 for AMP GradScaler...")
-    for name, module in model.named_modules():
-        if "lora_" in name.lower():
-            module.to(torch.float32)
-        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
-            module.to(torch.float32)
-    
-
-            
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
@@ -467,7 +454,7 @@ def main():
         "save_total_limit": 2,
         "logging_steps": 20,
         "learning_rate": args.learning_rate,
-        "fp16": True,    # Enable AMP GradScaler to prevent float16 gradients from NaN underflow/overflow!
+        "fp16": False,   # Disabled to completely bypass the GradScaler AssertionError bug!
         "bf16": False,
         "lr_scheduler_type": "cosine",
         "push_to_hub": False,
