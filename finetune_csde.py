@@ -20,13 +20,12 @@ torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 torch.backends.cuda.matmul.allow_tf32 = False
 torch.backends.cudnn.allow_tf32 = False
 
-# Redirect HF Cache to /root/.cache/huggingface on Kaggle to use the Root disk (20GB) 
-# instead of /kaggle/working which strictly limits output to 20GB!
+# Redirect HF Cache to /kaggle/working on Kaggle to use the 73GB disk instead of the tiny /kaggle/tmp RAM disk!
 if os.name != "nt":
     if os.path.exists("/kaggle"):
-        os.environ["HF_HOME"] = "/root/.cache/huggingface"
-        os.environ["HF_DATASETS_CACHE"] = "/root/.cache/huggingface/datasets"
-        os.environ["HF_HUB_CACHE"] = "/root/.cache/huggingface/hub"
+        os.environ["HF_HOME"] = "/kaggle/working/huggingface_cache"
+        os.environ["HF_DATASETS_CACHE"] = "/kaggle/working/huggingface_cache/datasets"
+        os.environ["HF_HUB_CACHE"] = "/kaggle/working/huggingface_cache/hub"
     else:
         os.environ["HF_HOME"] = "/tmp/huggingface_cache"
         os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
@@ -391,7 +390,9 @@ def main():
         bnb_4bit_use_double_quant=True
     )
     
-    local_sharded_dir = "/kaggle/working/sharded_model"
+    # We save the sharded model to /tmp/ (RAM Disk) to completely bypass Kaggle's 20GB output disk limit!
+    # 16.5GB in RAM + 2GB active load chunk perfectly fits inside Kaggle's 30GB CPU RAM!
+    local_sharded_dir = "/tmp/sharded_model"
     if not os.path.exists(local_sharded_dir):
         print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
         print(f"[*] When bitsandbytes tries to quantize a single massive file, it copies it in RAM and causes a 30GB+ OOM freeze.")
@@ -589,9 +590,11 @@ def main():
     trainer.model.save_pretrained(args.output_dir)
     print(f"\n[🎉] Training complete! Model saved to: {args.output_dir}")
     
-    # Nuke the temporary sharded model so Kaggle doesn't try to zip it into the output!
+    # Nuke the temporary sharded model
     import shutil
-    shutil.rmtree("/kaggle/working/sharded_model", ignore_errors=True)
+    shutil.rmtree("/tmp/sharded_model", ignore_errors=True)
+    # Also nuke the huggingface cache so it doesn't get zipped!
+    shutil.rmtree("/kaggle/working/huggingface_cache", ignore_errors=True)
     print("[*] Cleaned up temporary sharded files.")
 
 if __name__ == "__main__":
