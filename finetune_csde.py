@@ -394,10 +394,35 @@ def main():
         llm_int8_enable_fp32_cpu_offload=True  # Required to allow embed_tokens and lm_head on CPU
     )
     
-    # Completely removed Unsloth import because just importing it causes aggressive global monkeypatching 
-    # that crashes the Hugging Face trainer with FX dynamo errors!
+    local_sharded_dir = "/kaggle/working/sharded_model"
+    if not os.path.exists(local_sharded_dir):
+        print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
+        print(f"[*] When bitsandbytes tries to quantize a single massive file, it copies it in RAM and causes a 30GB+ OOM freeze.")
+        print(f"[*] Downloading into CPU RAM in pure bfloat16 to safely shard it into 2GB chunks first...")
+        
+        # Load without device_map so it just sits in CPU RAM safely without quantization overhead
+        temp_model = AutoModelForCausalLM.from_pretrained(
+            args.model_id,
+            torch_dtype=torch.bfloat16,
+            low_cpu_mem_usage=True,
+            trust_remote_code=True,
+            token=hf_token
+        )
+        print(f"[*] Model loaded into CPU RAM. Sharding to {local_sharded_dir}...")
+        temp_model.save_pretrained(local_sharded_dir, max_shard_size="2GB")
+        tokenizer.save_pretrained(local_sharded_dir)
+        
+        print("[*] Sharding complete! Nuking temp model from RAM to free 16.5GB...")
+        del temp_model
+        import gc
+        gc.collect()
+        torch.cuda.empty_cache()
+        print("[*] RAM safely cleared!")
+        
+    # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
+    args.model_id = local_sharded_dir
     
-    print("[*] Loading pruned model in 4-bit precision (BFloat16 base)...")
+    print("[*] Loading pruned sharded model in 4-bit precision (BFloat16 base)...")
     # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
     # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
     # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
