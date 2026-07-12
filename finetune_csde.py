@@ -370,7 +370,30 @@ def main():
     # We save the sharded model to /tmp/ (RAM Disk) to completely bypass Kaggle's 20GB output disk limit!
     # 16.5GB in RAM + 2GB active load chunk perfectly fits inside Kaggle's 30GB CPU RAM!
     local_sharded_dir = "/tmp/sharded_model"
-    if not os.path.exists(local_sharded_dir):
+
+    # ── STEP 1: Check if model is already mounted as a Kaggle Dataset input ──────
+    # If you added the model as a Kaggle dataset, it will be at /kaggle/input/<dataset-name>/
+    # This completely bypasses the HuggingFace download and avoids network freezes!
+    kaggle_input_candidates = []
+    if os.path.exists("/kaggle/input"):
+        for entry in os.listdir("/kaggle/input"):
+            entry_path = f"/kaggle/input/{entry}"
+            # Check if it looks like a model directory (has config.json)
+            if os.path.isdir(entry_path) and os.path.exists(f"{entry_path}/config.json"):
+                kaggle_input_candidates.append(entry_path)
+    
+    if kaggle_input_candidates:
+        # Use the first match — most likely the model we added
+        kaggle_model_path = kaggle_input_candidates[0]
+        print(f"[✅] Found pre-mounted model at: {kaggle_model_path}")
+        print(f"[*] Skipping HuggingFace download. Loading directly from Kaggle dataset mount...")
+        args.model_id = kaggle_model_path
+        # Also reload the tokenizer from the local path to avoid any network call
+        tokenizer = AutoTokenizer.from_pretrained(kaggle_model_path, trust_remote_code=True)
+        if not tokenizer.pad_token:
+            tokenizer.pad_token = tokenizer.eos_token
+    elif not os.path.exists(local_sharded_dir):
+        # ── STEP 2: Download + shard (only if NOT already sharded from a previous run) ──
         print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
         print(f"[*] Downloading into CPU RAM to safely shard it into 2GB chunks first...")
         
@@ -408,8 +431,13 @@ def main():
         torch.cuda.empty_cache()
         print("[*] RAM safely cleared!")
         
-    # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
-    args.model_id = local_sharded_dir
+        # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
+        args.model_id = local_sharded_dir
+    else:
+        print(f"[*] Sharded model already exists at {local_sharded_dir}. Skipping download+sharding.")
+        # Overwrite the model_id so the 4-bit loader reads our local sharded directory!
+        args.model_id = local_sharded_dir
+
     
     print("[*] Loading pruned sharded model in 4-bit precision ENTIRELY on GPU 0...")
     model = AutoModelForCausalLM.from_pretrained(
