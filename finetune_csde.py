@@ -363,7 +363,7 @@ def main():
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
         bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.float16, 
+        bnb_4bit_compute_dtype=torch.bfloat16, 
         bnb_4bit_use_double_quant=True
     )
     
@@ -393,7 +393,7 @@ def main():
         # Load without device_map so it just sits in CPU RAM safely without quantization overhead
         temp_model = AutoModelForCausalLM.from_pretrained(
             args.model_id,
-            torch_dtype=torch.float16,
+            torch_dtype=torch.bfloat16,
             low_cpu_mem_usage=True,
             trust_remote_code=True,
             token=hf_token
@@ -417,7 +417,7 @@ def main():
         quantization_config=bnb_config,
         device_map={"": "cuda:0"},
         trust_remote_code=True,
-        torch_dtype=torch.float16,
+        torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
         token=hf_token
     )
@@ -426,7 +426,7 @@ def main():
     model.is_model_parallel = True
     model.is_loaded_in_4bit = True
         
-    model.config.torch_dtype = torch.float16
+    model.config.torch_dtype = torch.bfloat16
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
@@ -544,29 +544,11 @@ def main():
     sft_config = SFTConfig(**config_kwargs)
 
     # ─── BUGFIX TRAINER ──────────────────────────────────────────────────────────
-    # Unsloth's new Gemma 3 patch returns a custom tensor object for logits where 
-    # `.shape` is accidentally a method instead of a property. This causes the newest
-    # version of `trl` to crash when it tries to calculate entropy. 
-    # We bypass this completely by overriding compute_loss to never touch the logits!
-    class BugfixTrainer(SFTTrainer):
-        def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
-            outputs = model(**inputs)
-            loss = outputs.loss
-            
-            # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
-            if num_items_in_batch is not None and hasattr(self, "_compute_loss_scaling_factor"):
-                loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
-                
-            # CRITICAL MATHEMATICAL FIX FOR T4 FLOAT16 UNDERFLOW
-            # 1024.0 was too small. Standard GradScaler starts at 65536.0.
-            # We use 32768.0 to safely scale gradients up by 32000x without exceeding float16 max (65504).
-            loss = loss * 32768.0
-            
-            return (loss, outputs) if return_outputs else loss
+    
 
     trainer_kwargs["args"] = sft_config
-    print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
-    trainer = BugfixTrainer(**trainer_kwargs)
+    print(f"[*] Instantiating SFTTrainer with arguments: {list(trainer_kwargs.keys())}")
+    trainer = SFTTrainer(**trainer_kwargs)
 
     
     # Check for resume checkpoints
@@ -596,3 +578,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
