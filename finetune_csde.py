@@ -24,12 +24,12 @@ torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
 torch.backends.cuda.matmul.allow_tf32 = False
 torch.backends.cudnn.allow_tf32 = False
 
-# Redirect HF Cache to /kaggle/working on Kaggle to use the 73GB disk instead of the tiny /kaggle/tmp RAM disk!
+# Redirect HF Cache to the fast NVMe boot drive (~/.cache) on Kaggle to prevent mmap hangs on the slow /kaggle/working network drive!
 if os.name != "nt":
     if os.path.exists("/kaggle"):
-        os.environ["HF_HOME"] = "/kaggle/working/huggingface_cache"
-        os.environ["HF_DATASETS_CACHE"] = "/kaggle/working/huggingface_cache/datasets"
-        os.environ["HF_HUB_CACHE"] = "/kaggle/working/huggingface_cache/hub"
+        os.environ["HF_HOME"] = "/root/.cache/huggingface"
+        os.environ["HF_DATASETS_CACHE"] = "/root/.cache/huggingface/datasets"
+        os.environ["HF_HUB_CACHE"] = "/root/.cache/huggingface/hub"
     else:
         os.environ["HF_HOME"] = "/tmp/huggingface_cache"
         os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
