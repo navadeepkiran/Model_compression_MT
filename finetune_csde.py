@@ -431,6 +431,14 @@ def main():
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     
+    # Force trainable parameters (LoRA) and norms to float32 natively
+    print("[*] Ensuring LoRA layers and layernorms are natively float32...")
+    for name, module in model.named_modules():
+        if "lora_" in name.lower():
+            module.to(torch.float32)
+        elif any(x in name.lower() for x in ["layernorm", "layer_norm", "norm"]):
+            module.to(torch.float32)
+            
     # Load FLORES validation set
     print("[*] Loading FLORES-200 validation subsets...")
     val_dataset = load_flores_validation(num_samples=100)
