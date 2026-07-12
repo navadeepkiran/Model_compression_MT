@@ -374,6 +374,22 @@ def main():
         print(f"[*] WARNING: The Hugging Face repo {args.model_id} contains a single massive 16.5GB safetensors file!")
         print(f"[*] Downloading into CPU RAM to safely shard it into 2GB chunks first...")
         
+        # --- KAGGLE MMAP DEADLOCK BYPASS ---
+        # Kaggle's overlayfs permanently freezes when mmap-ing massive files that aren't in the page cache.
+        # We manually download and read the file into the RAM page cache using standard I/O first!
+        from huggingface_hub import snapshot_download
+        import glob
+        print("[*] Fetching model from Hugging Face...")
+        cache_path = snapshot_download(repo_id=args.model_id, token=hf_token)
+        print("[*] Pre-warming Linux page cache to bypass Kaggle mmap freeze...")
+        for safetensor_file in glob.glob(f"{cache_path}/**/*.safetensors", recursive=True):
+            print(f"  -> Reading {os.path.basename(safetensor_file)} into RAM...")
+            with open(safetensor_file, "rb") as f:
+                while f.read(1024 * 1024 * 64): # Read in 64MB chunks
+                    pass
+        print("[*] Page cache warmed successfully! Proceeding with mmap load.")
+        # -----------------------------------
+        
         # Load without device_map so it just sits in CPU RAM safely without quantization overhead
         temp_model = AutoModelForCausalLM.from_pretrained(
             args.model_id,
