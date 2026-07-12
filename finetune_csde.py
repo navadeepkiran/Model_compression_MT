@@ -526,10 +526,17 @@ def main():
             loss = outputs.loss
             
             # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
-            # if num_items_in_batch is passed. If we skip this, gradients become 8x too large!
             if num_items_in_batch is not None and hasattr(self, "_compute_loss_scaling_factor"):
                 loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
                 
+            # CRITICAL MATHEMATICAL FIX FOR T4 FLOAT16 UNDERFLOW
+            # Because we must use fp16=False to bypass PyTorch GradScaler crashes, the tiny 
+            # LoRA gradients underflow to exactly 0.0 in float16. 
+            # We fix this by manually scaling the loss by 1024.0. The gradients become 1024x larger,
+            # surviving the float16 backward pass. The adamw optimizer is inherently scale-invariant,
+            # so the 1024x multiplier perfectly cancels out during the parameter update!
+            loss = loss * 1024.0
+            
             return (loss, outputs) if return_outputs else loss
 
     trainer_kwargs["args"] = sft_config
