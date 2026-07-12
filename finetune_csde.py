@@ -459,7 +459,7 @@ def main():
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": True},
+        "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "adamw_torch", # 8-bit optimizer crashes PyTorch fp16 GradScaler! Standard AdamW is only 300MB extra for LoRA.
         "save_strategy": "steps",
         "save_steps": 200,
@@ -542,12 +542,9 @@ def main():
                 loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
                 
             # CRITICAL MATHEMATICAL FIX FOR T4 FLOAT16 UNDERFLOW
-            # Because we must use fp16=False to bypass PyTorch GradScaler crashes, the tiny 
-            # LoRA gradients underflow to exactly 0.0 in float16. 
-            # We fix this by manually scaling the loss by 1024.0. The gradients become 1024x larger,
-            # surviving the float16 backward pass. The adamw optimizer is inherently scale-invariant,
-            # so the 1024x multiplier perfectly cancels out during the parameter update!
-            loss = loss * 1024.0
+            # 1024.0 was too small. Standard GradScaler starts at 65536.0.
+            # We use 32768.0 to safely scale gradients up by 32000x without exceeding float16 max (65504).
+            loss = loss * 32768.0
             
             return (loss, outputs) if return_outputs else loss
 
