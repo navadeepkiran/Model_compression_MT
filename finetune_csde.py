@@ -11,6 +11,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # Force cuBLAS to use a deterministic/alternative workspace to bypass T4 Float16 NOT_SUPPORTED bugs
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 
+# CRITICAL: Kaggle's default accelerate config secretly forces mixed_precision="fp16" globally!
+# This secretly enables GradScaler even if we set fp16=False, causing the AssertionError!
+os.environ["ACCELERATE_MIXED_PRECISION"] = "no"
+
 import torch
 import torch.nn.functional as F
 
