@@ -546,9 +546,24 @@ def main():
     # ─── BUGFIX TRAINER ──────────────────────────────────────────────────────────
     
 
+    # --- BUGFIX TRAINER ---
+    # SFTTrainer in newer trl versions attempts to manually calculate entropy using the full logits tensor.
+    # For Gemma 3 (vocab size 256,000), this causes a catastrophic memory bottleneck or infinite hang 
+    # during the first backward pass. We bypass this by forcing the use of the model's internal optimized loss.
+    class BugfixTrainer(SFTTrainer):
+        def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
+            outputs = model(**inputs)
+            loss = outputs.loss
+            
+            # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
+            if num_items_in_batch is not None and hasattr(self, "_compute_loss_scaling_factor"):
+                loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
+                
+            return (loss, outputs) if return_outputs else loss
+
     trainer_kwargs["args"] = sft_config
-    print(f"[*] Instantiating SFTTrainer with arguments: {list(trainer_kwargs.keys())}")
-    trainer = SFTTrainer(**trainer_kwargs)
+    print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
+    trainer = BugfixTrainer(**trainer_kwargs)
 
     
     # Check for resume checkpoints
