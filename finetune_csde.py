@@ -473,9 +473,11 @@ def main():
         "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "paged_adamw_8bit",
         "save_strategy": "steps",
-        "save_steps": 200,
+        "save_steps": 100,
         "save_total_limit": 2,
-        "logging_steps": 20,
+        "logging_steps": 1,
+        "logging_strategy": "steps",
+        "disable_tqdm": True,           # Disable progress bars so loss/grad_norm are visible in background logs
         "learning_rate": args.learning_rate,
         "fp16": False,   # Disabled to completely bypass the GradScaler AssertionError bug!
         "bf16": False,
