@@ -93,7 +93,7 @@ def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=Tru
                 output.requires_grad_(True)
             model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
             
-        model.gradient_checkpointing_enable({"use_reentrant": True})
+        model.gradient_checkpointing_enable({"use_reentrant": False})
         
     return model
 
@@ -242,6 +242,7 @@ def main():
     parser.add_argument("--lora_alpha", type=int, default=32, help="LoRA Alpha")
     parser.add_argument("--max_seq_length", type=int, default=256, help="Max sequence length")
     parser.add_argument("--max_steps", type=int, default=-1, help="If > 0: set total number of training steps to perform. Overrides num_train_epochs.")
+    parser.add_argument("--hf_token", type=str, default=None, help="HuggingFace API Token (needed for private repos)")
     args = parser.parse_args()
     
     # Automatically save to Google Drive if it's mounted, preventing Colab from deleting checkpoints
@@ -297,8 +298,13 @@ def main():
     
     # 4. Load Tokenizer & Model
     print("[*] Loading Tokenizer...")
-    hf_token = os.environ.get("HF_TOKEN")
-    tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
+    hf_token = args.hf_token or os.environ.get("HF_TOKEN")
+    if not hf_token:
+        print("[!] WARNING: No HuggingFace token provided! Private repos will fail. Pass --hf_token or set HF_TOKEN env var.")
+    
+    # We load the tokenizer from the BASE Google repo, NOT the pruned repo.
+    # The pruned model's tokenizer_config.json can be corrupted, causing crashes.
+    tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-12b-it", trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
@@ -464,7 +470,7 @@ def main():
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": True},
+        "gradient_checkpointing_kwargs": {"use_reentrant": False},
         "optim": "paged_adamw_8bit",
         "save_strategy": "steps",
         "save_steps": 200,
@@ -516,7 +522,6 @@ def main():
     trainer_kwargs = {
         "model": model,
         "train_dataset": train_dataset,
-        "callbacks": [comet_callback],
         "data_collator": gemma3_collator,
     }
 
