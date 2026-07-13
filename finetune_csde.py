@@ -27,11 +27,9 @@ torch.backends.cudnn.allow_tf32 = False
 # Redirect HF Cache to the fast NVMe boot drive (~/.cache) on Kaggle to prevent mmap hangs on the slow /kaggle/working network drive!
 if os.name != "nt":
     if os.path.exists("/kaggle"):
-        # /kaggle/working has 73GB — enough for the 16.5GB model.
-        # mmap freeze is handled by the page-cache pre-warmer below.
-        os.environ["HF_HOME"] = "/kaggle/working/huggingface_cache"
-        os.environ["HF_DATASETS_CACHE"] = "/kaggle/working/huggingface_cache/datasets"
-        os.environ["HF_HUB_CACHE"] = "/kaggle/working/huggingface_cache/hub"
+        os.environ["HF_HOME"] = "/kaggle/tmp/huggingface_cache"
+        os.environ["HF_DATASETS_CACHE"] = "/kaggle/tmp/huggingface_cache/datasets"
+        os.environ["HF_HUB_CACHE"] = "/kaggle/tmp/huggingface_cache/hub"
     else:
         os.environ["HF_HOME"] = "/tmp/huggingface_cache"
         os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
@@ -405,25 +403,6 @@ def main():
         "": "cuda:0"
     }
 
-    # PAGE-CACHE PRE-WARMER: Kaggle's overlayfs freezes when mmap-ing files > 4GB that are not
-    # already in the Linux page cache. We download first (to /kaggle/working which has 73GB),
-    # then read the safetensors sequentially into RAM so the OS page-cache is warm.
-    # After this, from_pretrained's mmap hits the page cache instantly — no freeze possible.
-    if not os.path.isdir(args.model_id):  # Skip if already a local path
-        from huggingface_hub import snapshot_download
-        import glob
-        print("[*] Downloading model weights to /kaggle/working (73GB disk)...")
-        cache_path = snapshot_download(repo_id=args.model_id, token=hf_token)
-        print("[*] Pre-warming Linux page cache to bypass mmap freeze...")
-        for sf in glob.glob(f"{cache_path}/**/*.safetensors", recursive=True):
-            print(f"    -> Reading {os.path.basename(sf)} into RAM page cache...")
-            with open(sf, "rb") as f:
-                while True:
-                    chunk = f.read(64 * 1024 * 1024)  # 64MB chunks
-                    if not chunk:
-                        break
-        print("[*] Page cache warm! Proceeding to load model...")
-    
     print("[*] Loading pruned model in 4-bit precision (BFloat16 base)...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
@@ -497,8 +476,6 @@ def main():
         "save_steps": 100,
         "save_total_limit": 2,
         "logging_steps": 1,
-        "logging_strategy": "steps",
-        "disable_tqdm": True,           # Disable progress bars so loss/grad_norm are visible in background logs
         "learning_rate": args.learning_rate,
         "fp16": False,   # Disabled to completely bypass the GradScaler AssertionError bug!
         "bf16": False,
