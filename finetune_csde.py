@@ -79,6 +79,24 @@ from transformers import (
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from trl import SFTConfig, SFTTrainer
 
+def prepare_model_for_kbit_training_custom(model, use_gradient_checkpointing=True):
+    for param in model.parameters():
+        param.requires_grad = False
+    
+    if use_gradient_checkpointing:
+        # CRITICAL: Inputs MUST require grad when using device_map + gradient checkpointing.
+        # If inputs don't require grad, the autograd graph disconnects across GPU boundaries.
+        if hasattr(model, "enable_input_require_grads"):
+            model.enable_input_require_grads()
+        else:
+            def make_inputs_require_grad(module, input, output):
+                output.requires_grad_(True)
+            model.get_input_embeddings().register_forward_hook(make_inputs_require_grad)
+            
+        model.gradient_checkpointing_enable({"use_reentrant": True})
+        
+    return model
+
 # --- FLORES-200 VALIDATION DATA LOADER ---
 def load_flores_validation(base_dir="flores200_dataset", num_samples=100):
     val_data = []
@@ -359,21 +377,31 @@ def main():
     )
     # ─────────────────────────────────────────────────────────────────────────────
 
-    print("[*] Configuring 4-bit NF4 quantization settings (Hardware-Accelerated Float16)...")
+    print("[*] Configuring 4-bit NF4 quantization settings (Pure BFloat16)...")
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",            
-        bnb_4bit_compute_dtype=torch.bfloat16, 
-        bnb_4bit_use_double_quant=True
+        bnb_4bit_quant_type="nf4",
+        bnb_4bit_compute_dtype=torch.bfloat16,
+        bnb_4bit_use_double_quant=True,
+        llm_int8_enable_fp32_cpu_offload=True  # Required to allow embed_tokens and lm_head on CPU
     )
     
 
 
-    print("[*] Loading pruned model in 4-bit precision ENTIRELY on GPU 0...")
+    # Gemma 3 has a massive 256,000 vocabulary. The embed_tokens and lm_head alone take 4.2 GB of VRAM!
+    # By forcing these two specific BFloat16 tensors to the CPU, we instantly free up 4.2 GB of VRAM.
+    # This guarantees the 4-bit layers have enough room to materialize without the 14.5 GB OOM spike.
+    custom_device_map = {
+        "model.embed_tokens": "cpu",
+        "lm_head": "cpu",
+        "": "cuda:0"
+    }
+
+    print("[*] Loading pruned model in 4-bit precision (BFloat16 base)...")
     model = AutoModelForCausalLM.from_pretrained(
         args.model_id,
         quantization_config=bnb_config,
-        device_map={"": "cuda:0"},
+        device_map=custom_device_map,
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
         attn_implementation="eager",  # Eager attention: no SDPA peak-memory spikes
@@ -381,6 +409,10 @@ def main():
     )
     
     # CRITICAL FIX: Prevent Trainer from wrapping the model in DataParallel!
+    # Because we put the entire model on cuda:0, Trainer thinks the model isn't parallelized.
+    # Since it sees 2 GPUs on the Kaggle machine, it forcefully wraps it in nn.DataParallel.
+    # DataParallel attempts to copy the 4-bit model to GPU 1, which instantly corrupts the 
+    # bitsandbytes quant_state pointers, causing a CUDA illegal memory access.
     model.is_model_parallel = True
     model.is_loaded_in_4bit = True
         
@@ -388,9 +420,8 @@ def main():
     if hasattr(model.config, "_attn_implementation"):
         model.config._attn_implementation = "eager"
     
-    # Prepare model using official PEFT function
-    from peft import prepare_model_for_kbit_training
-    model = prepare_model_for_kbit_training(model, use_gradient_checkpointing=True)
+    # Prepare model using the custom function (identical to old working script)
+    model = prepare_model_for_kbit_training_custom(model)
     
     # Configure LoRA settings targeting all linear blocks
     print("[*] Configuring LoRA settings targeting all linear blocks...")
@@ -433,8 +464,8 @@ def main():
         "per_device_train_batch_size": 1,
         "gradient_accumulation_steps": 8,
         "gradient_checkpointing": True,
-        "gradient_checkpointing_kwargs": {"use_reentrant": False},
-        "optim": "adamw_torch", # 8-bit optimizer crashes PyTorch fp16 GradScaler! Standard AdamW is only 300MB extra for LoRA.
+        "gradient_checkpointing_kwargs": {"use_reentrant": True},
+        "optim": "paged_adamw_8bit",
         "save_strategy": "steps",
         "save_steps": 200,
         "save_total_limit": 2,
@@ -502,12 +533,10 @@ def main():
     sft_config = SFTConfig(**config_kwargs)
 
     # ─── BUGFIX TRAINER ──────────────────────────────────────────────────────────
-    
-
-    # --- BUGFIX TRAINER ---
-    # SFTTrainer in newer trl versions attempts to manually calculate entropy using the full logits tensor.
-    # For Gemma 3 (vocab size 256,000), this causes a catastrophic memory bottleneck or infinite hang 
-    # during the first backward pass. We bypass this by forcing the use of the model's internal optimized loss.
+    # Unsloth's new Gemma 3 patch returns a custom tensor object for logits where 
+    # `.shape` is accidentally a method instead of a property. This causes the newest
+    # version of `trl` to crash when it tries to calculate entropy. 
+    # We bypass this completely by overriding compute_loss to never touch the logits!
     class BugfixTrainer(SFTTrainer):
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
             outputs = model(**inputs)
@@ -542,12 +571,10 @@ def main():
     trainer.model.save_pretrained(args.output_dir)
     print(f"\n[🎉] Training complete! Model saved to: {args.output_dir}")
     
-    # Nuke the temporary sharded model
+    # Nuke the huggingface cache to save disk space
     import shutil
-    shutil.rmtree("/tmp/sharded_model", ignore_errors=True)
-    # Also nuke the huggingface cache so it doesn't get zipped!
-    shutil.rmtree("/kaggle/working/huggingface_cache", ignore_errors=True)
-    print("[*] Cleaned up temporary sharded files.")
+    shutil.rmtree("/kaggle/tmp/huggingface_cache", ignore_errors=True)
+    print("[*] Cleaned up HuggingFace cache.")
 
 if __name__ == "__main__":
     main()
