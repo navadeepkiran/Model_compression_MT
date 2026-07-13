@@ -543,14 +543,24 @@ def main():
     # version of `trl` to crash when it tries to calculate entropy. 
     # We bypass this completely by overriding compute_loss to never touch the logits!
     class BugfixTrainer(SFTTrainer):
+        def __init__(self, *args, **kwargs):
+            # The latest trl calls _patch_chunked_ce_lm_head() in __init__.
+            # This crashes with: AttributeError: 'functools.partial' has no __func__
+            # because our lm_head is on CPU (functools.partial wraps it for device dispatch).
+            # We neutralize this by temporarily replacing the patch with a no-op.
+            import trl.trainer.sft_trainer as sft_mod
+            original_patch = getattr(sft_mod, "_patch_chunked_ce_lm_head", None)
+            if original_patch:
+                sft_mod._patch_chunked_ce_lm_head = lambda *a, **kw: None
+            super().__init__(*args, **kwargs)
+            if original_patch:
+                sft_mod._patch_chunked_ce_lm_head = original_patch
+
         def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None, **kwargs):
             outputs = model(**inputs)
             loss = outputs.loss
-            
-            # Hugging Face >= 4.46 requires compute_loss to scale the loss by gradient_accumulation_steps 
             if num_items_in_batch is not None and hasattr(self, "_compute_loss_scaling_factor"):
                 loss = self._compute_loss_scaling_factor(loss, num_items_in_batch)
-                
             return (loss, outputs) if return_outputs else loss
 
     trainer_kwargs["args"] = sft_config
