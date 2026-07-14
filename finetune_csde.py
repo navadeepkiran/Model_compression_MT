@@ -304,6 +304,38 @@ def main():
     if not hf_token:
         print("[!] WARNING: No HuggingFace token provided! Private repos will fail. Pass --hf_token or set HF_TOKEN env var.")
     
+    # --- BULLETPROOF DOWNLOAODER ---
+    # We download everything explicitly using snapshot_download with a strict timeout.
+    # This prevents AutoTokenizer and AutoModel from randomly hanging on socket timeouts.
+    from huggingface_hub import snapshot_download
+    import glob
+    
+    # We set a 60 second timeout for API requests so it crashes instead of hanging forever
+    os.environ["HF_HUB_DOWNLOAD_TIMEOUT"] = "60"
+    
+    if not os.path.isdir(args.model_id):
+        print("[*] Downloading model repo (safetensors + tokenizer files) to local cache...")
+        try:
+            cache_path = snapshot_download(
+                repo_id=args.model_id,
+                token=hf_token,
+                allow_patterns=["*.safetensors", "*.json", "*.model", "*.jinja"],
+                max_workers=1
+            )
+            print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
+            for sf in glob.glob(f"{cache_path}/**/*.safetensors", recursive=True):
+                print(f"    -> Reading {os.path.basename(sf)} into RAM...")
+                with open(sf, "rb") as f:
+                    while True:
+                        chunk = f.read(64 * 1024 * 1024)
+                        if not chunk:
+                            break
+            print("[*] Cache warm! Setting model_id to local path to bypass all API calls...")
+            args.model_id = cache_path
+        except Exception as e:
+            print(f"[!] Downloader failed: {e}")
+            print("[!] Falling back to standard loaders...")
+
     # We load the tokenizer from the local repo directly to avoid HF API deadlocks.
     tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
@@ -404,24 +436,7 @@ def main():
         "": "cuda:0"
     }
 
-    # PAGE-CACHE PRE-WARMER: Kaggle's overlayfs freezes when mmap-ing files > 4GB that are not
-    # already in the Linux page cache. We download first (to /kaggle/working which has 73GB),
-    # then read the safetensors sequentially into RAM so the OS page-cache is warm.
-    # After this, from_pretrained's mmap hits the page cache instantly — no freeze possible.
-    if not os.path.isdir(args.model_id):  # Skip if already a local path
-        from huggingface_hub import snapshot_download
-        import glob
-        print("[*] Downloading model weights to /kaggle/working (73GB disk)...")
-        cache_path = snapshot_download(repo_id=args.model_id, token=hf_token)
-        print("[*] Pre-warming Linux page cache to bypass mmap freeze...")
-        for sf in glob.glob(f"{cache_path}/**/*.safetensors", recursive=True):
-            print(f"    -> Reading {os.path.basename(sf)} into RAM page cache...")
-            with open(sf, "rb") as f:
-                while True:
-                    chunk = f.read(64 * 1024 * 1024)  # 64MB chunks
-                    if not chunk:
-                        break
-        print("[*] Page cache warm! Proceeding to load model...")
+    print("[*] Page cache already warmed at the top of the script! Proceeding to load model...")
     
     print("[*] Loading pruned model in 4-bit precision (BFloat16 base)...")
     model = AutoModelForCausalLM.from_pretrained(
