@@ -383,8 +383,26 @@ def main():
         # Download the big model file only if needed
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
         if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
-            print("[*] Downloading massive 16.5GB safetensors via hf_hub_download (Python backend)...")
-            hf_hub_download(repo_id=args.model_id, filename="model.safetensors", token=hf_token, local_dir=cache_dir)
+            print("[*] Downloading massive 16.5GB safetensors via direct HTTP stream (bypasses XetHub)...")
+            import requests
+            from huggingface_hub import hf_hub_url
+            url = hf_hub_url(args.model_id, 'model.safetensors')
+            # Stream the response directly from the first connection.
+            # We do NOT close and reopen - we just pipe the response body straight to disk.
+            # timeout=(60, 300): 60s to connect, 300s max between chunks (prevents deadlock)
+            with requests.get(url, headers={'Authorization': f'Bearer {hf_token}'}, 
+                              stream=True, allow_redirects=True, timeout=(60, 300)) as resp:
+                resp.raise_for_status()
+                bytes_written = 0
+                with open(safetensors_path, 'wb') as f:
+                    for chunk in resp.iter_content(chunk_size=64 * 1024 * 1024):
+                        if chunk:
+                            f.write(chunk)
+                            f.flush()
+                            bytes_written += len(chunk)
+                            if bytes_written % (1024**3) < 64 * 1024 * 1024:
+                                print(f"    -> {bytes_written/(1024**3):.1f} GB downloaded")
+            print(f"    -> Download complete! {bytes_written/(1024**3):.1f} GB written.")
         else:
             print(f"[*] model.safetensors already present ({os.path.getsize(safetensors_path)/(1024**3):.1f} GB), skipping download.")
 
