@@ -327,6 +327,12 @@ def main():
             subprocess.run("sudo apt-get update && sudo apt-get install -y aria2", shell=True, check=True)
             import sys
             subprocess.run([sys.executable, "-m", "pip", "install", "sentencepiece", "tiktoken"], check=True)
+            
+            # Force Python and Hugging Face to instantly recognize the newly installed packages!
+            import importlib
+            importlib.invalidate_caches()
+            import transformers.utils.import_utils
+            transformers.utils.import_utils._sentencepiece_available = True
         except Exception as e:
             print(f"[!] Warning: Dependency installation failed: {e}")
         
