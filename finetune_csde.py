@@ -342,8 +342,11 @@ def main():
         import requests
         def get_final_url(base_url):
             try:
-                r = requests.head(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True)
-                return r.url
+                # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
+                r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
+                final_url = r.url
+                r.close()
+                return final_url
             except Exception:
                 return base_url
         
