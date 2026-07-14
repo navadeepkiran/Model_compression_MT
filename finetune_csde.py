@@ -712,23 +712,21 @@ def main():
             return (loss, outputs) if return_outputs else loss
             
         def _load_from_checkpoint(self, resume_from_checkpoint, model=None):
-            # BUGFIX: Transformers throws "Can't find a valid checkpoint" if it's an older version 
-            # that expects adapter_model.bin but PEFT saved adapter_model.safetensors.
-            # We bypass this by temporarily mocking os.path.isfile to pretend the expected weight file exists!
-            # Trainer DOES NOT actually load PEFT weights here (it only loads optimizer/RNG states), 
-            # so mocking the file check is perfectly safe.
-            import os
-            original_isfile = os.path.isfile
-            def mocked_isfile(path):
-                if path.endswith("adapter_model.bin") or path.endswith("pytorch_model.bin"):
-                    return True
-                return original_isfile(path)
+            # BUGFIX: Transformers throws "Can't find a valid checkpoint" or looks for pytorch_model.bin 
+            # if the model has been wrapped by accelerate (e.g. DistributedDataParallel for multi-GPU).
+            # The wrapper causes isinstance(model, PeftModel) to fail inside Trainer._load_from_checkpoint.
+            # We fix this by unwrapping the model before passing it to the super class.
+            model_to_pass = model if model is not None else self.model
+            
+            # Unwrap accelerate
+            if hasattr(self, "accelerator"):
+                model_to_pass = self.accelerator.unwrap_model(model_to_pass)
                 
-            os.path.isfile = mocked_isfile
-            try:
-                super()._load_from_checkpoint(resume_from_checkpoint, model)
-            finally:
-                os.path.isfile = original_isfile
+            # Unwrap standard PyTorch wrappers just in case
+            while hasattr(model_to_pass, "module"):
+                model_to_pass = model_to_pass.module
+                
+            super()._load_from_checkpoint(resume_from_checkpoint, model_to_pass)
 
     trainer_kwargs["args"] = sft_config
     print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
