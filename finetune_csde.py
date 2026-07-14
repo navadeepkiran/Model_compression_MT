@@ -323,7 +323,10 @@ def main():
     
     if not os.path.isdir(args.model_id):
         print("[*] Installing aria2c to bypass Kaggle firewall...")
-        subprocess.run("apt-get update && apt-get install -y aria2c", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        try:
+            subprocess.run("sudo apt-get update && sudo apt-get install -y aria2c", shell=True, check=True)
+        except Exception as e:
+            print(f"[!] Warning: apt-get failed. aria2c might not be installed. {e}")
         
         cache_dir = "/kaggle/tmp/model_cache"
         os.makedirs(cache_dir, exist_ok=True)
