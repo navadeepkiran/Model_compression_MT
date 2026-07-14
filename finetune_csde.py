@@ -342,8 +342,10 @@ def main():
         import requests
         def get_final_url(base_url):
             try:
-                # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
-                r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
+                # We MUST use GET (stream=True) and forcefully match the aria2c User-Agent, 
+                # otherwise GCP CDN rejects the signature due to User-Agent mismatch!
+                headers = {'Authorization': f'Bearer {hf_token}', 'User-Agent': 'aria2/1.35.0'}
+                r = requests.get(base_url, headers=headers, allow_redirects=True, stream=True)
                 final_url = r.url
                 r.close()
                 return final_url
@@ -368,6 +370,7 @@ def main():
             final_url = get_final_url(url)
             cmd = [
                 "aria2c", 
+                "--user-agent=aria2/1.35.0",
                 "-x", "16", 
                 "-s", "16", 
                 "-k", "1M",
