@@ -651,8 +651,16 @@ def main():
     # Check for resume checkpoints
     last_checkpoint = None
     if os.path.isdir(args.output_dir):
-        from transformers.trainer_utils import get_last_checkpoint
-        last_checkpoint = get_last_checkpoint(args.output_dir)
+        checkpoints = [d for d in os.listdir(args.output_dir) if d.startswith("checkpoint-")]
+        checkpoints = sorted(checkpoints, key=lambda x: int(x.split("-")[-1]))
+        for cp in reversed(checkpoints):
+            cp_path = os.path.join(args.output_dir, cp)
+            # A valid checkpoint MUST have trainer_state.json
+            if os.path.exists(os.path.join(cp_path, "trainer_state.json")):
+                last_checkpoint = cp_path
+                break
+            else:
+                print(f"[!] Warning: {cp} is corrupted or missing trainer_state.json. Skipping it.")
         
     print("\n" + "=" * 40)
     if last_checkpoint is not None:
