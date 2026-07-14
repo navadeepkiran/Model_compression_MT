@@ -393,6 +393,16 @@ def main():
 
     # We load the tokenizer from the local repo directly to avoid HF API deadlocks.
     tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
+    
+    # Fix apply_chat_template crash if tokenizer_config is missing chat_template
+    if not hasattr(tokenizer, "chat_template") or tokenizer.chat_template is None:
+        template_path = os.path.join(args.model_id, "chat_template.jinja")
+        if os.path.exists(template_path):
+            with open(template_path, "r", encoding="utf-8") as f:
+                tokenizer.chat_template = f.read()
+        else:
+            tokenizer.chat_template = "{% if messages[0]['role'] == 'system' %}{{ '<start_of_turn>system\\n' + messages[0]['content'] + '<end_of_turn>\\n' }}{% set loop_messages = messages[1:] %}{% else %}{% set loop_messages = messages %}{% endif %}{% for message in loop_messages %}{% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}{{ raise_exception('Conversation roles must alternate user/model/user/model/...') }}{% endif %}{% if (message['role'] == 'system') %}{{ raise_exception('System role must be the first message.') }}{% endif %}{{ '<start_of_turn>' + message['role'] + '\\n' + message['content'] + '<end_of_turn>\\n' }}{% endfor %}{% if add_generation_prompt %}{{ '<start_of_turn>model\\n' }}{% endif %}"
+
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
