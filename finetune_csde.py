@@ -362,14 +362,12 @@ def main():
                     pass
         
         if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
-            print("[*] Downloading massive 16.5GB safetensors with aria2c (4 threads to avoid GCP DDoS block)...")
+            print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
             import requests
             def get_final_url(base_url):
                 try:
-                    # We MUST use GET (stream=True) and a standard browser User-Agent
-                    # GCP actively blocks aria2c User-Agents and 16x concurrent requests!
-                    ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-                    r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}', 'User-Agent': ua}, allow_redirects=True, stream=True)
+                    # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
+                    r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
                     final_url = r.url
                     r.close()
                     return final_url
@@ -380,9 +378,8 @@ def main():
             final_url = get_final_url(url)
             cmd = [
                 "aria2c", 
-                "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                "-x", "4", 
-                "-s", "4", 
+                "-x", "16", 
+                "-s", "16", 
                 "-k", "1M",
                 "--timeout=30",
                 "--max-tries=100",
