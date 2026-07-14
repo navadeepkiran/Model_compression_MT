@@ -322,11 +322,13 @@ def main():
     from huggingface_hub import hf_hub_url
     
     if not os.path.isdir(args.model_id):
-        print("[*] Installing aria2c to bypass Kaggle firewall...")
+        print("[*] Installing required dependencies (aria2, sentencepiece)...")
         try:
             subprocess.run("sudo apt-get update && sudo apt-get install -y aria2", shell=True, check=True)
+            import sys
+            subprocess.run([sys.executable, "-m", "pip", "install", "sentencepiece", "tiktoken"], check=True)
         except Exception as e:
-            print(f"[!] Warning: apt-get failed. aria2c might not be installed. {e}")
+            print(f"[!] Warning: Dependency installation failed: {e}")
         
         cache_dir = "/kaggle/tmp/model_cache"
         os.makedirs(cache_dir, exist_ok=True)
