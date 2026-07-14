@@ -314,37 +314,58 @@ def main():
     if not hf_token:
         print("[!] WARNING: No HuggingFace token provided! Private repos will fail. Pass --hf_token or set HF_TOKEN env var.")
     
-    # --- BULLETPROOF DOWNLOAODER ---
-    # We download everything explicitly using snapshot_download with a strict timeout.
-    # This prevents AutoTokenizer and AutoModel from randomly hanging on socket timeouts.
-    from huggingface_hub import snapshot_download
-    import glob
-    
-    # We set a 60 second timeout for API requests so it crashes instead of hanging forever
-    os.environ["HF_HUB_DOWNLOAD_TIMEOUT"] = "60"
+    # --- BULLETPROOF ARIA2C DOWNLOADER ---
+    # We rip out the Hugging Face python downloader entirely because Kaggle's firewall 
+    # silently kills massive single-file continuous HTTP connections. 
+    # We use aria2c to split the 16.5GB file into 16 parallel chunks, which bypasses the firewall!
+    import subprocess
+    from huggingface_hub import hf_hub_url, snapshot_download
     
     if not os.path.isdir(args.model_id):
-        print("[*] Downloading model repo (safetensors + tokenizer files) to local cache...")
-        try:
-            cache_path = snapshot_download(
-                repo_id=args.model_id,
-                token=hf_token,
-                allow_patterns=["*.safetensors", "*.json", "*.model", "*.jinja"],
-                max_workers=1
-            )
-            print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
-            for sf in glob.glob(f"{cache_path}/**/*.safetensors", recursive=True):
-                print(f"    -> Reading {os.path.basename(sf)} into RAM...")
-                with open(sf, "rb") as f:
-                    while True:
-                        chunk = f.read(64 * 1024 * 1024)
-                        if not chunk:
-                            break
-            print("[*] Cache warm! Setting model_id to local path to bypass all API calls...")
-            args.model_id = cache_path
-        except Exception as e:
-            print(f"[!] Downloader failed: {e}")
-            print("[!] Falling back to standard loaders...")
+        print("[*] Installing aria2c to bypass Kaggle firewall...")
+        subprocess.run("apt-get update && apt-get install -y aria2c", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        
+        cache_dir = "/kaggle/tmp/model_cache"
+        os.makedirs(cache_dir, exist_ok=True)
+        safetensors_path = os.path.join(cache_dir, "model.safetensors")
+        
+        print("[*] Downloading small config files...")
+        snapshot_download(
+            repo_id=args.model_id,
+            token=hf_token,
+            allow_patterns=["*.json", "*.model", "*.jinja"],
+            local_dir=cache_dir,
+            local_dir_use_symlinks=False
+        )
+        
+        if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
+            print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
+            url = hf_hub_url(args.model_id, 'model.safetensors')
+            cmd = [
+                "aria2c", 
+                f"--header=Authorization: Bearer {hf_token}",
+                "-x", "16", 
+                "-s", "16", 
+                "-k", "1M",
+                "--timeout=30",
+                "--max-tries=100",
+                "--continue=true",
+                "-d", cache_dir,
+                "-o", "model.safetensors",
+                url
+            ]
+            subprocess.run(cmd, check=True)
+            
+        print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
+        print(f"    -> Reading model.safetensors into RAM...")
+        with open(safetensors_path, "rb") as f:
+            while True:
+                chunk = f.read(64 * 1024 * 1024)
+                if not chunk:
+                    break
+                    
+        print("[*] Cache warm! Setting model_id to local path to bypass all API calls...")
+        args.model_id = cache_dir
 
     # We load the tokenizer from the local repo directly to avoid HF API deadlocks.
     tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
