@@ -314,34 +314,82 @@ def main():
     if not hf_token:
         print("[!] WARNING: No HuggingFace token provided! Private repos will fail. Pass --hf_token or set HF_TOKEN env var.")
     
+    # --- BULLETPROOF ARIA2C DOWNLOADER ---
+    # We rip out the Hugging Face python downloader entirely because Kaggle's firewall 
+    # silently kills massive single-file continuous HTTP connections. 
+    # We use aria2c to split the files and bypass Python's network libraries completely!
+    import subprocess
+    from huggingface_hub import hf_hub_url
+    
     if not os.path.isdir(args.model_id):
-        print("[*] Downloading model using Hugging Face's Rust-based hf_transfer...")
-        os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
+        print("[*] Installing required dependencies (aria2, sentencepiece)...")
+        try:
+            subprocess.run("sudo apt-get update && sudo apt-get install -y aria2", shell=True, check=True)
+            import sys
+            subprocess.run([sys.executable, "-m", "pip", "install", "sentencepiece", "tiktoken"], check=True)
+        except Exception as e:
+            print(f"[!] Warning: Dependency installation failed: {e}")
         
-        # Install hf_transfer and sentencepiece just in case
-        import subprocess
-        import sys
-        subprocess.run([sys.executable, "-m", "pip", "install", "hf_transfer", "sentencepiece", "tiktoken"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        
-        from huggingface_hub import snapshot_download
         cache_dir = "/kaggle/tmp/model_cache"
-        snapshot_download(
-            repo_id=args.model_id,
-            local_dir=cache_dir,
-            local_dir_use_symlinks=False,
-            token=hf_token
-        )
-        
-        print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
+        os.makedirs(cache_dir, exist_ok=True)
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
-        if os.path.exists(safetensors_path):
-            print(f"    -> Reading model.safetensors into RAM...")
-            with open(safetensors_path, "rb") as f:
-                while True:
-                    chunk = f.read(64 * 1024 * 1024)
-                    if not chunk:
-                        break
-                        
+        
+        print("[*] Downloading all configuration files with aria2c...")
+        small_files = [
+            "config.json", "generation_config.json", "preprocessor_config.json", 
+            "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
+            "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
+        ]
+        
+        import requests
+        def get_final_url(base_url):
+            try:
+                # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
+                r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
+                final_url = r.url
+                r.close()
+                return final_url
+            except Exception:
+                return base_url
+        
+        for f_name in small_files:
+            file_path = os.path.join(cache_dir, f_name)
+            if not os.path.exists(file_path):
+                url = hf_hub_url(args.model_id, f_name)
+                final_url = get_final_url(url)
+                cmd = [
+                    "aria2c", 
+                    "--timeout=15", "--max-tries=5", "--auto-file-renaming=false", "--allow-overwrite=true",
+                    "-d", cache_dir, "-o", f_name, final_url
+                ]
+                subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        
+        if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
+            print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
+            url = hf_hub_url(args.model_id, 'model.safetensors')
+            final_url = get_final_url(url)
+            cmd = [
+                "aria2c", 
+                "-x", "16", 
+                "-s", "16", 
+                "-k", "1M",
+                "--timeout=30",
+                "--max-tries=100",
+                "--continue=true",
+                "-d", cache_dir,
+                "-o", "model.safetensors",
+                final_url
+            ]
+            subprocess.run(cmd, check=True)
+            
+        print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
+        print(f"    -> Reading model.safetensors into RAM...")
+        with open(safetensors_path, "rb") as f:
+            while True:
+                chunk = f.read(64 * 1024 * 1024)
+                if not chunk:
+                    break
+                    
         print("[*] Cache warm! Setting model_id to local path to bypass all API calls...")
         args.model_id = cache_dir
 
