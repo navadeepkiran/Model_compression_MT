@@ -1,5 +1,15 @@
 import os
 
+# --- RUST DOWNLOADER FIX ---
+# Install and enable hf_transfer to bypass Python socket read hangs
+import subprocess
+import sys
+try:
+    subprocess.run([sys.executable, "-m", "pip", "install", "-q", "hf_transfer"], check=True)
+except Exception:
+    pass
+os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
+
 # Set BOTH env var names to cover all PyTorch versions (name changed in 2.x)
 # Must be before 'import torch' so the CUDA caching allocator reads it at init time.
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"  # PyTorch < 2.x
