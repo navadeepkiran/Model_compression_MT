@@ -324,7 +324,7 @@ def main():
     if not os.path.isdir(args.model_id):
         print("[*] Installing aria2c to bypass Kaggle firewall...")
         try:
-            subprocess.run("sudo apt-get update && sudo apt-get install -y aria2c", shell=True, check=True)
+            subprocess.run("sudo apt-get update && sudo apt-get install -y aria2", shell=True, check=True)
         except Exception as e:
             print(f"[!] Warning: apt-get failed. aria2c might not be installed. {e}")
         
