@@ -354,6 +354,14 @@ def main():
         # Disable hf_transfer (Rust backend). It deadlocks on Kaggle's network stack.
         # The Python requests backend is slower but stable and handles XetHub CDN correctly.
         os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+        
+        # CRITICAL: Uninstall hf_xet. Kaggle has hf_xet installed which is the XetHub native
+        # downloader protocol. It deadlocks on Kaggle's outbound network. Removing it forces
+        # hf_hub_download to fall back to standard HTTP which works perfectly.
+        subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "hf_xet"], 
+                       capture_output=True, timeout=30)
+        os.environ["HF_HUB_DISABLE_XET"] = "1"
+        print("[*] XetHub disabled. Using standard HTTP download backend.")
 
         from huggingface_hub import hf_hub_download
         
