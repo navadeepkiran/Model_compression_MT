@@ -316,7 +316,6 @@ def main():
     
     if not os.path.isdir(args.model_id):
         print("[*] Downloading model using Hugging Face's Rust-based hf_transfer...")
-        import os
         os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "1"
         
         # Install hf_transfer and sentencepiece just in case
