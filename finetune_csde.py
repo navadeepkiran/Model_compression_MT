@@ -340,19 +340,24 @@ def main():
         os.makedirs(cache_dir, exist_ok=True)
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
         
-        print("[*] Downloading all configuration files using python...")
+        print("[*] Downloading all configuration files using python requests...")
         small_files = [
             "config.json", "generation_config.json", "preprocessor_config.json", 
             "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
             "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
         ]
         
-        from huggingface_hub import hf_hub_download
+        import requests
+        from huggingface_hub import hf_hub_url
         for f_name in small_files:
             file_path = os.path.join(cache_dir, f_name)
             if not os.path.exists(file_path):
                 try:
-                    hf_hub_download(repo_id=args.model_id, filename=f_name, local_dir=cache_dir, token=hf_token)
+                    url = hf_hub_url(args.model_id, f_name)
+                    r = requests.get(url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True)
+                    if r.status_code == 200:
+                        with open(file_path, "wb") as f:
+                            f.write(r.content)
                 except Exception:
                     pass
         
