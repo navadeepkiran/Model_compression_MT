@@ -336,60 +336,20 @@ def main():
         except Exception as e:
             print(f"[!] Warning: Dependency installation failed: {e}")
         
-        cache_dir = "/kaggle/tmp/model_cache"
-        os.makedirs(cache_dir, exist_ok=True)
-        safetensors_path = os.path.join(cache_dir, "model.safetensors")
-        
-        print("[*] Downloading all configuration files using python requests...")
-        small_files = [
-            "config.json", "generation_config.json", "preprocessor_config.json", 
-            "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
-            "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
-        ]
-        
-        import requests
-        from huggingface_hub import hf_hub_url
-        for f_name in small_files:
-            file_path = os.path.join(cache_dir, f_name)
-            if not os.path.exists(file_path):
-                try:
-                    url = hf_hub_url(args.model_id, f_name)
-                    r = requests.get(url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True)
-                    if r.status_code == 200:
-                        with open(file_path, "wb") as f:
-                            f.write(r.content)
-                except Exception:
-                    pass
-        
-        if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
-            print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
-            import requests
-            def get_final_url(base_url):
-                try:
-                    # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
-                    r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
-                    final_url = r.url
-                    r.close()
-                    return final_url
-                except Exception:
-                    return base_url
-
-            url = hf_hub_url(args.model_id, 'model.safetensors')
-            final_url = get_final_url(url)
-            cmd = [
-                "aria2c", 
-                "-x", "16", 
-                "-s", "16", 
-                "-k", "1M",
-                "--timeout=30",
-                "--max-tries=100",
-                "--continue=true",
-                "-d", cache_dir,
-                "-o", "model.safetensors",
-                final_url
-            ]
-            subprocess.run(cmd, check=True)
+        # 1. Wipe orphaned Hugging Face filelocks from previous crashed runs to prevent deadlocks
+        import shutil
+        hf_cache = os.path.expanduser("~/.cache/huggingface/hub")
+        if os.path.exists(hf_cache):
+            for root, dirs, files in os.walk(hf_cache):
+                if ".locks" in dirs:
+                    shutil.rmtree(os.path.join(root, ".locks"), ignore_errors=True)
+                    
+        # 2. Download the massive file using native hf_transfer (Rust-based, ultra-fast, handles cookies perfectly)
+        print("[*] Downloading massive 16.5GB safetensors natively with hf_transfer (Rust-based)...")
+        from huggingface_hub import hf_hub_download
+        safetensors_path = hf_hub_download(repo_id=args.model_id, filename="model.safetensors", token=hf_token)
             
+        # 3. Pre-warm the page cache to prevent Kaggle mmap freeze
         print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
         print(f"    -> Reading model.safetensors into RAM...")
         with open(safetensors_path, "rb") as f:
@@ -398,8 +358,7 @@ def main():
                 if not chunk:
                     break
                     
-        print("[*] Cache warm! Setting model_id to local path to bypass all API calls...")
-        args.model_id = cache_dir
+        print("[*] Cache warm! Proceeding to load model...")
 
     # We load the tokenizer from the local repo directly to avoid HF API deadlocks.
     tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
