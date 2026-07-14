@@ -648,19 +648,42 @@ def main():
     trainer = BugfixTrainer(**trainer_kwargs)
 
     
-    # Check for resume checkpoints
+    # --- CHECKPOINT RESUME LOGIC ---
+    # We must scan BOTH the working directory AND mounted Kaggle datasets (/kaggle/input)
+    import shutil
     last_checkpoint = None
+    valid_checkpoints = []
+    
+    # 1. Scan Kaggle Input (Datasets)
+    if os.path.exists("/kaggle/input"):
+        for root, dirs, files in os.walk("/kaggle/input"):
+            if "checkpoint-" in os.path.basename(root):
+                if "trainer_state.json" in files and ("adapter_model.safetensors" in files or "adapter_model.bin" in files):
+                    valid_checkpoints.append(root)
+                    
+    # 2. Scan Kaggle Working (Output Dir)
     if os.path.isdir(args.output_dir):
-        checkpoints = [d for d in os.listdir(args.output_dir) if d.startswith("checkpoint-")]
-        checkpoints = sorted(checkpoints, key=lambda x: int(x.split("-")[-1]))
-        for cp in reversed(checkpoints):
-            cp_path = os.path.join(args.output_dir, cp)
-            # A valid checkpoint MUST have trainer_state.json
-            if os.path.exists(os.path.join(cp_path, "trainer_state.json")):
-                last_checkpoint = cp_path
-                break
-            else:
-                print(f"[!] Warning: {cp} is corrupted or missing trainer_state.json. Skipping it.")
+        for d in os.listdir(args.output_dir):
+            if d.startswith("checkpoint-"):
+                cp_path = os.path.join(args.output_dir, d)
+                if os.path.exists(os.path.join(cp_path, "trainer_state.json")) and (os.path.exists(os.path.join(cp_path, "adapter_model.safetensors")) or os.path.exists(os.path.join(cp_path, "adapter_model.bin"))):
+                    valid_checkpoints.append(cp_path)
+                    
+    if valid_checkpoints:
+        # Sort all valid checkpoints globally by their step number
+        valid_checkpoints = sorted(valid_checkpoints, key=lambda x: int(os.path.basename(x).split("-")[-1]))
+        best_checkpoint = valid_checkpoints[-1]
+        
+        # If the best checkpoint is in read-only /kaggle/input, we must copy it to output_dir
+        if best_checkpoint.startswith("/kaggle/input"):
+            dest_path = os.path.join(args.output_dir, os.path.basename(best_checkpoint))
+            if not os.path.exists(dest_path):
+                print(f"[*] Copying read-only dataset checkpoint from {best_checkpoint} to {dest_path}...")
+                os.makedirs(args.output_dir, exist_ok=True)
+                shutil.copytree(best_checkpoint, dest_path)
+            last_checkpoint = dest_path
+        else:
+            last_checkpoint = best_checkpoint
         
     print("\n" + "=" * 40)
     if last_checkpoint is not None:
