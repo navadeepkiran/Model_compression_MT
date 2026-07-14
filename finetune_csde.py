@@ -714,20 +714,20 @@ def main():
         def _load_from_checkpoint(self, resume_from_checkpoint, model=None):
             # BUGFIX: Transformers throws "Can't find a valid checkpoint" or tries to load pytorch_model.bin
             # because the model has been wrapped by accelerate (e.g. DistributedDataParallel for multi-GPU).
-            # The wrapper causes isinstance(self.model, PeftModel) to fail internally.
-            # We temporarily overwrite self.model with the unwrapped model to bypass the bug.
-            original_model = self.model
-            unwrapped = self.model
+            # The wrapper causes isinstance(model, PeftModel) to fail internally.
+            import transformers.utils.import_utils
+            transformers.utils.import_utils._peft_available = True
             
+            unwrapped = model if model is not None else self.model
             if hasattr(self, "accelerator"):
                 unwrapped = self.accelerator.unwrap_model(unwrapped)
-                
             while hasattr(unwrapped, "module"):
                 unwrapped = unwrapped.module
                 
+            original_model = self.model
             self.model = unwrapped
             try:
-                super()._load_from_checkpoint(resume_from_checkpoint, model)
+                super()._load_from_checkpoint(resume_from_checkpoint, unwrapped)
             finally:
                 self.model = original_model
 
