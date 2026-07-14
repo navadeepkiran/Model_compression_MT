@@ -788,7 +788,12 @@ def main():
     print("\n" + "=" * 40)
     if last_checkpoint is not None:
         print(f"[🚀] Checkpoint found! Resuming training from: {last_checkpoint}")
-        trainer.train(resume_from_checkpoint=last_checkpoint)
+        try:
+            trainer.train(resume_from_checkpoint=last_checkpoint)
+        except (ValueError, FileNotFoundError) as e:
+            print(f"[⚠️] Checkpoint loading failed: {e}")
+            print(f"[🔄] Falling back to fresh training start (LoRA weights still initialized)...")
+            trainer.train()
     else:
         print("[🌟] No previous checkpoint found. Starting fresh training...")
         trainer.train()
