@@ -380,6 +380,12 @@ def main():
         total_size = int(r_head.headers.get('content-length', 0))
         r_head.close()
         
+        # We MUST remove the Authorization header before hitting the GCP CDN directly!
+        # GCP actively rejects requests that have BOTH a Signature and an Authorization header.
+        # The session still contains the necessary CloudFront cookies from the redirect.
+        if 'Authorization' in session.headers:
+            del session.headers['Authorization']
+            
         if total_size == 0:
             raise ValueError("Could not get Content-Length from HuggingFace!")
             
