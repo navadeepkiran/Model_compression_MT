@@ -718,24 +718,47 @@ def main():
             return (loss, outputs) if return_outputs else loss
             
         def _load_from_checkpoint(self, resume_from_checkpoint, model=None):
-            # BUGFIX: Transformers throws "Can't find a valid checkpoint" or tries to load pytorch_model.bin
-            # because the model has been wrapped by accelerate (e.g. DistributedDataParallel for multi-GPU).
-            # The wrapper causes isinstance(model, PeftModel) to fail internally.
-            import transformers.utils.import_utils
-            transformers.utils.import_utils._peft_available = True
+            # COMPLETE BYPASS of HF's broken _load_from_checkpoint.
+            # HF's version throws ValueError because DDP wrapper causes isinstance(model, PeftModel) == False.
+            # We do everything manually: load adapter weights, then load optimizer/scheduler/rng states.
+            import torch
+            from peft import PeftModel
             
-            unwrapped = model if model is not None else self.model
+            # Step 1: Unwrap the DDP/accelerate wrapper to get the raw PeftModel
+            raw_model = model if model is not None else self.model
             if hasattr(self, "accelerator"):
-                unwrapped = self.accelerator.unwrap_model(unwrapped)
-            while hasattr(unwrapped, "module"):
-                unwrapped = unwrapped.module
-                
-            original_model = self.model
-            self.model = unwrapped
-            try:
-                super()._load_from_checkpoint(resume_from_checkpoint, unwrapped)
-            finally:
-                self.model = original_model
+                raw_model = self.accelerator.unwrap_model(raw_model)
+            while hasattr(raw_model, "module"):
+                raw_model = raw_model.module
+            
+            # Step 2: Load PEFT adapter weights if this is a PeftModel
+            if isinstance(raw_model, PeftModel):
+                adapter_safe = os.path.join(resume_from_checkpoint, "adapter_model.safetensors")
+                adapter_bin = os.path.join(resume_from_checkpoint, "adapter_model.bin")
+                if os.path.exists(adapter_safe):
+                    from safetensors.torch import load_file
+                    adapter_state = load_file(adapter_safe, device="cpu")
+                    raw_model.load_state_dict(adapter_state, strict=False)
+                    print(f"[*] Loaded PEFT adapter weights from {adapter_safe}")
+                elif os.path.exists(adapter_bin):
+                    adapter_state = torch.load(adapter_bin, map_location="cpu", weights_only=True)
+                    raw_model.load_state_dict(adapter_state, strict=False)
+                    print(f"[*] Loaded PEFT adapter weights from {adapter_bin}")
+            
+            # Step 3: Load optimizer state if available
+            opt_path = os.path.join(resume_from_checkpoint, "optimizer.pt")
+            if os.path.exists(opt_path) and self.optimizer is not None:
+                map_location = self.args.device
+                opt_state = torch.load(opt_path, map_location=map_location, weights_only=True)
+                self.optimizer.load_state_dict(opt_state)
+                print(f"[*] Loaded optimizer state from {opt_path}")
+            
+            # Step 4: Load scheduler state if available
+            scheduler_path = os.path.join(resume_from_checkpoint, "scheduler.pt")
+            if os.path.exists(scheduler_path) and self.lr_scheduler is not None:
+                scheduler_state = torch.load(scheduler_path, map_location="cpu", weights_only=True)
+                self.lr_scheduler.load_state_dict(scheduler_state)
+                print(f"[*] Loaded scheduler state from {scheduler_path}")
 
     trainer_kwargs["args"] = sft_config
     print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
@@ -754,8 +777,7 @@ def main():
             if "checkpoint-" in os.path.basename(root):
                 has_trainer = "trainer_state.json" in files
                 has_adapter = "adapter_model.safetensors" in files or "adapter_model.bin" in files
-                has_opt = "optimizer.pt" in files or "optimizer.bin" in files
-                if has_trainer and has_adapter and has_opt:
+                if has_trainer and has_adapter:
                     valid_checkpoints.append(root)
                     
     # 2. Scan Kaggle Working (Output Dir)
@@ -765,8 +787,7 @@ def main():
                 cp_path = os.path.join(args.output_dir, d)
                 has_trainer = os.path.exists(os.path.join(cp_path, "trainer_state.json"))
                 has_adapter = os.path.exists(os.path.join(cp_path, "adapter_model.safetensors")) or os.path.exists(os.path.join(cp_path, "adapter_model.bin"))
-                has_opt = os.path.exists(os.path.join(cp_path, "optimizer.pt")) or os.path.exists(os.path.join(cp_path, "optimizer.bin"))
-                if has_trainer and has_adapter and has_opt:
+                if has_trainer and has_adapter:
                     valid_checkpoints.append(cp_path)
                     
     if valid_checkpoints:
