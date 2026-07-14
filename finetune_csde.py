@@ -339,23 +339,32 @@ def main():
             "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
         ]
         
+        import requests
+        def get_final_url(base_url):
+            try:
+                r = requests.head(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True)
+                return r.url
+            except Exception:
+                return base_url
+        
         for f_name in small_files:
             file_path = os.path.join(cache_dir, f_name)
             if not os.path.exists(file_path):
                 url = hf_hub_url(args.model_id, f_name)
+                final_url = get_final_url(url)
                 cmd = [
-                    "aria2c", f"--header=Authorization: Bearer {hf_token}",
+                    "aria2c", 
                     "--timeout=15", "--max-tries=5", "--auto-file-renaming=false", "--allow-overwrite=true",
-                    "-d", cache_dir, "-o", f_name, url
+                    "-d", cache_dir, "-o", f_name, final_url
                 ]
                 subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         
         if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
             print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
             url = hf_hub_url(args.model_id, 'model.safetensors')
+            final_url = get_final_url(url)
             cmd = [
                 "aria2c", 
-                f"--header=Authorization: Bearer {hf_token}",
                 "-x", "16", 
                 "-s", "16", 
                 "-k", "1M",
@@ -364,7 +373,7 @@ def main():
                 "--continue=true",
                 "-d", cache_dir,
                 "-o", "model.safetensors",
-                url
+                final_url
             ]
             subprocess.run(cmd, check=True)
             
