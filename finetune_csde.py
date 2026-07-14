@@ -340,38 +340,35 @@ def main():
         os.makedirs(cache_dir, exist_ok=True)
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
         
-        print("[*] Downloading all configuration files with aria2c...")
+        print("[*] Downloading all configuration files using python...")
         small_files = [
             "config.json", "generation_config.json", "preprocessor_config.json", 
             "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
             "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
         ]
         
-        import requests
-        def get_final_url(base_url):
-            try:
-                # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
-                r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
-                final_url = r.url
-                r.close()
-                return final_url
-            except Exception:
-                return base_url
-        
+        from huggingface_hub import hf_hub_download
         for f_name in small_files:
             file_path = os.path.join(cache_dir, f_name)
             if not os.path.exists(file_path):
-                url = hf_hub_url(args.model_id, f_name)
-                final_url = get_final_url(url)
-                cmd = [
-                    "aria2c", 
-                    "--timeout=15", "--max-tries=5", "--auto-file-renaming=false", "--allow-overwrite=true",
-                    "-d", cache_dir, "-o", f_name, final_url
-                ]
-                subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                try:
+                    hf_hub_download(repo_id=args.model_id, filename=f_name, local_dir=cache_dir, token=hf_token)
+                except Exception:
+                    pass
         
         if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
             print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
+            import requests
+            def get_final_url(base_url):
+                try:
+                    # We MUST use GET (stream=True) so the CDN signature is valid for aria2c's GET request!
+                    r = requests.get(base_url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True, stream=True)
+                    final_url = r.url
+                    r.close()
+                    return final_url
+                except Exception:
+                    return base_url
+
             url = hf_hub_url(args.model_id, 'model.safetensors')
             final_url = get_final_url(url)
             cmd = [
