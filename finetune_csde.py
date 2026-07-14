@@ -27,11 +27,11 @@ torch.backends.cudnn.allow_tf32 = False
 # Redirect HF Cache to the fast NVMe boot drive (~/.cache) on Kaggle to prevent mmap hangs on the slow /kaggle/working network drive!
 if os.name != "nt":
     if os.path.exists("/kaggle"):
-        # /kaggle/working has 73GB — enough for the 16.5GB model.
-        # mmap freeze is handled by the page-cache pre-warmer below.
-        os.environ["HF_HOME"] = "/kaggle/working/huggingface_cache"
-        os.environ["HF_DATASETS_CACHE"] = "/kaggle/working/huggingface_cache/datasets"
-        os.environ["HF_HUB_CACHE"] = "/kaggle/working/huggingface_cache/hub"
+        # We explicitly use /kaggle/tmp (local NVMe) to completely bypass the NFS network deadlocks.
+        # Our explicit downloader guarantees it only pulls safetensors (16.5GB) so it perfectly fits in the 20GB drive.
+        os.environ["HF_HOME"] = "/kaggle/tmp/huggingface_cache"
+        os.environ["HF_DATASETS_CACHE"] = "/kaggle/tmp/huggingface_cache/datasets"
+        os.environ["HF_HUB_CACHE"] = "/kaggle/tmp/huggingface_cache/hub"
     else:
         os.environ["HF_HOME"] = "/tmp/huggingface_cache"
         os.environ["HF_DATASETS_CACHE"] = "/tmp/huggingface_cache/datasets"
