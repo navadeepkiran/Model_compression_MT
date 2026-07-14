@@ -685,7 +685,10 @@ def main():
     if os.path.exists("/kaggle/input"):
         for root, dirs, files in os.walk("/kaggle/input"):
             if "checkpoint-" in os.path.basename(root):
-                if "trainer_state.json" in files and ("adapter_model.safetensors" in files or "adapter_model.bin" in files):
+                has_trainer = "trainer_state.json" in files
+                has_adapter = "adapter_model.safetensors" in files or "adapter_model.bin" in files
+                has_opt = "optimizer.pt" in files or "optimizer.bin" in files
+                if has_trainer and has_adapter and has_opt:
                     valid_checkpoints.append(root)
                     
     # 2. Scan Kaggle Working (Output Dir)
@@ -693,7 +696,10 @@ def main():
         for d in os.listdir(args.output_dir):
             if d.startswith("checkpoint-"):
                 cp_path = os.path.join(args.output_dir, d)
-                if os.path.exists(os.path.join(cp_path, "trainer_state.json")) and (os.path.exists(os.path.join(cp_path, "adapter_model.safetensors")) or os.path.exists(os.path.join(cp_path, "adapter_model.bin"))):
+                has_trainer = os.path.exists(os.path.join(cp_path, "trainer_state.json"))
+                has_adapter = os.path.exists(os.path.join(cp_path, "adapter_model.safetensors")) or os.path.exists(os.path.join(cp_path, "adapter_model.bin"))
+                has_opt = os.path.exists(os.path.join(cp_path, "optimizer.pt")) or os.path.exists(os.path.join(cp_path, "optimizer.bin"))
+                if has_trainer and has_adapter and has_opt:
                     valid_checkpoints.append(cp_path)
                     
     if valid_checkpoints:
