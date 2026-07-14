@@ -712,21 +712,24 @@ def main():
             return (loss, outputs) if return_outputs else loss
             
         def _load_from_checkpoint(self, resume_from_checkpoint, model=None):
-            # BUGFIX: Transformers throws "Can't find a valid checkpoint" or looks for pytorch_model.bin 
-            # if the model has been wrapped by accelerate (e.g. DistributedDataParallel for multi-GPU).
-            # The wrapper causes isinstance(model, PeftModel) to fail inside Trainer._load_from_checkpoint.
-            # We fix this by unwrapping the model before passing it to the super class.
-            model_to_pass = model if model is not None else self.model
+            # BUGFIX: Transformers throws "Can't find a valid checkpoint" or tries to load pytorch_model.bin
+            # because the model has been wrapped by accelerate (e.g. DistributedDataParallel for multi-GPU).
+            # The wrapper causes isinstance(self.model, PeftModel) to fail internally.
+            # We temporarily overwrite self.model with the unwrapped model to bypass the bug.
+            original_model = self.model
+            unwrapped = self.model
             
-            # Unwrap accelerate
             if hasattr(self, "accelerator"):
-                model_to_pass = self.accelerator.unwrap_model(model_to_pass)
+                unwrapped = self.accelerator.unwrap_model(unwrapped)
                 
-            # Unwrap standard PyTorch wrappers just in case
-            while hasattr(model_to_pass, "module"):
-                model_to_pass = model_to_pass.module
+            while hasattr(unwrapped, "module"):
+                unwrapped = unwrapped.module
                 
-            super()._load_from_checkpoint(resume_from_checkpoint, model_to_pass)
+            self.model = unwrapped
+            try:
+                super()._load_from_checkpoint(resume_from_checkpoint, model)
+            finally:
+                self.model = original_model
 
     trainer_kwargs["args"] = sft_config
     print(f"[*] Instantiating BugfixTrainer with arguments: {list(trainer_kwargs.keys())}")
