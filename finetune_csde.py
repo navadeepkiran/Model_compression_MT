@@ -304,9 +304,8 @@ def main():
     if not hf_token:
         print("[!] WARNING: No HuggingFace token provided! Private repos will fail. Pass --hf_token or set HF_TOKEN env var.")
     
-    # We load the tokenizer from the BASE Google repo, NOT the pruned repo.
-    # The pruned model's tokenizer_config.json can be corrupted, causing crashes.
-    tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-12b-it", trust_remote_code=True, token=hf_token)
+    # We load the tokenizer from the local repo directly to avoid HF API deadlocks.
+    tokenizer = AutoTokenizer.from_pretrained(args.model_id, trust_remote_code=True, token=hf_token)
     if not tokenizer.pad_token:
         tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
