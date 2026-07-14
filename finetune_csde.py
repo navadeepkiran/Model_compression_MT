@@ -339,101 +339,49 @@ def main():
         cache_dir = "/kaggle/tmp/model_cache"
         os.makedirs(cache_dir, exist_ok=True)
         
-        print("[*] Downloading all configuration files using python requests...")
+        # CRITICAL: Wipe orphaned .lock files from previous crashed runs or hf_hub_download deadlocks forever.
+        import shutil
+        for lock_root in [os.path.expanduser("~/.cache/huggingface"), cache_dir]:
+            if os.path.exists(lock_root):
+                for rt, dirs, fls in os.walk(lock_root, topdown=False):
+                    if ".locks" in dirs:
+                        shutil.rmtree(os.path.join(rt, ".locks"), ignore_errors=True)
+                    for fn in fls:
+                        if fn.endswith(".lock"):
+                            try: os.remove(os.path.join(rt, fn))
+                            except: pass
+
+        # Disable hf_transfer (Rust backend). It deadlocks on Kaggle's network stack.
+        # The Python requests backend is slower but stable and handles XetHub CDN correctly.
+        os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+
+        from huggingface_hub import hf_hub_download
+        
+        # Download small config files
         small_files = [
-            "config.json", "generation_config.json", "preprocessor_config.json", 
-            "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
+            "config.json", "generation_config.json", "preprocessor_config.json",
+            "processor_config.json", "special_tokens_map.json", "tokenizer.json",
             "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
         ]
-        
-        import requests
-        from huggingface_hub import hf_hub_url
+        print("[*] Downloading all configuration files...")
         for f_name in small_files:
             file_path = os.path.join(cache_dir, f_name)
             if not os.path.exists(file_path):
                 try:
-                    url = hf_hub_url(args.model_id, f_name)
-                    r = requests.get(url, headers={'Authorization': f'Bearer {hf_token}'}, allow_redirects=True)
-                    if r.status_code == 200:
-                        with open(file_path, "wb") as f:
-                            f.write(r.content)
+                    hf_hub_download(repo_id=args.model_id, filename=f_name, token=hf_token, local_dir=cache_dir)
                 except Exception:
                     pass
 
-        # 1. We will use a robust, pure Python chunked downloader. 
-        # hf_transfer deadlocks on Kaggle's network stack, and aria2c gets 403 blocked.
-        # Python requests handles cookies perfectly and we can enforce timeouts to prevent deadlocks.
-        print("[*] Downloading massive 16.5GB safetensors natively via chunked Python requests (bulletproof)...")
-        
-        import time
-        
+        # Download the big model file only if needed
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
-        url = hf_hub_url(args.model_id, 'model.safetensors')
-        
-        # We need a session to hold cookies across redirects
-        session = requests.Session()
-        session.headers.update({'Authorization': f'Bearer {hf_token}'})
-        
-        # Get actual final URL (following redirects) to get the true Content-Length
-        r_head = session.get(url, stream=True, allow_redirects=True)
-        final_url = r_head.url
-        total_size = int(r_head.headers.get('content-length', 0))
-        r_head.close()
-        
-        # We MUST remove the Authorization header before hitting the GCP CDN directly!
-        # GCP actively rejects requests that have BOTH a Signature and an Authorization header.
-        # The session still contains the necessary CloudFront cookies from the redirect.
-        if 'Authorization' in session.headers:
-            del session.headers['Authorization']
-            
-        if total_size == 0:
-            raise ValueError("Could not get Content-Length from HuggingFace!")
-            
-        print(f"    -> Total file size: {total_size / (1024**3):.2f} GB")
-        
-        # Download in 100MB chunks with 30s timeouts and aggressive retries
-        chunk_size = 100 * 1024 * 1024
-        downloaded = 0
-        
-        if os.path.exists(safetensors_path):
-            downloaded = os.path.getsize(safetensors_path)
-            if downloaded == total_size:
-                print("    -> File already completely downloaded!")
-            else:
-                print(f"    -> Resuming from {downloaded / (1024**3):.2f} GB...")
-        
-        with open(safetensors_path, "ab" if downloaded > 0 else "wb") as f:
-            while downloaded < total_size:
-                end = min(downloaded + chunk_size - 1, total_size - 1)
-                headers = {'Range': f'bytes={downloaded}-{end}'}
-                
-                success = False
-                retries = 0
-                while not success and retries < 10:
-                    try:
-                        # 30 second timeout physically prevents deadlocks!
-                        req = session.get(final_url, headers=headers, stream=True, timeout=30)
-                        req.raise_for_status()
-                        
-                        f.write(req.content)
-                        f.flush()
-                        
-                        downloaded += len(req.content)
-                        success = True
-                    except Exception as e:
-                        retries += 1
-                        print(f"    -> Chunk failed (retry {retries}/10): {e}")
-                        time.sleep(2)
-                        
-                if not success:
-                    raise RuntimeError("Failed to download chunk after 10 retries. Network is completely dead.")
-                    
-                if downloaded % (1024**3) < chunk_size: # Print every ~1GB
-                    print(f"    -> Progress: {downloaded / (1024**3):.2f} / {total_size / (1024**3):.2f} GB")
-            
-        # 3. Pre-warm the page cache to prevent Kaggle mmap freeze
+        if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
+            print("[*] Downloading massive 16.5GB safetensors via hf_hub_download (Python backend)...")
+            hf_hub_download(repo_id=args.model_id, filename="model.safetensors", token=hf_token, local_dir=cache_dir)
+        else:
+            print(f"[*] model.safetensors already present ({os.path.getsize(safetensors_path)/(1024**3):.1f} GB), skipping download.")
+
+        # Pre-warm the page cache to prevent Kaggle mmap freeze
         print("[*] Download complete. Pre-warming Linux page cache to bypass mmap freeze...")
-        print(f"    -> Reading model.safetensors into RAM...")
         with open(safetensors_path, "rb") as f:
             while True:
                 chunk = f.read(64 * 1024 * 1024)
