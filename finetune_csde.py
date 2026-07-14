@@ -317,9 +317,9 @@ def main():
     # --- BULLETPROOF ARIA2C DOWNLOADER ---
     # We rip out the Hugging Face python downloader entirely because Kaggle's firewall 
     # silently kills massive single-file continuous HTTP connections. 
-    # We use aria2c to split the 16.5GB file into 16 parallel chunks, which bypasses the firewall!
+    # We use aria2c to split the files and bypass Python's network libraries completely!
     import subprocess
-    from huggingface_hub import hf_hub_url, snapshot_download
+    from huggingface_hub import hf_hub_url
     
     if not os.path.isdir(args.model_id):
         print("[*] Installing aria2c to bypass Kaggle firewall...")
@@ -329,14 +329,23 @@ def main():
         os.makedirs(cache_dir, exist_ok=True)
         safetensors_path = os.path.join(cache_dir, "model.safetensors")
         
-        print("[*] Downloading small config files...")
-        snapshot_download(
-            repo_id=args.model_id,
-            token=hf_token,
-            allow_patterns=["*.json", "*.model", "*.jinja"],
-            local_dir=cache_dir,
-            local_dir_use_symlinks=False
-        )
+        print("[*] Downloading all configuration files with aria2c...")
+        small_files = [
+            "config.json", "generation_config.json", "preprocessor_config.json", 
+            "processor_config.json", "special_tokens_map.json", "tokenizer.json", 
+            "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
+        ]
+        
+        for f_name in small_files:
+            file_path = os.path.join(cache_dir, f_name)
+            if not os.path.exists(file_path):
+                url = hf_hub_url(args.model_id, f_name)
+                cmd = [
+                    "aria2c", f"--header=Authorization: Bearer {hf_token}",
+                    "--timeout=15", "--max-tries=5", "--auto-file-renaming=false", "--allow-overwrite=true",
+                    "-d", cache_dir, "-o", f_name, url
+                ]
+                subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         
         if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
             print("[*] Downloading massive 16.5GB safetensors with aria2c multi-threading...")
