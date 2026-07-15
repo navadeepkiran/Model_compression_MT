@@ -183,14 +183,8 @@ def load_quantized_model(model_name, precision, attn_implementation=None):
     
     model_class = AutoModelForSeq2SeqLM if is_seq2seq else AutoModelForCausalLM
     
-    # Force single-GPU loading ("cuda:0") to prevent accelerate from splitting the model
-    # across multiple GPUs or offloading layers to CPU.
-    # This prevents multi-GPU deadlocks (common with bitsandbytes/transformers on Kaggle dual T4)
-    # and avoids slow inference caused by CPU offloading (since unquantized model size estimation
-    # might exceed a single GPU's VRAM, but the quantized INT8/INT4 model fits comfortably).
+    # Use "auto" so transformers can balance memory across both GPUs (Kaggle T4 x2)
     device_map = "auto"
-    if torch.cuda.is_available():
-        device_map = "cuda:0"
         
     load_kwargs = {
         "device_map": device_map,
