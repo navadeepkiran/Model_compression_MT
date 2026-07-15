@@ -80,11 +80,79 @@ else:
     print(f"[*] FLORES-200 already exists at {FLORES_DIR}")
 
 # ─── Load model ONCE, evaluate all language pairs ────────────────────────────
+import shutil
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, AutoConfig
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from peft import PeftModel
 
-print(f"\n[*] Loading base model: {BASE_MODEL_ID}")
+# ─── Model Download / Cache ───────────────────────────────────────────────────
+# Check if already cached from a previous training run in this session
+CACHE_DIR = "/kaggle/tmp/model_cache"
+safetensors_path = os.path.join(CACHE_DIR, "model.safetensors")
+config_path = os.path.join(CACHE_DIR, "config.json")
+
+if os.path.exists(config_path) and os.path.exists(safetensors_path) and \
+   os.path.getsize(safetensors_path) > 15 * 1024**3:
+    print(f"[*] Model already cached at {CACHE_DIR} — skipping download!")
+    model_source = CACHE_DIR
+else:
+    print(f"[*] Model not cached. Downloading {BASE_MODEL_ID}...")
+    os.makedirs(CACHE_DIR, exist_ok=True)
+
+    # Wipe orphaned .lock files to prevent hf_hub_download deadlock
+    for lock_root in [os.path.expanduser("~/.cache/huggingface"), CACHE_DIR]:
+        if os.path.exists(lock_root):
+            for rt, dirs, fls in os.walk(lock_root, topdown=False):
+                if ".locks" in dirs:
+                    shutil.rmtree(os.path.join(rt, ".locks"), ignore_errors=True)
+                for fn in fls:
+                    if fn.endswith(".lock"):
+                        try: os.remove(os.path.join(rt, fn))
+                        except: pass
+
+    # Download small config files via hf_hub_download
+    os.environ["HF_HUB_ENABLE_HF_TRANSFER"] = "0"
+    subprocess.run([sys.executable, "-m", "pip", "uninstall", "-y", "hf_xet"],
+                   capture_output=True, timeout=30)
+
+    from huggingface_hub import hf_hub_download, hf_hub_url
+    import requests as req_lib
+
+    small_files = [
+        "config.json", "generation_config.json", "preprocessor_config.json",
+        "processor_config.json", "special_tokens_map.json", "tokenizer.json",
+        "tokenizer.model", "tokenizer_config.json", "added_tokens.json", "chat_template.jinja"
+    ]
+    print("[*] Downloading config files...")
+    for f_name in small_files:
+        fp = os.path.join(CACHE_DIR, f_name)
+        if not os.path.exists(fp):
+            try:
+                hf_hub_download(repo_id=BASE_MODEL_ID, filename=f_name,
+                                token=hf_token, local_dir=CACHE_DIR)
+            except Exception:
+                pass
+
+    # Download the massive safetensors via direct HTTP streaming (bypasses XetHub deadlock)
+    if not os.path.exists(safetensors_path) or os.path.getsize(safetensors_path) < 15 * 1024**3:
+        print("[*] Streaming 16.5GB model.safetensors via direct HTTP...")
+        url = hf_hub_url(BASE_MODEL_ID, 'model.safetensors')
+        with req_lib.get(url, headers={'Authorization': f'Bearer {hf_token}'},
+                         stream=True, allow_redirects=True, timeout=(60, 300)) as resp:
+            resp.raise_for_status()
+            written = 0
+            with open(safetensors_path, 'wb') as f:
+                for chunk in resp.iter_content(chunk_size=64 * 1024 * 1024):
+                    if chunk:
+                        f.write(chunk)
+                        f.flush()
+                        written += len(chunk)
+                        if written % (1024**3) < 64 * 1024 * 1024:
+                            print(f"    -> {written/(1024**3):.1f} GB downloaded")
+        print(f"[*] Download complete: {written/(1024**3):.1f} GB")
+    model_source = CACHE_DIR
+
+print(f"\n[*] Loading base model from: {model_source}")
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
     bnb_4bit_compute_dtype=torch.bfloat16,
@@ -92,7 +160,7 @@ bnb_config = BitsAndBytesConfig(
     bnb_4bit_quant_type="nf4"
 )
 model = AutoModelForCausalLM.from_pretrained(
-    BASE_MODEL_ID,
+    model_source,
     quantization_config=bnb_config,
     device_map="cuda:0",
     torch_dtype=torch.bfloat16,
@@ -105,7 +173,7 @@ print(f"[*] Loading LoRA adapter from: {LORA_PATH}")
 model = PeftModel.from_pretrained(model, LORA_PATH)
 model.eval()
 
-tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL_ID, trust_remote_code=True, token=hf_token)
+tokenizer = AutoTokenizer.from_pretrained(model_source, trust_remote_code=True, token=hf_token)
 if tokenizer.pad_token is None:
     tokenizer.pad_token = tokenizer.eos_token
 if model.config.pad_token_id is None:
