@@ -783,6 +783,38 @@ def main():
     print("\n" + "=" * 40)
     if last_checkpoint is not None:
         print(f"[🚀] Checkpoint found! Resuming training from: {last_checkpoint}")
+        
+        # --- FORCE INJECT LoRA WEIGHTS TO BYPASS PEFT WARNINGS ---
+        print("[*] Force-injecting LoRA weights manually to bypass PEFT key mismatches before resume...")
+        from safetensors.torch import load_file
+        import re
+        safetensors_path = os.path.join(last_checkpoint, "adapter_model.safetensors")
+        if os.path.exists(safetensors_path):
+            weights = load_file(safetensors_path)
+            model_dict = dict(model.named_parameters())
+            peft_keys = [k for k in model_dict.keys() if "lora" in k]
+            matched = 0
+            
+            for expected_key in peft_keys:
+                match = re.search(r'(layers\.\d+\..*lora_[AB])', expected_key)
+                if not match: continue
+                identifier = match.group(1)
+                is_vision_expected = "vision" in expected_key
+                
+                found_key = None
+                for ckpt_key in weights.keys():
+                    if identifier in ckpt_key:
+                        if is_vision_expected == ("vision" in ckpt_key):
+                            found_key = ckpt_key
+                            break
+                            
+                if found_key:
+                    model_dict[expected_key].data.copy_(weights[found_key].to(model_dict[expected_key].device))
+                    matched += 1
+            print(f"[*] Successfully force-injected {matched} / {len(peft_keys)} LoRA weights from {last_checkpoint}!")
+        else:
+            print("[!] No adapter_model.safetensors found in checkpoint!")
+            
         try:
             trainer.train(resume_from_checkpoint=last_checkpoint)
         except (ValueError, FileNotFoundError) as e:
