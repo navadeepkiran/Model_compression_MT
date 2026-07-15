@@ -111,6 +111,11 @@ else:
 
 print(f"[*] Model ready at {CACHE_DIR}\n")
 
+# Fix broken bitsandbytes package metadata on Kaggle (causes BitsAndBytesConfig crash)
+print("[*] Ensuring bitsandbytes is properly installed...")
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U", "bitsandbytes"],
+               check=True)
+
 # ─── Step 2: Run benchmark.py for each language pair ─────────────────────────
 # We pass CACHE_DIR as --model so benchmark.py loads from local files (no HF download)
 translation_files = []
