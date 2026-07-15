@@ -470,11 +470,8 @@ def main():
                 prompt = f"Translate the following text from {src_lang_name} to {tgt_lang_name}.\n{src_lang_name}: {src_text}\n{tgt_lang_name}:"
                 inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
             
-        # Clean inputs for CausalLM models to avoid attention_mask or token_type_ids bugs
-        if not is_seq2seq:
-            gen_inputs = {"input_ids": inputs["input_ids"]}
-        else:
-            gen_inputs = inputs
+        # Do not strip attention_mask for CausalLM; modern models (like Gemma 3) need it
+        gen_inputs = inputs
 
         t0 = time.time()
         with torch.no_grad():
