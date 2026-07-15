@@ -307,9 +307,45 @@ def main():
     model, is_seq2seq, load_time = load_quantized_model(args.model, args.precision, args.attn_implementation)
     
     if args.lora_path:
-        print(f"[*] Loading PEFT LoRA adapter from: {args.lora_path}")
+        print(f"[*] Applying LoRA from {args.lora_path}")
+        from peft import PeftModel
+        import torch.nn as nn
+        from safetensors.torch import load_file
+        
         t1 = time.time()
         model = PeftModel.from_pretrained(model, args.lora_path)
+        
+        print("[*] Force-injecting LoRA weights manually to bypass PEFT key mismatches...")
+        safetensors_path = os.path.join(args.lora_path, "adapter_model.safetensors")
+        if os.path.exists(safetensors_path):
+            weights = load_file(safetensors_path)
+            model_dict = dict(model.named_parameters())
+            
+            matched = 0
+            for k, v in weights.items():
+                # Try all possible PEFT prefixes
+                candidates = [
+                    k,
+                    k.replace("base_model.model.", ""),
+                    k.replace(".default.", "."),
+                    k.replace(".language_model.", ".")
+                ]
+                
+                if not k.startswith("base_model.model."):
+                    candidates.append("base_model.model." + k)
+                    
+                injected = False
+                for cand in candidates:
+                    if cand in model_dict:
+                        model_dict[cand].data.copy_(v.to(model_dict[cand].device))
+                        matched += 1
+                        injected = True
+                        break
+                
+                if not injected and matched == 0:
+                    print(f"  [!] First failed key mapping: {k}")
+                    
+            print(f"[*] Successfully force-injected {matched} / {len(weights)} LoRA weights!")
         load_time += (time.time() - t1)
         
     try:
@@ -326,6 +362,8 @@ def main():
             model.config.pad_token_id = tokenizer.pad_token_id
         except Exception:
             pass
+
+
         
     print(f"[*] Model loaded in {load_time:.2f} seconds.")
     
