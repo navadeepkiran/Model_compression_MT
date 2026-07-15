@@ -41,6 +41,53 @@ CACHE_DIR   = "/kaggle/tmp/model_cache"
 
 BASE_MODEL_ID = "nani-nav/gemma-3-12b-final-csde"
 
+# ─── Fix checkpoint: /kaggle/input is read-only and missing adapter_config.json ──
+# Copy to writable location and inject the missing config (matches finetune_csde.py settings)
+LORA_SRC  = "/kaggle/input/900_csde_model/checkpoint-900"
+LORA_PATH = "/kaggle/working/checkpoint-900-fixed"
+
+if not os.path.exists(os.path.join(LORA_PATH, "adapter_config.json")):
+    print(f"[*] Copying checkpoint to writable location and injecting adapter_config.json...")
+    if os.path.exists(LORA_PATH):
+        shutil.rmtree(LORA_PATH)
+    shutil.copytree(LORA_SRC, LORA_PATH)
+
+    # adapter_config.json must match the exact LoRA config used in finetune_csde.py
+    adapter_config = {
+        "alpha_pattern": {},
+        "auto_mapping": None,
+        "base_model_name_or_path": "nani-nav/gemma-3-12b-final-csde",
+        "bias": "none",
+        "fan_in_fan_out": False,
+        "inference_mode": True,
+        "init_lora_weights": True,
+        "layer_replication": None,
+        "layers_pattern": None,
+        "layers_to_transform": None,
+        "loftq_config": {},
+        "lora_alpha": 32,
+        "lora_dropout": 0.05,
+        "megatron_config": None,
+        "megatron_core": "megatron.core",
+        "modules_to_save": None,
+        "peft_type": "LORA",
+        "r": 16,
+        "rank_pattern": {},
+        "revision": None,
+        "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj",
+                           "gate_proj", "up_proj", "down_proj"],
+        "task_type": "CAUSAL_LM",
+        "use_dora": False,
+        "use_rslora": False
+    }
+    import json
+    with open(os.path.join(LORA_PATH, "adapter_config.json"), "w") as f:
+        json.dump(adapter_config, f, indent=2)
+    print(f"[*] adapter_config.json injected. Checkpoint ready at {LORA_PATH}")
+else:
+    print(f"[*] Checkpoint already fixed at {LORA_PATH}")
+
+
 LANG_PAIRS = [
     ("eng_Latn", "ces_Latn"),
     ("eng_Latn", "deu_Latn"),
