@@ -336,12 +336,18 @@ def main():
                     
                 identifier = match.group(1)
                 
+                is_vision_expected = "vision" in expected_key
+                
                 # Find this identifier in the checkpoint weights
                 found_key = None
                 for ckpt_key in weights.keys():
                     if identifier in ckpt_key:
-                        found_key = ckpt_key
-                        break
+                        # Ensure we don't cross-contaminate vision and language layers!
+                        # The vision tower and language model both have a "layers.0", but different hidden sizes.
+                        is_vision_ckpt = "vision" in ckpt_key
+                        if is_vision_expected == is_vision_ckpt:
+                            found_key = ckpt_key
+                            break
                         
                 if found_key:
                     model_dict[expected_key].data.copy_(weights[found_key].to(model_dict[expected_key].device))
