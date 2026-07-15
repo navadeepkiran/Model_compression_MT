@@ -320,32 +320,19 @@ def main():
         if os.path.exists(safetensors_path):
             weights = load_file(safetensors_path)
             model_dict = dict(model.named_parameters())
-            
-            matched = 0
-            for k, v in weights.items():
-                # Try all possible PEFT prefixes
-                candidates = [
-                    k,
-                    k.replace("base_model.model.", ""),
-                    k.replace(".default.", "."),
-                    k.replace(".language_model.", ".")
-                ]
+            print("\n=== DIAGNOSTIC DUMP ===")
+            print("1. Keys expected by the PEFT model (first 5 LoRA keys):")
+            peft_keys = [k for k in model_dict.keys() if "lora" in k]
+            for k in peft_keys[:5]:
+                print("   ", k)
                 
-                if not k.startswith("base_model.model."):
-                    candidates.append("base_model.model." + k)
-                    
-                injected = False
-                for cand in candidates:
-                    if cand in model_dict:
-                        model_dict[cand].data.copy_(v.to(model_dict[cand].device))
-                        matched += 1
-                        injected = True
-                        break
+            print("\n2. Keys in the safetensors checkpoint (first 5):")
+            for k in list(weights.keys())[:5]:
+                print("   ", k)
                 
-                if not injected and matched == 0:
-                    print(f"  [!] First failed key mapping: {k}")
-                    
-            print(f"[*] Successfully force-injected {matched} / {len(weights)} LoRA weights!")
+            print("\nExiting so we can fix the mapping script permanently.")
+            import sys
+            sys.exit(1)
         load_time += (time.time() - t1)
         
     try:
