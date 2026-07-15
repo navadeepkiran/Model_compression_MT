@@ -3,6 +3,11 @@ import argparse
 import time
 import json
 
+# Prevent Kaggle's broken TensorFlow/protobuf from crashing transformers/peft import
+os.environ.setdefault("USE_TF", "0")
+os.environ.setdefault("USE_JAX", "0")
+os.environ.setdefault("USE_TORCH", "1")
+
 # Automatically load Kaggle Secrets for HuggingFace if available
 try:
     from kaggle_secrets import UserSecretsClient
