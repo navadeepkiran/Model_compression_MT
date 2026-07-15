@@ -23,6 +23,12 @@ import subprocess
 import tarfile
 import urllib.request
 
+# CRITICAL: Must be set before ANY transformers/peft import.
+# Kaggle has broken TensorFlow/protobuf that crashes when transformers tries to auto-detect backends.
+os.environ["USE_TF"] = "0"
+os.environ["USE_JAX"] = "0"
+os.environ["USE_TORCH"] = "1"
+
 # ─── Kaggle Secrets ──────────────────────────────────────────────────────────
 try:
     from kaggle_secrets import UserSecretsClient
@@ -55,27 +61,26 @@ print("[*] Installing evaluation dependencies...")
 subprocess.run([sys.executable, "-m", "pip", "install", "-q",
                 "unbabel-comet", "sacrebleu"], check=True)
 
-# ─── Download FLORES-200 dataset ──────────────────────────────────────────────
-FLORES_DIR = os.path.join("/kaggle/working", "flores200_dataset")
-if not os.path.exists(FLORES_DIR):
-    # Try local copy from repo first
-    local_flores = "/kaggle/working/Model_compression_MT/flores200_dataset"
-    if os.path.exists(local_flores):
-        import shutil
-        print(f"[*] Copying FLORES-200 from repo...")
-        shutil.copytree(local_flores, FLORES_DIR)
-    else:
-        print("[*] Downloading FLORES-200 from Meta Research CDN...")
-        url = "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz"
-        tar_path = "/kaggle/working/flores200_dataset.tar.gz"
-        opener = urllib.request.build_opener()
-        opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-        urllib.request.install_opener(opener)
-        urllib.request.urlretrieve(url, tar_path)
-        print("[*] Extracting FLORES-200...")
-        with tarfile.open(tar_path, "r:gz") as tar:
-            tar.extractall("/kaggle/working")
-        os.remove(tar_path)
+# ─── FLORES-200 dataset ───────────────────────────────────────────────────────
+# Prioritize the copy that came with the git clone of the repo
+REPO_FLORES = "/kaggle/working/Model_compression_MT/flores200_dataset"
+FLORES_DIR  = "/kaggle/working/flores200_dataset"
+
+if os.path.exists(REPO_FLORES):
+    FLORES_DIR = REPO_FLORES
+    print(f"[*] Using FLORES-200 from repo: {FLORES_DIR}")
+elif not os.path.exists(FLORES_DIR):
+    print("[*] Downloading FLORES-200 from Meta Research CDN...")
+    url = "https://dl.fbaipublicfiles.com/nllb/flores200_dataset.tar.gz"
+    tar_path = "/kaggle/working/flores200_dataset.tar.gz"
+    opener = urllib.request.build_opener()
+    opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+    urllib.request.install_opener(opener)
+    urllib.request.urlretrieve(url, tar_path)
+    print("[*] Extracting FLORES-200...")
+    with tarfile.open(tar_path, "r:gz") as tar:
+        tar.extractall("/kaggle/working")
+    os.remove(tar_path)
 else:
     print(f"[*] FLORES-200 already exists at {FLORES_DIR}")
 
