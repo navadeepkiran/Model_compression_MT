@@ -46,24 +46,19 @@ BASE_MODEL_ID = "nani-nav/gemma-3-12b-final-csde"
 LORA_SRC  = None
 LORA_PATH = "/kaggle/working/checkpoint-900-fixed"
 
-print("[*] Scanning /kaggle/input for checkpoint-900...")
-for entry in os.scandir("/kaggle/input"):
-    candidate = os.path.join(entry.path, "checkpoint-900")
-    if os.path.isdir(candidate):
-        LORA_SRC = candidate
+print("[*] Scanning /kaggle/input for checkpoint-900 (recursive)...")
+for root, dirs, files in os.walk("/kaggle/input"):
+    if os.path.basename(root) == "checkpoint-900":
+        LORA_SRC = root
         print(f"[*] Found checkpoint at: {LORA_SRC}")
         break
 
 if LORA_SRC is None:
-    # Also try one level deeper
-    for entry in os.scandir("/kaggle/input"):
-        for sub in os.scandir(entry.path):
-            if sub.name == "checkpoint-900" and sub.is_dir():
-                LORA_SRC = sub.path
-                print(f"[*] Found checkpoint at: {LORA_SRC}")
-                break
-
-if LORA_SRC is None:
+    # Print the full tree so we can debug
+    print("[!] Could not find checkpoint-900. /kaggle/input tree:")
+    for root, dirs, files in os.walk("/kaggle/input"):
+        depth = root.replace("/kaggle/input", "").count(os.sep)
+        print(f"{'  ' * depth}{os.path.basename(root)}/")
     raise FileNotFoundError("checkpoint-900 not found in /kaggle/input. Make sure the 900_csde_model dataset is attached.")
 
 if not os.path.exists(os.path.join(LORA_PATH, "adapter_config.json")):
