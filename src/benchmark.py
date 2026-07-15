@@ -321,8 +321,11 @@ def main():
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
     # Align model pad token ID with tokenizer pad token ID to prevent warnings/errors
-    if model.config.pad_token_id is None or model.config.pad_token_id != tokenizer.pad_token_id:
-        model.config.pad_token_id = tokenizer.pad_token_id
+    if getattr(model.config, "pad_token_id", None) is None or getattr(model.config, "pad_token_id", None) != tokenizer.pad_token_id:
+        try:
+            model.config.pad_token_id = tokenizer.pad_token_id
+        except Exception:
+            pass
         
     print(f"[*] Model loaded in {load_time:.2f} seconds.")
     

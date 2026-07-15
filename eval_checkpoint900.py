@@ -108,9 +108,11 @@ if not os.path.exists(os.path.join(LORA_PATH, "adapter_config.json")):
         weights = load_file(safetensors_path)
         fixed = {}
         for k, v in weights.items():
-            # lora_A.weight -> lora_A.default.weight
+            # 1. lora_A.weight -> lora_A.default.weight
+            # 2. Strip .language_model. so the keys match the CausalLM structure
             new_k = k.replace(".lora_A.weight", ".lora_A.default.weight") \
-                     .replace(".lora_B.weight", ".lora_B.default.weight")
+                     .replace(".lora_B.weight", ".lora_B.default.weight") \
+                     .replace(".language_model.", ".")
             fixed[new_k] = v
         save_file(fixed, safetensors_path)
         print(f"[*] Renamed {len(fixed)} keys to .default. format.")
