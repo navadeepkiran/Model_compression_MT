@@ -320,19 +320,36 @@ def main():
         if os.path.exists(safetensors_path):
             weights = load_file(safetensors_path)
             model_dict = dict(model.named_parameters())
-            print("\n=== DIAGNOSTIC DUMP ===")
-            print("1. Keys expected by the PEFT model (first 5 LoRA keys):")
+            print("\n[*] Mapping keys intelligently based on layer indexes and matrix names...")
+            import re
+            
+            # For each expected PEFT key, find its match in the checkpoint
             peft_keys = [k for k in model_dict.keys() if "lora" in k]
-            for k in peft_keys[:5]:
-                print("   ", k)
+            matched = 0
+            
+            for expected_key in peft_keys:
+                # Extract the crucial identifying part: e.g. "layers.39.mlp.down_proj.lora_A"
+                # This works for both vision_tower and language_model
+                match = re.search(r'(layers\.\d+\..*lora_[AB])', expected_key)
+                if not match:
+                    continue
+                    
+                identifier = match.group(1)
                 
-            print("\n2. Keys in the safetensors checkpoint (first 5):")
-            for k in list(weights.keys())[:5]:
-                print("   ", k)
-                
-            print("\nExiting so we can fix the mapping script permanently.")
-            import sys
-            sys.exit(1)
+                # Find this identifier in the checkpoint weights
+                found_key = None
+                for ckpt_key in weights.keys():
+                    if identifier in ckpt_key:
+                        found_key = ckpt_key
+                        break
+                        
+                if found_key:
+                    model_dict[expected_key].data.copy_(weights[found_key].to(model_dict[expected_key].device))
+                    matched += 1
+                else:
+                    print(f"  [!] Could not find matching checkpoint weights for: {expected_key}")
+                    
+            print(f"[*] Successfully force-injected {matched} / {len(peft_keys)} LoRA weights!")
         load_time += (time.time() - t1)
         
     try:
