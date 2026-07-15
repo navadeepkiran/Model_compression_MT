@@ -525,7 +525,8 @@ def main():
                 max_new_tokens=args.max_new_tokens,
                 do_sample=False,
                 num_beams=args.num_beams,
-                eos_token_id=eos_token_ids
+                eos_token_id=eos_token_ids,
+                repetition_penalty=1.1
             )
         duration = time.time() - t0
         
