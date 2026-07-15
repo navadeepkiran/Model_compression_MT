@@ -98,14 +98,29 @@ if not os.path.exists(os.path.join(LORA_PATH, "adapter_config.json")):
     import json
     with open(os.path.join(LORA_PATH, "adapter_config.json"), "w") as f:
         json.dump(adapter_config, f, indent=2)
-    print(f"[*] adapter_config.json injected. Checkpoint ready at {LORA_PATH}")
+    print(f"[*] adapter_config.json injected. Fixing LoRA key names...")
+    # CRITICAL: Checkpoint was saved with old PEFT (keys: lora_A.weight).
+    # Current PEFT expects lora_A.default.weight (.default. = adapter name).
+    # Rename all keys before saving so PEFT loads them correctly.
+    from safetensors.torch import load_file, save_file
+    safetensors_path = os.path.join(LORA_PATH, "adapter_model.safetensors")
+    if os.path.exists(safetensors_path):
+        weights = load_file(safetensors_path)
+        fixed = {}
+        for k, v in weights.items():
+            # lora_A.weight -> lora_A.default.weight
+            new_k = k.replace(".lora_A.weight", ".lora_A.default.weight") \
+                     .replace(".lora_B.weight", ".lora_B.default.weight")
+            fixed[new_k] = v
+        save_file(fixed, safetensors_path)
+        print(f"[*] Renamed {len(fixed)} keys to .default. format.")
+    print(f"[*] Checkpoint ready at {LORA_PATH}")
 else:
     print(f"[*] Checkpoint already fixed at {LORA_PATH}")
 
 
 LANG_PAIRS = [
-    ("eng_Latn", "ces_Latn"),
-    ("eng_Latn", "deu_Latn"),
+    ("ces_Latn", "deu_Latn"),
 ]
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
