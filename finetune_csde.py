@@ -493,8 +493,10 @@ def main():
             # Tokenize just the prompt to find its length
             prompt_enc = tokenizer(example["text"][:idx + len(model_turn_str)])
             prompt_len = len(prompt_enc["input_ids"])
-            # Mask the prompt tokens
-            labels[:prompt_len] = [-100] * prompt_len
+            # Only mask if there are actual target tokens left after the prompt.
+            # If prompt_len >= len(labels), the translation was fully truncated -> don't mask.
+            if prompt_len < len(labels) - 1:
+                labels[:prompt_len] = [-100] * prompt_len
             
         enc["labels"] = labels
         return enc
@@ -749,9 +751,8 @@ def main():
     if os.path.exists("/kaggle/input"):
         for root, dirs, files in os.walk("/kaggle/input"):
             if "checkpoint-" in os.path.basename(root):
-                has_trainer = "trainer_state.json" in files
                 has_adapter = "adapter_model.safetensors" in files or "adapter_model.bin" in files
-                if has_trainer and has_adapter:
+                if has_adapter:
                     valid_checkpoints.append(root)
                     
     # 2. Scan Kaggle Working (Output Dir)
@@ -759,9 +760,8 @@ def main():
         for d in os.listdir(args.output_dir):
             if d.startswith("checkpoint-"):
                 cp_path = os.path.join(args.output_dir, d)
-                has_trainer = os.path.exists(os.path.join(cp_path, "trainer_state.json"))
                 has_adapter = os.path.exists(os.path.join(cp_path, "adapter_model.safetensors")) or os.path.exists(os.path.join(cp_path, "adapter_model.bin"))
-                if has_trainer and has_adapter:
+                if has_adapter:
                     valid_checkpoints.append(cp_path)
                     
     if valid_checkpoints:
