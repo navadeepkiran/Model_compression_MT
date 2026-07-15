@@ -44,8 +44,6 @@ BASE_MODEL_ID = "nani-nav/gemma-3-12b-final-csde"
 LANG_PAIRS = [
     ("eng_Latn", "ces_Latn"),
     ("eng_Latn", "deu_Latn"),
-    ("eng_Latn", "zho_Hans"),
-    ("eng_Latn", "arz_Arab"),
 ]
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
